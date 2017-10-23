@@ -9,7 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 /**
  *
- * @author Matúš Sedlák
+ * @author 
  */
 @Entity
 public class Lecturer extends Person{
