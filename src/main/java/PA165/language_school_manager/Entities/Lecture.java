@@ -5,12 +5,12 @@
  */
 package PA165.language_school_manager.Entities;
 
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 /**
  *
  * @author Matúš Sedlák
@@ -23,8 +23,7 @@ public class Lecture {
     private Long id;
 
     @NotNull
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date time;
+    private LocalDateTime time;
 
     @ManyToOne
     @NotNull
@@ -37,7 +36,7 @@ public class Lecture {
     private Lecturer lecturer;
     
     @ManyToMany(mappedBy = "lecture")
-    private Set<Person> students = new HashSet<Person>();  
+    private Set<Person> students = new HashSet<Person>();
 
     public void addStudent(Person student) {
 		this.students.add(student);
@@ -57,12 +56,12 @@ public class Lecture {
     public Long getId() {
         return id;
     }
-    
-    public Date getTime() {
+
+    public LocalDateTime getTime() {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(LocalDateTime time) {
         this.time = time;
     }
 
@@ -89,5 +88,28 @@ public class Lecture {
     public void setLecturer(Lecturer lecturer) {
         this.lecturer = lecturer;
     }
-    
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((time == null) ? 0 : time.hashCode());
+        result = prime * result + ((course == null) ? 0 : course.hashCode());
+        result = prime * result + ((topic == null) ? 0 : topic.hashCode());
+        result = prime * result + ((lecturer == null) ? 0 : lecturer.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Lecture)) return false;
+
+        Lecture lecture = (Lecture) o;
+
+        if (time != null ? !time.equals(lecture.time) : lecture.time != null) return false;
+        if (course != null ? !course.equals(lecture.course) : lecture.course != null) return false;
+        if (topic != null ? !topic.equals(lecture.topic) : lecture.topic != null) return false;
+        return lecturer != null ? lecturer.equals(lecture.lecturer) : lecture.lecturer == null;
+    }
 }
