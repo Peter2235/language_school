@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package PA165.Entities;
+package PA165.language_school_manager.Entities;
 
-import PA165.Enums.Language;
-import PA165.Enums.ProficiencyLevel;
+import PA165.language_school_manager.Enums.Language;
+import PA165.language_school_manager.Enums.ProficiencyLevel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -26,10 +26,11 @@ public class Course {
     
     private String name;
     
-    @Enumerated
+    @Enumerated(value = EnumType.STRING)
     @NotNull
     private Language language;
     
+    @Enumerated(value = EnumType.STRING)
     @NotNull
     private ProficiencyLevel proficiencyLevel;
 
