@@ -5,34 +5,65 @@
  */
 package PA165.language_school_manager.Entities;
 
-import lombok.Getter;
-import lombok.Setter;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
+import javax.persistence.*;
+import javax.validation.constraints.*;
 /**
  *
- * @author Peter Tirala
+ * @author Matúš Sedlák + Viktor Slaný
  */
 @Entity
-@Getter
-@Setter
 public class Person{
     
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private long id;
-
-    @NotNull
+    private Long id;
+    
     private String firstName;
-
     private String middleName;
     
     @NotNull
     private String lastName;
+
+    public Person() {
+    }
+
+    public Person(Long id) {
+        this.id = id;
+    }
+
+    public Person(String firstName, String middleName, String lastName) {
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -41,17 +72,20 @@ public class Person{
 
         Person person = (Person) o;
 
-        if (id != person.id) return false;
-        if (firstName != null ? !firstName.equals(person.firstName) : person.firstName != null) return false;
-        if (middleName != null ? !middleName.equals(person.middleName) : person.middleName != null) return false;
-        return lastName != null ? lastName.equals(person.lastName) : person.lastName == null;
+        if (!getId().equals(person.getId())) return false;
+        if (getFirstName() != null ? !getFirstName().equals(person.getFirstName()) : person.getFirstName() != null)
+            return false;
+        if (getMiddleName() != null ? !getMiddleName().equals(person.getMiddleName()) : person.getMiddleName() != null)
+            return false;
+        return getLastName().equals(person.getLastName());
     }
 
     @Override
     public int hashCode() {
-        int result = firstName != null ? firstName.hashCode() : 0;
-        result = 31 * result + (middleName != null ? middleName.hashCode() : 0);
-        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        int result = getId().hashCode();
+        result = 31 * result + (getFirstName() != null ? getFirstName().hashCode() : 0);
+        result = 31 * result + (getMiddleName() != null ? getMiddleName().hashCode() : 0);
+        result = 31 * result + getLastName().hashCode();
         return result;
     }
 }
