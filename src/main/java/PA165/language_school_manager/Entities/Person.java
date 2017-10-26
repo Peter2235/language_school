@@ -9,7 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 /**
  *
- * @author Matúš Sedlák + Viktor Slaný
+ * @author Peter Tirala
  */
 @Entity
 public class Person{

@@ -28,8 +28,13 @@ public class LecturerDAOImpl implements LecturerDAO {
     }
 
     @Override
+    public void update(Lecturer lecturer) {
+        entityManager.merge(lecturer);
+    }
+
+    @Override
     public void delete(Lecturer lecturer) {
-        entityManager.remove(lecturer);
+        entityManager.remove(entityManager.merge(lecturer));
     }
 
     @Override

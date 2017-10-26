@@ -26,8 +26,13 @@ public class PersonDaoImpl implements PersonDao {
     }
 
     @Override
+    public void update(Person person) {
+        entityManager.merge(person);
+    }
+
+    @Override
     public void delete(Person person) {
-        entityManager.remove(person);
+        entityManager.remove(entityManager.merge(person));
     }
 
     @Override
