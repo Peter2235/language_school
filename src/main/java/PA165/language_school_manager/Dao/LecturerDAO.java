@@ -13,6 +13,7 @@ public interface LecturerDAO {
 
     Lecturer findById(Long id);
     void create(Lecturer lecturer);
+    void update(Lecturer lecturer);
     void delete(Lecturer lecturer);
     List<Lecturer> findAll();
     List<Lecturer> findByLanguage(Language language);

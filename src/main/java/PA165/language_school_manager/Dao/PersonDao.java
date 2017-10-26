@@ -12,6 +12,7 @@ public interface PersonDao {
 
     Person findById(Long id);
     void create(Person person);
+    void update(Person person);
     void delete(Person person);
     List<Person> findAll();
 }

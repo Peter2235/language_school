@@ -10,18 +10,19 @@ import PA165.language_school_manager.Enums.Language;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
  *
- * @author Viktor Slaný
+ * @author Viktor Slaný + Peter Tirala
  */
 @Entity
 public class Lecturer extends Person{
 
-    @ManyToOne
-    @NotNull
-    private Set<Language> languages;
+    @ElementCollection
+    @Enumerated
+    private Set<Language> languages = new HashSet<>();
 
     @NotNull
     private boolean isNativeSpeaker;
@@ -50,5 +51,25 @@ public class Lecturer extends Person{
 
     public void setNativeSpeaker(boolean nativeSpeaker) {
         isNativeSpeaker = nativeSpeaker;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Lecturer)) return false;
+        if (!super.equals(o)) return false;
+
+        Lecturer lecturer = (Lecturer) o;
+
+        if (isNativeSpeaker() != lecturer.isNativeSpeaker()) return false;
+        return getLanguages().equals(lecturer.getLanguages());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + getLanguages().hashCode();
+        result = 31 * result + (isNativeSpeaker() ? 1 : 0);
+        return result;
     }
 }
