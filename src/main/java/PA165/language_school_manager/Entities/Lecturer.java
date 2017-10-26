@@ -6,50 +6,49 @@
 package PA165.language_school_manager.Entities;
 
 import PA165.language_school_manager.Enums.Language;
-import lombok.Getter;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import java.util.HashSet;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.Collections;
 import java.util.Set;
 
 /**
- * @author Peter Tirala
+ *
+ * @author Viktor Slaný
  */
 @Entity
-@Getter
-public class Lecturer extends Person {
+public class Lecturer extends Person{
 
-    private Boolean isNativeSpeaker;
+    @ManyToOne
+    @NotNull
+    private Set<Language> languages;
 
-    @ElementCollection
-    @Enumerated
-    private Set<Language> languages = new HashSet<>();
+    @NotNull
+    private boolean isNativeSpeaker;
 
-    public void addLanguage(Language language) {
+    public Lecturer(String firstName, String middleName, String lastName, Set<Language> languages, boolean isNativeSpeaker) {
+        super(firstName, middleName, lastName);
+        this.languages = languages;
+        this.isNativeSpeaker = isNativeSpeaker;
+    }
+
+    public Set<Language> getLanguages() {
+        return Collections.unmodifiableSet(languages);
+    }
+
+    public void setLanguages(Set<Language> languages) {
+        this.languages = languages;
+    }
+
+    public void addLanguage(Language language){
         languages.add(language);
     }
 
-    public void setNativeSpeaker(Boolean nativeSpeaker) {
+    public boolean isNativeSpeaker() {
+        return isNativeSpeaker;
+    }
+
+    public void setNativeSpeaker(boolean nativeSpeaker) {
         isNativeSpeaker = nativeSpeaker;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Lecturer)) return false;
-        if (!super.equals(o)) return false;
-
-        Lecturer lecturer = (Lecturer) o;
-
-        return isNativeSpeaker != null ? isNativeSpeaker.equals(lecturer.isNativeSpeaker) : lecturer.isNativeSpeaker == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + (isNativeSpeaker != null ? isNativeSpeaker.hashCode() : 0);
-        return result;
     }
 }
