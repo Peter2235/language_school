@@ -6,32 +6,50 @@
 package PA165.language_school_manager.Entities;
 
 import PA165.language_school_manager.Enums.Language;
-import lombok.Getter;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
- * @author Peter Tirala
+ *
+ * @author Viktor Slaný + Peter Tirala
  */
 @Entity
-@Getter
-public class Lecturer extends Person {
-
-    private Boolean isNativeSpeaker;
+public class Lecturer extends Person{
 
     @ElementCollection
     @Enumerated
     private Set<Language> languages = new HashSet<>();
 
-    public void addLanguage(Language language) {
+    @NotNull
+    private boolean isNativeSpeaker;
+
+    public Lecturer(String firstName, String middleName, String lastName, Set<Language> languages, boolean isNativeSpeaker) {
+        super(firstName, middleName, lastName);
+        this.languages = languages;
+        this.isNativeSpeaker = isNativeSpeaker;
+    }
+
+    public Set<Language> getLanguages() {
+        return Collections.unmodifiableSet(languages);
+    }
+
+    public void setLanguages(Set<Language> languages) {
+        this.languages = languages;
+    }
+
+    public void addLanguage(Language language){
         languages.add(language);
     }
 
-    public void setNativeSpeaker(Boolean nativeSpeaker) {
+    public boolean isNativeSpeaker() {
+        return isNativeSpeaker;
+    }
+
+    public void setNativeSpeaker(boolean nativeSpeaker) {
         isNativeSpeaker = nativeSpeaker;
     }
 
@@ -43,13 +61,15 @@ public class Lecturer extends Person {
 
         Lecturer lecturer = (Lecturer) o;
 
-        return isNativeSpeaker != null ? isNativeSpeaker.equals(lecturer.isNativeSpeaker) : lecturer.isNativeSpeaker == null;
+        if (isNativeSpeaker() != lecturer.isNativeSpeaker()) return false;
+        return getLanguages().equals(lecturer.getLanguages());
     }
 
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + (isNativeSpeaker != null ? isNativeSpeaker.hashCode() : 0);
+        result = 31 * result + getLanguages().hashCode();
+        result = 31 * result + (isNativeSpeaker() ? 1 : 0);
         return result;
     }
 }
