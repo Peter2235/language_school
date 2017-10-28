@@ -1,5 +1,9 @@
 package PA165.language_school_manager;
 
+import PA165.language_school_manager.Dao.CourseDao;
+import PA165.language_school_manager.Dao.LectureDao;
+import PA165.language_school_manager.Dao.LecturerDAO;
+import PA165.language_school_manager.Dao.PersonDao;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -19,8 +23,9 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = "PA165.language_school_manger")
-@ComponentScan(basePackages = "PA165.language_school_manger")
+@EnableJpaRepositories
+@ComponentScan(basePackageClasses = {CourseDao.class, LectureDao.class, LecturerDAO.class, PersonDao.class}
+        , basePackages = "PA165.language_school_manger")
 public class ApplicationContext {
 
     @Bean
