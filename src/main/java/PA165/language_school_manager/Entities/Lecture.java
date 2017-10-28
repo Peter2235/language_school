@@ -35,7 +35,7 @@ public class Lecture {
     @NotNull
     private Lecturer lecturer;
     
-    @ManyToMany(mappedBy = "lecture")
+    @ManyToMany(mappedBy = "lectures")
     private Set<Person> students = new HashSet<Person>();
 
     public void addStudent(Person student) {

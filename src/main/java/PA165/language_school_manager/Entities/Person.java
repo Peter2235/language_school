@@ -5,6 +5,8 @@
  */
 package PA165.language_school_manager.Entities;
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 /**
@@ -24,6 +26,9 @@ public class Person{
     @NotNull
     private String lastName;
 
+    @ManyToMany
+    private Set<Lecture> lectures = new HashSet<Lecture>();
+    
     public Person() {
     }
 

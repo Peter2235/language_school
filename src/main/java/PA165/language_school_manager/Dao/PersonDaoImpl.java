@@ -5,11 +5,13 @@ import PA165.language_school_manager.Entities.Person;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author Viktor Slaný
  */
+@Repository
 public class PersonDaoImpl implements PersonDao {
 
     @PersistenceContext

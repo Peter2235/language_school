@@ -5,6 +5,7 @@
  */
 package PA165.language_school_manager.Dao;
 
+import PA165.language_school_manager.ApplicationContext;
 import PA165.language_school_manager.Dao.PersonDao;
 import PA165.language_school_manager.Entities.Person;
 import java.util.List;
@@ -21,12 +22,15 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author Matúš
  */
+@ContextConfiguration(classes = ApplicationContext.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
+@Transactional
 public class PersonDaoTest extends AbstractTestNGSpringContextTests {
     
     @PersistenceContext
@@ -61,12 +65,10 @@ public class PersonDaoTest extends AbstractTestNGSpringContextTests {
     
     @Test
     public void createPerson(){
-        Person p = new Person();
-        p.setLastName("Novak");
-        personDao.create(p1);
-        
-        assertThat(personDao.findById(p.getId()))
+        assertThat(personDao.findById(p1.getId()))
                 .isNotNull();
+        assertThat(p1.getFirstName())
+                .isEqualTo("Adam");
     }
     
     @Test
