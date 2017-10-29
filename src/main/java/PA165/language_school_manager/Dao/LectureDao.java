@@ -17,6 +17,7 @@ public interface LectureDao {
     public Lecture findById(Long id);
     public void create(Lecture l);
     public void delete(Lecture l);
+    public void update(Lecture l);
     public List<Lecture> findAll();
     public Lecture findByTopic(String l);
 }
