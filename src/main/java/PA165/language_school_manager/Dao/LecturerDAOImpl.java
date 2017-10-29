@@ -7,11 +7,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author Viktor Slaný
  */
+@Repository
 public class LecturerDAOImpl implements LecturerDAO {
 
     @PersistenceContext
@@ -45,7 +47,7 @@ public class LecturerDAOImpl implements LecturerDAO {
     @Override
     public List<Lecturer> findByLanguage(Language language) {
         try {
-            return entityManager.createQuery("select lecturer from Lecturer lecturer where language = :language",Lecturer.class)
+            return entityManager.createQuery("select l from Lecturer l where :language member of l.languages",Lecturer.class)
                     .setParameter("language",language).getResultList();
         }catch (NoResultException e){
             return null;
