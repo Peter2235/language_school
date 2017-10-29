@@ -7,11 +7,12 @@ package PA165.language_school_manager.Entities;
 
 import PA165.language_school_manager.Enums.Language;
 import PA165.language_school_manager.Enums.ProficiencyLevel;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 /**
  *
  * @author Matúš Sedlák
@@ -23,7 +24,7 @@ public class Course {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
-    
+
     private String name;
     
     @Enumerated(value = EnumType.STRING)
@@ -35,7 +36,6 @@ public class Course {
     private ProficiencyLevel proficiencyLevel;
 
     @OneToMany
-    @NotNull
     private List<Lecture> lectures = new ArrayList<Lecture>();
     
     public Course(){      
