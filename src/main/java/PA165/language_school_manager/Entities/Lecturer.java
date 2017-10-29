@@ -14,11 +14,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- *
  * @author Viktor Slaný + Peter Tirala
  */
 @Entity
-public class Lecturer extends Person{
+public class Lecturer extends Person {
 
     @ElementCollection
     @Enumerated
@@ -26,6 +25,12 @@ public class Lecturer extends Person{
 
     @NotNull
     private boolean isNativeSpeaker;
+
+    @OneToMany
+    private Set<Lecture> lectures = new HashSet<>();
+
+    public Lecturer() {
+    }
 
     public Lecturer(String firstName, String middleName, String lastName, Set<Language> languages, boolean isNativeSpeaker) {
         super(firstName, middleName, lastName);
@@ -41,7 +46,7 @@ public class Lecturer extends Person{
         this.languages = languages;
     }
 
-    public void addLanguage(Language language){
+    public void addLanguage(Language language) {
         languages.add(language);
     }
 
@@ -51,6 +56,15 @@ public class Lecturer extends Person{
 
     public void setNativeSpeaker(boolean nativeSpeaker) {
         isNativeSpeaker = nativeSpeaker;
+    }
+
+    public Set<Lecture> getLectures() {
+        return Collections.unmodifiableSet(lectures);
+    }
+
+    public void addLecture(Lecture lecture){
+        this.lectures.add(lecture);
+        lecture.setLecturer(this);
     }
 
     @Override

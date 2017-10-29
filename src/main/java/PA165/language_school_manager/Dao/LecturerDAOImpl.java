@@ -2,6 +2,7 @@ package PA165.language_school_manager.Dao;
 
 import PA165.language_school_manager.Entities.Lecturer;
 import PA165.language_school_manager.Enums.Language;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
