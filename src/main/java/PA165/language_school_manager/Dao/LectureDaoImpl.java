@@ -37,7 +37,12 @@ public class LectureDaoImpl implements LectureDao {
     public void delete(Lecture l) {
         em.remove(l);
     }
-
+    
+    @Override
+    public void update(Lecture l) {
+        em.merge(l);
+    }
+    
     @Override
     public List<Lecture> findAll() {
         return em.createQuery("select l from Lecture l", Lecture.class)
@@ -54,5 +59,7 @@ public class LectureDaoImpl implements LectureDao {
             return null;
         }
     }
+
+    
 
 }
