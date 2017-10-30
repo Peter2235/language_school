@@ -17,6 +17,7 @@ import org.testng.annotations.Test;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.validation.ConstraintViolationException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -85,25 +86,19 @@ public class LectureDaoTest extends AbstractTestNGSpringContextTests {
         lectureDao.create(null);
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class)
+    @Test(expectedExceptions = ConstraintViolationException.class)
     public void createLectureWithNullDate() {
         lecture1.setTime(null);
         lectureDao.create(lecture1);
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class)
-    public void createLectureWithDateBeforeNow() {
-        lecture1.setTime(LocalDateTime.now().minusMinutes(10));
-        lectureDao.create(lecture1);
-    }
-
-    @Test(expectedExceptions = IllegalArgumentException.class)
+    @Test(expectedExceptions = ConstraintViolationException.class)
     public void createLectureWithNullCourse() {
         lecture1.setCourse(null);
         lectureDao.create(lecture1);
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class)
+    @Test(expectedExceptions = ConstraintViolationException.class)
     public void createLectureWithNullLecturer() {
         lecture1.setLecturer(null);
         lectureDao.create(lecture1);
@@ -161,25 +156,19 @@ public class LectureDaoTest extends AbstractTestNGSpringContextTests {
         lectureDao.update(null);
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class)
+    @Test(expectedExceptions = ConstraintViolationException.class)
     public void updateLectureWithNullDate() {
         lecture1.setTime(null);
         lectureDao.update(lecture1);
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class)
-    public void updateLectureWithDateBeforeToday() {
-        lecture1.setTime(LocalDateTime.now().minusMinutes(10));
-        lectureDao.update(lecture1);
-    }
-
-    @Test(expectedExceptions = IllegalArgumentException.class)
+    @Test(expectedExceptions = ConstraintViolationException.class)
     public void updateLectureWithNullCourse() {
         lecture1.setCourse(null);
         lectureDao.update(lecture1);
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class)
+    @Test(expectedExceptions = ConstraintViolationException.class)
     public void updateLectureWithNullLecturer() {
         lecture1.setLecturer(null);
         lectureDao.update(lecture1);
