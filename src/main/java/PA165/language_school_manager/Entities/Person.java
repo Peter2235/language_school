@@ -5,11 +5,11 @@
  */
 package PA165.language_school_manager.Entities;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.*;
-import javax.validation.constraints.*;
 /**
  *
  * @author Peter Tirala
@@ -96,10 +96,11 @@ public class Person{
 
     @Override
     public int hashCode() {
-        int result = getId().hashCode();
-        result = 31 * result + (getFirstName() != null ? getFirstName().hashCode() : 0);
-        result = 31 * result + (getMiddleName() != null ? getMiddleName().hashCode() : 0);
-        result = 31 * result + getLastName().hashCode();
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (firstName == null ? 0 : firstName.hashCode());
+        result = prime * result + (middleName == null ? 0 : middleName.hashCode());
+        result = prime * result + (lastName == null ? 0 : lastName.hashCode());
         return result;
     }
 }
