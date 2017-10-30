@@ -14,10 +14,11 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import org.springframework.transaction.annotation.Transactional;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import javax.validation.ConstraintViolationException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.validation.ConstraintViolationException;
+import javax.persistence.PersistenceException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -72,11 +73,11 @@ public class LectureDaoTest extends AbstractTestNGSpringContextTests {
         lecture1.setCourse(course);
         lecture1.setLecturer(lecturer);
 
-        lectureDao.create(lecture1);
     }
 
     @Test
     public void createLecture() {
+        lectureDao.create(lecture1);
         assertThat(lectureDao.findById(lecture1.getId())).isNotNull();
         assertThat(lecture1.getTopic()).isEqualTo("jamesBond");
     }
@@ -86,26 +87,65 @@ public class LectureDaoTest extends AbstractTestNGSpringContextTests {
         lectureDao.create(null);
     }
 
-    @Test(expectedExceptions = ConstraintViolationException.class)
+
+    @Test(expectedExceptions = PersistenceException.class)
     public void createLectureWithNullDate() {
-        lecture1.setTime(null);
-        lectureDao.create(lecture1);
+        Lecture lecture2 = new Lecture();
+        lecture2.setTopic("jamesBond");
+        Lecturer lecturer = new Lecturer();
+        lecturer.setLastName("Bond");
+        lecturer.setFirstName("James");
+        lecturer.setMiddleName("007");
+        lecturer.setNativeSpeaker(true);
+        lecturer.addLanguage(Language.ENGLISH);
+        lecturer.addLanguage(Language.ITALIAN);
+        lecturerDAO.create(lecturer);
+        Course course = new Course();
+        course.setName("agent007");
+        course.setLanguage(Language.ENGLISH);
+        course.setProficiencyLevel(ProficiencyLevel.A1);
+        course.addLecture(lecture2);
+        courseDao.create(course);
+        lecture2.setCourse(course);
+        lecture2.setLecturer(lecturer);
+        lectureDao.create(lecture2);
+
     }
 
     @Test(expectedExceptions = ConstraintViolationException.class)
     public void createLectureWithNullCourse() {
-        lecture1.setCourse(null);
-        lectureDao.create(lecture1);
+        Lecture lecture3 = new Lecture();
+        lecture3.setTopic("jamesBond");
+        Lecturer lecturer = new Lecturer();
+        lecturer.setLastName("Bond");
+        lecturer.setFirstName("James");
+        lecturer.setMiddleName("007");
+        lecturer.setNativeSpeaker(true);
+        lecturer.addLanguage(Language.ENGLISH);
+        lecturer.addLanguage(Language.ITALIAN);
+        lecturerDAO.create(lecturer);
+        lecture3.setLecturer(lecturer);
+        lectureDao.create(lecture3);
     }
 
-    @Test(expectedExceptions = ConstraintViolationException.class)
+    @Test(expectedExceptions = PersistenceException.class)
     public void createLectureWithNullLecturer() {
-        lecture1.setLecturer(null);
-        lectureDao.create(lecture1);
+        Lecture lecture2 = new Lecture();
+        lecture2.setTopic("jamesBond");
+        lecture1.setTime(LocalDateTime.now().plusDays(2));
+        Course course = new Course();
+        course.setName("agent007");
+        course.setLanguage(Language.ENGLISH);
+        course.setProficiencyLevel(ProficiencyLevel.A1);
+        course.addLecture(lecture2);
+        courseDao.create(course);
+        lecture2.setCourse(course);
+        lectureDao.create(lecture2);
     }
 
     @Test
     public void findLectureById() {
+        lectureDao.create(lecture1);
         Lecture lecture = lectureDao.findById(lecture1.getId());
         assertThat(lecture.getTopic()).isNotNull().isEqualTo("jamesBond");
     }
@@ -117,18 +157,21 @@ public class LectureDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void findLectureByIdNonExisting() {
+        lectureDao.create(lecture1);
         Lecture lecture = lectureDao.findById(1000000L);
         assertThat(lecture).isNull();
     }
 
     @Test
     public void findAllLectures() {
+        lectureDao.create(lecture1);
         List<Lecture> lectures = lectureDao.findAll();
         assertThat(lectures).isNotNull().isNotEmpty().hasSize(1);
     }
 
     @Test
     public void deleteLecture() {
+        lectureDao.create(lecture1);
         assertThat(lectureDao.findById(lecture1.getId())).isNotNull();
         lectureDao.delete(lecture1);
         assertThat(lectureDao.findById(lecture1.getId())).isNull();
@@ -156,26 +199,63 @@ public class LectureDaoTest extends AbstractTestNGSpringContextTests {
         lectureDao.update(null);
     }
 
-    @Test(expectedExceptions = ConstraintViolationException.class)
+    @Test(expectedExceptions = PersistenceException.class)
     public void updateLectureWithNullDate() {
-        lecture1.setTime(null);
-        lectureDao.update(lecture1);
+        Lecture lecture2 = new Lecture();
+        lecture2.setTopic("jamesBond");
+        Lecturer lecturer = new Lecturer();
+        lecturer.setLastName("Bond");
+        lecturer.setFirstName("James");
+        lecturer.setMiddleName("007");
+        lecturer.setNativeSpeaker(true);
+        lecturer.addLanguage(Language.ENGLISH);
+        lecturer.addLanguage(Language.ITALIAN);
+        lecturerDAO.create(lecturer);
+        Course course = new Course();
+        course.setName("agent007");
+        course.setLanguage(Language.ENGLISH);
+        course.setProficiencyLevel(ProficiencyLevel.A1);
+        course.addLecture(lecture2);
+        courseDao.create(course);
+        lecture2.setCourse(course);
+        lecture2.setLecturer(lecturer);
+        lectureDao.update(lecture2);
     }
 
     @Test(expectedExceptions = ConstraintViolationException.class)
     public void updateLectureWithNullCourse() {
-        lecture1.setCourse(null);
-        lectureDao.update(lecture1);
+        Lecture lecture3 = new Lecture();
+        lecture3.setTopic("jamesBond");
+        Lecturer lecturer = new Lecturer();
+        lecturer.setLastName("Bond");
+        lecturer.setFirstName("James");
+        lecturer.setMiddleName("007");
+        lecturer.setNativeSpeaker(true);
+        lecturer.addLanguage(Language.ENGLISH);
+        lecturer.addLanguage(Language.ITALIAN);
+        lecturerDAO.create(lecturer);
+        lecture3.setLecturer(lecturer);
+        lectureDao.update(lecture3);
     }
 
-    @Test(expectedExceptions = ConstraintViolationException.class)
+    @Test(expectedExceptions = PersistenceException.class)
     public void updateLectureWithNullLecturer() {
-        lecture1.setLecturer(null);
-        lectureDao.update(lecture1);
+        Lecture lecture2 = new Lecture();
+        lecture2.setTopic("jamesBond");
+        lecture1.setTime(LocalDateTime.now().plusDays(2));
+        Course course = new Course();
+        course.setName("agent007");
+        course.setLanguage(Language.ENGLISH);
+        course.setProficiencyLevel(ProficiencyLevel.A1);
+        course.addLecture(lecture2);
+        courseDao.create(course);
+        lecture2.setCourse(course);
+        lectureDao.update(lecture2);
     }
 
     @Test
     public void findLectureByTopic() {
+        lectureDao.create(lecture1);
         Lecture lecture = lectureDao.findByTopic("jamesBond");
         assertThat(lecture).isEqualTo(lecture1);
     }
