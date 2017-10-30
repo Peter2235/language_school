@@ -6,22 +6,15 @@
 package PA165.language_school_manager.Dao;
 
 import PA165.language_school_manager.ApplicationContext;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import org.testng.annotations.Test;
 import PA165.language_school_manager.Entities.Lecturer;
-import PA165.language_school_manager.Enums.Language;
 import static org.assertj.core.api.Assertions.*;
 import PA165.language_school_manager.Enums.Language;
-import PA165.language_school_manager.Dao.LecturerDAO;
 import java.util.HashSet;
 import java.util.List;
-import javax.inject.Inject;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,8 +33,6 @@ public class LecturerDaoTest extends AbstractTestNGSpringContextTests {
     @Autowired
     private LecturerDAO lecturerDao;
     
-    @PersistenceContext
-    private EntityManager em;
     
     private Lecturer l1;
     private Lecturer l2;
@@ -68,7 +59,7 @@ public class LecturerDaoTest extends AbstractTestNGSpringContextTests {
         
         assertThat(lecturer.getId()).isNotNull();
 
-        Lecturer isHeTheSame = em.find(Lecturer.class, lecturer.getId());
+        Lecturer isHeTheSame = lecturerDao.findById(lecturer.getId());
 
         assertThat(isHeTheSame).isEqualToComparingFieldByField(lecturer);
 
@@ -77,11 +68,11 @@ public class LecturerDaoTest extends AbstractTestNGSpringContextTests {
     @Test
     public void deleteLecturer() {
 
-        assertThat(em.find(Lecturer.class, l1.getId())).isNotNull();
+        assertThat(lecturerDao.findById(l1.getId())).isNotNull();
         lecturerDao.delete(l1);
-        assertThat(em.find(Lecturer.class, l1.getId())).isNull();
+        assertThat(lecturerDao.findById(l1.getId())).isNull();
         lecturerDao.delete(l2);
-        assertThat(em.createQuery("select l from Lecturer l").getResultList()).isEmpty();
+        assertThat(lecturerDao.findAll()).isEmpty();
         
     }
     
@@ -93,17 +84,17 @@ public class LecturerDaoTest extends AbstractTestNGSpringContextTests {
         l1.setLastName("Shakur");
         l1.addLanguage(Language.ENGLISH);
         lecturerDao.update(l1);
-        assertThat(em.find(Lecturer.class, l1.getId()).getFirstName()).isEqualTo("Tupac");
-        assertThat(em.find(Lecturer.class, l1.getId()).getMiddleName()).isEqualTo("Amaru");
-        assertThat(em.find(Lecturer.class, l1.getId()).getLastName()).isEqualTo("Shakur");
-        assertThat(em.find(Lecturer.class, l1.getId()).getLanguages().size()).isEqualTo(2);
+        assertThat(lecturerDao.findById(l1.getId()).getFirstName()).isEqualTo("Tupac");
+        assertThat(lecturerDao.findById(l1.getId()).getMiddleName()).isEqualTo("Amaru");
+        assertThat(lecturerDao.findById(l1.getId()).getLastName()).isEqualTo("Shakur");
+        assertThat(lecturerDao.findById(l1.getId()).getLanguages().size()).isEqualTo(2);
         
     }
     
     @Test
     public void findLecturerById(){
         
-        assertThat(lecturerDao.findById(l1.getId())).isEqualTo(em.find(Lecturer.class, l1.getId()));
+        assertThat(lecturerDao.findById(l1.getId())).isEqualTo(lecturerDao.findById(l1.getId()));
         Lecturer lecturer = lecturerDao.findById(l2.getId());
         assertThat(lecturer.getFirstName()).isEqualTo("Lamont");
         assertThat(lecturer.getMiddleName()).isEqualTo("Big L");
@@ -134,6 +125,28 @@ public class LecturerDaoTest extends AbstractTestNGSpringContextTests {
         assertThat(lecturers.size()).isEqualTo(2);
         assertThat(lecturers.contains(l3)).isTrue();
         assertThat(lecturers.contains(l2)).isTrue();
+        
+    }
+    
+    @Test
+    public void findLecturerByLanguageNull(){
+        
+        List<Lecturer> lecturers = lecturerDao.findByLanguage(null);
+        assertThat(lecturers).isEmpty();
+        
+    }
+    
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findByIdNull(){
+        
+        Lecturer lecturer = lecturerDao.findById(null);
+        
+    }
+    
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void createLecturerNull(){
+        
+        lecturerDao.create(null);
         
     }
     
