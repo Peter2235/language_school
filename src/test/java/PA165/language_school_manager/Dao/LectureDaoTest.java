@@ -14,11 +14,9 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import org.springframework.transaction.annotation.Transactional;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import javax.validation.ConstraintViolationException;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
+import javax.validation.ConstraintViolationException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -32,9 +30,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
 public class LectureDaoTest extends AbstractTestNGSpringContextTests {
-
-    @PersistenceContext
-    public EntityManager em;
 
     @Autowired
     private LectureDao lectureDao;

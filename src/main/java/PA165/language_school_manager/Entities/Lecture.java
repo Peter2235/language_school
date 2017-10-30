@@ -11,15 +11,15 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+
 /**
- *
  * @author Matúš Sedlák
  */
 @Entity
 public class Lecture {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
@@ -28,31 +28,31 @@ public class Lecture {
     @ManyToOne
     @NotNull
     private Course course;
-    
+
     private String topic;
-    
+
     @ManyToOne
     @NotNull
     private Lecturer lecturer;
-    
+
     @ManyToMany(mappedBy = "lectures")
     private Set<Person> students = new HashSet<Person>();
 
     public void addStudent(Person student) {
-		this.students.add(student);
+        this.students.add(student);
     }
 
     public Set<Person> getStudents() {
         return Collections.unmodifiableSet(students);
     }
-    
-    public Lecture(){   
+
+    public Lecture() {
     }
-    
-    public Lecture(long id){
+
+    public Lecture(long id) {
         this.id = id;
     }
-    
+
     public Long getId() {
         return id;
     }

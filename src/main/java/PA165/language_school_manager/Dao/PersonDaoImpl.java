@@ -1,14 +1,13 @@
 package PA165.language_school_manager.Dao;
 
 import PA165.language_school_manager.Entities.Person;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
-import org.springframework.stereotype.Repository;
 
 /**
- *
  * @author Viktor Slaný
  */
 @Repository
@@ -19,7 +18,7 @@ public class PersonDaoImpl implements PersonDao {
 
     @Override
     public Person findById(Long id) {
-        return entityManager.find(Person.class,id);
+        return entityManager.find(Person.class, id);
     }
 
     @Override
@@ -39,6 +38,6 @@ public class PersonDaoImpl implements PersonDao {
 
     @Override
     public List<Person> findAll() {
-        return entityManager.createQuery("select person from Person person" , Person.class).getResultList();
+        return entityManager.createQuery("select person from Person person", Person.class).getResultList();
     }
 }

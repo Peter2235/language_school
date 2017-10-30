@@ -10,26 +10,26 @@ import javax.validation.constraints.NotNull;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+
 /**
- *
  * @author Peter Tirala
  */
 @Entity
-public class Person{
-    
+public class Person {
+
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     private String firstName;
     private String middleName;
-    
+
     @NotNull
     private String lastName;
 
     @ManyToMany
     private Set<Lecture> lectures = new HashSet<Lecture>();
-    
+
     public Person() {
     }
 
@@ -72,13 +72,13 @@ public class Person{
     }
 
     public void addLecture(Lecture lecture) {
-		this.lectures.add(lecture);
+        this.lectures.add(lecture);
     }
 
     public Set<Lecture> getLectures() {
         return Collections.unmodifiableSet(lectures);
     }
-    
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
