@@ -6,7 +6,6 @@
 package PA165.language_school_manager.Dao;
 
 import PA165.language_school_manager.Entities.Lecture;
-import PA165.language_school_manager.Entities.Lecturer;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -51,15 +50,7 @@ public class LectureDaoImpl implements LectureDao {
 
     @Override
     public Lecture findByTopic(String t) {
-        try {
-            return em.createQuery("select t from Lecture t where topic = :topic",
-                    Lecture.class).setParameter("topic", t)
+        return em.createQuery("select t from Lecture t where topic = :topic",Lecture.class).setParameter("topic", t)
                     .getSingleResult();
-        } catch (NoResultException nre) {
-            return null;
-        }
     }
-
-    
-
 }
