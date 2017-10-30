@@ -12,6 +12,7 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import org.springframework.transaction.annotation.Transactional;
 import org.testng.annotations.Test;
 
+import javax.persistence.PersistenceException;
 import javax.validation.ConstraintViolationException;
 import java.util.List;
 
@@ -45,7 +46,7 @@ public class CourseDaoTest extends AbstractTestNGSpringContextTests {
         assertThat(all).contains(course);
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class)
+    @Test(expectedExceptions = PersistenceException.class)
     public void createWithSameName() {
         Course course = new Course();
         course.setName("TestCourse");
@@ -110,11 +111,13 @@ public class CourseDaoTest extends AbstractTestNGSpringContextTests {
     @Test
     public void findAll() {
         Course course1 = new Course();
+        course1.setName("TestName");
         course1.setLanguage(Language.ENGLISH);
         course1.setProficiencyLevel(ProficiencyLevel.A1);
         courseDao.create(course1);
 
         Course course2 = new Course();
+        course2.setName("TestName2");
         course2.setLanguage(Language.ENGLISH);
         course2.setProficiencyLevel(ProficiencyLevel.A1);
         courseDao.create(course2);
@@ -138,11 +141,13 @@ public class CourseDaoTest extends AbstractTestNGSpringContextTests {
     @Test
     public void findByLanguage() {
         Course course1 = new Course();
+        course1.setName("TestName");
         course1.setLanguage(Language.ENGLISH);
         course1.setProficiencyLevel(ProficiencyLevel.A1);
         courseDao.create(course1);
 
         Course course2 = new Course();
+        course2.setName("TestName2");
         course2.setLanguage(Language.ENGLISH);
         course2.setProficiencyLevel(ProficiencyLevel.A1);
         courseDao.create(course2);
@@ -158,11 +163,13 @@ public class CourseDaoTest extends AbstractTestNGSpringContextTests {
     @Test
     public void findByLanguage2() {
         Course course1 = new Course();
+        course1.setName("TestName");
         course1.setLanguage(Language.ENGLISH);
         course1.setProficiencyLevel(ProficiencyLevel.A1);
         courseDao.create(course1);
 
         Course course2 = new Course();
+        course2.setName("TestName2");
         course2.setLanguage(Language.FRENCH);
         course2.setProficiencyLevel(ProficiencyLevel.A1);
         courseDao.create(course2);
@@ -178,6 +185,7 @@ public class CourseDaoTest extends AbstractTestNGSpringContextTests {
     @Test
     public void findByLanguageEmpty() {
         Course course = new Course();
+        course.setName("TestName");
         course.setLanguage(Language.FRENCH);
         course.setProficiencyLevel(ProficiencyLevel.A1);
         courseDao.create(course);
@@ -188,9 +196,10 @@ public class CourseDaoTest extends AbstractTestNGSpringContextTests {
         assertThat(allCourses).isEmpty();
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class)
+    @Test
     public void findByLanguageNull() {
-        courseDao.findByLanguage(null);
+        List<Course> byLanguage = courseDao.findByLanguage(null);
+        assertThat(byLanguage).isEmpty();
     }
 
     @Test
@@ -213,6 +222,7 @@ public class CourseDaoTest extends AbstractTestNGSpringContextTests {
     @Test
     public void findByNameEmpty() {
         Course course = new Course();
+        course.setName("TestName2");
         course.setLanguage(Language.FRENCH);
         course.setProficiencyLevel(ProficiencyLevel.A1);
         courseDao.create(course);
@@ -222,14 +232,16 @@ public class CourseDaoTest extends AbstractTestNGSpringContextTests {
         assertThat(course2).isNull();
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class)
+    @Test
     public void findByNameNull() {
-        courseDao.findByName(null);
+        Course byName = courseDao.findByName(null);
+        assertThat(byName).isNull();
     }
 
     @Test
     public void deleteCourse() {
         Course course = new Course();
+        course.setName("TestName");
         course.setLanguage(Language.FRENCH);
         course.setProficiencyLevel(ProficiencyLevel.A1);
         courseDao.create(course);
@@ -251,36 +263,19 @@ public class CourseDaoTest extends AbstractTestNGSpringContextTests {
     @Test
     public void update() {
         Course course = new Course();
+        course.setName("TestName");
         course.setLanguage(Language.FRENCH);
         course.setProficiencyLevel(ProficiencyLevel.A1);
         courseDao.create(course);
 
         Course coures2 = courseDao.findById(course.getId());
-        assertThat(coures2.getName()).isNullOrEmpty();
+        assertThat(coures2.getName()).isEqualTo("TestName");
 
-        course.setName("TestCourse");
+        course.setName("TestCourse2");
         courseDao.update(course);
 
         coures2 = courseDao.findById(course.getId());
-        assertThat(coures2.getName()).isEqualTo("TestCourse");
-    }
-
-    @Test(expectedExceptions = IllegalArgumentException.class)
-    public void updateWithSameName() {
-        Course course = new Course();
-        course.setName("TestCourse");
-        course.setLanguage(Language.FRENCH);
-        course.setProficiencyLevel(ProficiencyLevel.A1);
-        courseDao.create(course);
-
-        Course course2 = new Course();
-        course2.setName("TestCourse2");
-        course2.setLanguage(Language.FRENCH);
-        course2.setProficiencyLevel(ProficiencyLevel.A1);
-        courseDao.create(course2);
-
-        course2.setName("TestCourse");
-        courseDao.update(course2);
+        assertThat(coures2.getName()).isEqualTo("TestCourse2");
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
