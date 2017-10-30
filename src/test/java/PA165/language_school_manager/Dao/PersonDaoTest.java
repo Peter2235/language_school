@@ -11,8 +11,7 @@ import PA165.language_school_manager.Entities.Person;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.validation.ConstraintViolationException;
-import org.junit.Assert;
+import javax.persistence.PersistenceException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.annotations.BeforeMethod;
@@ -76,10 +75,11 @@ public class PersonDaoTest extends AbstractTestNGSpringContextTests {
         assertThat(person.getFirstName()).isEqualTo("Jan");
     }
     
-    @Test(expectedExceptions = ConstraintViolationException.class)
+    @Test(expectedExceptions = PersistenceException.class)
     public void createWithNullLastName(){
-        Person personWithNullLastName = new Person();
+        Person personWithNullLastName = new Person(1l);
         personWithNullLastName.setFirstName("Jan");
+        personWithNullLastName.setLastName(null);
             personDao.create(personWithNullLastName);
     }   
     
