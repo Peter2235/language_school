@@ -27,10 +27,6 @@ public class CourseDaoImpl implements CourseDao {
     @Override
     public void create(Course course) {
 
-//        if (this.findByName(course.getName()) != null) {
-//            throw new IllegalArgumentException();
-//        }
-
         em.persist(course);
 
     }
@@ -53,7 +49,7 @@ public class CourseDaoImpl implements CourseDao {
     public List<Course> findByLanguage(Language language) {
 
         if (language == null) {
-            throw new IllegalArgumentException();
+            return new ArrayList<>();
         }
         List<Course> listToReturn = em.createQuery("select c from Course c where language = :language", Course.class).setParameter("language", language).getResultList();
         
@@ -66,10 +62,6 @@ public class CourseDaoImpl implements CourseDao {
     @Override
     public Course findByName(String name) {
 
-        if (name == null) {
-            throw new IllegalArgumentException();
-        }
-        
         try {
             return em.createQuery("select c from Course c where name = :name", Course.class).setParameter("name", name).getSingleResult();
         } catch (NoResultException e) {
@@ -91,12 +83,7 @@ public class CourseDaoImpl implements CourseDao {
         if (course == null) {
             throw new IllegalArgumentException();
         }
-        Course isThere = this.findByName(course.getName());
-
-        if (isThere != null && !(isThere.getId().equals(course.getId()))) {
-            throw new IllegalArgumentException();
-        }
-
+        
         em.merge(course);
 
     }
