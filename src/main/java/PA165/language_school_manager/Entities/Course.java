@@ -25,6 +25,8 @@ public class Course {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
+    @Column(unique = true)
     private String name;
     
     @Enumerated(value = EnumType.STRING)
