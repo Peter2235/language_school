@@ -5,6 +5,7 @@
  */
 package PA165.language_school_manager.Entities;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
@@ -70,6 +71,14 @@ public class Person{
         this.lastName = lastName;
     }
 
+    public void addLecture(Lecture lecture) {
+		this.lectures.add(lecture);
+    }
+
+    public Set<Lecture> getLectures() {
+        return Collections.unmodifiableSet(lectures);
+    }
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
