@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 
 /**
  *
- * @author Matúš
+ * @author Matúš Sedlák
  */
 @Repository
 public class LectureDaoImpl implements LectureDao {

@@ -11,6 +11,7 @@ import PA165.language_school_manager.Entities.Person;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.validation.ConstraintViolationException;
 import org.junit.Assert;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import org.springframework.transaction.annotation.Transactional;
 
 /**
+ * Test class for PersonDao
  *
  * @author Matúš
  */
@@ -65,26 +67,63 @@ public class PersonDaoTest extends AbstractTestNGSpringContextTests {
     
     @Test
     public void createPerson(){
-        assertThat(personDao.findById(p1.getId()))
-                .isNotNull();
-        assertThat(p1.getFirstName())
-                .isEqualTo("Adam");
+        Person person = new Person();
+        person.setFirstName("Jan");
+        person.setLastName("Novak");
+        personDao.create(person);
+        
+        assertThat(personDao.findById(person.getId())).isNotNull();
+        assertThat(person.getFirstName()).isEqualTo("Jan");
     }
+    
+    @Test(expectedExceptions = ConstraintViolationException.class)
+    public void createWithNullLastName(){
+        Person personWithNullLastName = new Person();
+        personWithNullLastName.setFirstName("Jan");
+            personDao.create(personWithNullLastName);
+    }   
     
     @Test
     public void findPersonById(){
         Person person = personDao.findById(p1.getId());
-        assertThat(person.getFirstName())
-                .isEqualTo("Adam");
-        assertThat(person.getLastName())
-                .isEqualTo("Adamovic");
+        
+        assertThat(person).isNotNull();
+        assertThat(person.getFirstName()).isEqualTo("Adam");
+        assertThat(person.getLastName()).isEqualTo("Adamovic");
+    }
+    
+    @Test
+    public void findByIdNonExisting(){
+        Person person = personDao.findById(0l);
+        
+        assertThat(person).isNull();
+    }
+    
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findByNullId(){
+        personDao.findById(null);
     }
     
     @Test
     public void findAllPeople(){
         List<Person> people = personDao.findAll();
+        
         assertThat(people)
-                .hasSize(3);
+                .isNotNull()
+                .isNotEmpty()
+                .hasSize(3)
+                .contains(p1, p2, p3);
+    }
+    
+    @Test
+    public void findAllEmpty(){
+        personDao.delete(p1);
+        personDao.delete(p2);
+        personDao.delete(p3);
+        
+        assertThat(personDao.findAll())
+                .isNotNull()
+                .isEmpty();
     }
     
     @Test
@@ -96,11 +135,20 @@ public class PersonDaoTest extends AbstractTestNGSpringContextTests {
                 .isNull();
     }
     
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void deletePersonNull(){
+        personDao.delete(null);
+    }
+    
     @Test
     public void updatePerson(){
         p1.setFirstName("Peter");
         personDao.update(p1);
-        assertThat(p1.getFirstName())
-                .isEqualTo("Peter");
+        assertThat(p1.getFirstName()).isEqualTo("Peter");
     }   
+    
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void updateNull() {
+        personDao.update(null);
+    }
 }
