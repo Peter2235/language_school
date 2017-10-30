@@ -8,10 +8,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
-import org.springframework.stereotype.Repository;
 
 /**
- *
  * @author Viktor Slaný
  */
 @Repository
@@ -22,7 +20,7 @@ public class LecturerDAOImpl implements LecturerDAO {
 
     @Override
     public Lecturer findById(Long id) {
-        return entityManager.find(Lecturer.class,id);
+        return entityManager.find(Lecturer.class, id);
     }
 
     @Override
@@ -42,15 +40,15 @@ public class LecturerDAOImpl implements LecturerDAO {
 
     @Override
     public List<Lecturer> findAll() {
-        return entityManager.createQuery("select lecturer from Lecturer lecturer",Lecturer.class).getResultList();
+        return entityManager.createQuery("select lecturer from Lecturer lecturer", Lecturer.class).getResultList();
     }
 
     @Override
     public List<Lecturer> findByLanguage(Language language) {
         try {
-            return entityManager.createQuery("select l from Lecturer l where :language member of l.languages",Lecturer.class)
-                    .setParameter("language",language).getResultList();
-        }catch (NoResultException e){
+            return entityManager.createQuery("select l from Lecturer l where :language member of l.languages", Lecturer.class)
+                    .setParameter("language", language).getResultList();
+        } catch (NoResultException e) {
             return null;
         }
 

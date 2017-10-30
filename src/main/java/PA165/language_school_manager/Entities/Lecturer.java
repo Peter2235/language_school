@@ -65,7 +65,7 @@ public class Lecturer extends Person {
         return Collections.unmodifiableSet(lectures);
     }
 
-    public void addLecture(Lecture lecture){
+    public void addLecture(Lecture lecture) {
         this.lectures.add(lecture);
         lecture.setLecturer(this);
     }

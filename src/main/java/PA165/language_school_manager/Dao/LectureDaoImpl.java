@@ -6,14 +6,13 @@
 package PA165.language_school_manager.Dao;
 
 import PA165.language_school_manager.Entities.Lecture;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.List;
+
 /**
- *
  * @author Matúš Sedlák
  */
 @Repository
@@ -36,12 +35,12 @@ public class LectureDaoImpl implements LectureDao {
     public void delete(Lecture l) {
         em.remove(l);
     }
-    
+
     @Override
     public void update(Lecture l) {
         em.merge(l);
     }
-    
+
     @Override
     public List<Lecture> findAll() {
         return em.createQuery("select l from Lecture l", Lecture.class)
@@ -50,7 +49,7 @@ public class LectureDaoImpl implements LectureDao {
 
     @Override
     public Lecture findByTopic(String t) {
-        return em.createQuery("select t from Lecture t where topic = :topic",Lecture.class).setParameter("topic", t)
-                    .getSingleResult();
+        return em.createQuery("select t from Lecture t where topic = :topic", Lecture.class).setParameter("topic", t)
+                .getSingleResult();
     }
 }
