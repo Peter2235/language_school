@@ -22,6 +22,10 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * @author Viktor Slaný
+ */
+
 @ContextConfiguration(classes = ApplicationContext.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
@@ -108,8 +112,7 @@ public class LectureDaoTest extends AbstractTestNGSpringContextTests {
     @Test
     public void findLectureById() {
         Lecture lecture = lectureDao.findById(lecture1.getId());
-        assertThat(lecture.getTopic()).isNotNull();
-        assertThat(lecture.getTopic()).isEqualTo("jamesBond");
+        assertThat(lecture.getTopic()).isNotNull().isEqualTo("jamesBond");
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
@@ -126,9 +129,7 @@ public class LectureDaoTest extends AbstractTestNGSpringContextTests {
     @Test
     public void findAllLectures() {
         List<Lecture> lectures = lectureDao.findAll();
-        assertThat(lectures).isNotNull();
-        assertThat(lectures).isNotEmpty();
-        assertThat(lectures).hasSize(1);
+        assertThat(lectures).isNotNull().isNotEmpty().hasSize(1);
     }
 
     @Test
