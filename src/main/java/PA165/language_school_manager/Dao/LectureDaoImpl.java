@@ -53,7 +53,7 @@ public class LectureDaoImpl implements LectureDao {
     public Lecture findByTopic(String t) {
         try {
             return em.createQuery("select t from Lecture t where topic = :topic",
-                    Lecture.class).setParameter(":topic", t)
+                    Lecture.class).setParameter("topic", t)
                     .getSingleResult();
         } catch (NoResultException nre) {
             return null;
