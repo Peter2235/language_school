@@ -7,7 +7,10 @@ package PA165.language_school_manager.Entities;
 
 import PA165.language_school_manager.Enums.Language;
 
-import javax.persistence.*;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import java.util.Collections;
 import java.util.HashSet;
@@ -81,9 +84,11 @@ public class Lecturer extends Person {
 
     @Override
     public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + getLanguages().hashCode();
-        result = 31 * result + (isNativeSpeaker() ? 1 : 0);
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + super.hashCode();
+        result = prime * result + ((languages == null) ? 0 : languages.hashCode());
+        result = prime * result + (isNativeSpeaker() ? 1 : 0);
         return result;
     }
 }
