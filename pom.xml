@@ -6,7 +6,12 @@
     <groupId>PA165</groupId>
     <artifactId>language_school_manager</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <modules>
+        <module>dao</module>
+        <module>service</module>
+        <module>rest</module>
+    </modules>
+    <packaging>pom</packaging>
 
     <name>language_school_manager</name>
     <description>App for managing language school lectures.</description>
