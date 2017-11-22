@@ -9,7 +9,7 @@
     <modules>
         <module>dao</module>
         <module>service</module>
-        <module>rest</module>
+        <module>api</module>
     </modules>
     <packaging>pom</packaging>
 
