@@ -39,9 +39,9 @@ public class LecturerDaoTest extends AbstractTestNGSpringContextTests {
 
     @BeforeMethod
     public void createLecturers() {
-        l1 = new Lecturer("Christopher", "Biggie Smalls", "Wallace", new HashSet<>(), false);
+        l1 = new Lecturer("lecturer1", "Christopher", "Biggie Smalls", "Wallace", new HashSet<>(), false);
         l1.addLanguage(Language.ITALIAN);
-        l2 = new Lecturer("Lamont", "Big L", "Coleman", new HashSet<>(), true);
+        l2 = new Lecturer("lecturer2", "Lamont", "Big L", "Coleman", new HashSet<>(), true);
         l2.addLanguage(Language.GERMAN);
         l2.addLanguage(Language.SPANISH);
         lecturerDao.create(l1);
@@ -50,7 +50,7 @@ public class LecturerDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void createLecturer() {
-        Lecturer lecturer = new Lecturer("Albert", "Prodigy", "Johnson", new HashSet<>(), true);
+        Lecturer lecturer = new Lecturer("lecturer", "Albert", "Prodigy", "Johnson", new HashSet<>(), true);
         lecturer.addLanguage(Language.ENGLISH);
         lecturerDao.create(lecturer);
 
@@ -107,7 +107,7 @@ public class LecturerDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void findLecturersByLanguage() {
-        Lecturer l3 = new Lecturer("Sean", null, "Price", new HashSet<>(), true);
+        Lecturer l3 = new Lecturer("lectuer", "Sean", null, "Price", new HashSet<>(), true);
         l3.addLanguage(Language.SPANISH);
         lecturerDao.create(l3);
 

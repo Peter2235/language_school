@@ -18,6 +18,20 @@ public interface PersonDao {
     Person findById(Long id);
 
     /**
+     * Find person by unique username.
+     * @param userName unique username.
+     * @return Person with this username.
+     */
+    Person findByUserName(String userName);
+    
+    /**
+     * Find people by last name.
+     * @param lastName 
+     * @return List of persons with given last name.
+     */
+    List<Person> findByLastName(String lastName);
+    
+    /**
      * Create and add person to database.
      *
      * @param person Person in language school.

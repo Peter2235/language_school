@@ -5,6 +5,8 @@
  */
 package PA165.language_school_manager.service;
 
+import PA165.language_school_manager.Entities.Person;
+import java.util.List;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,5 +15,30 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public interface PersonService {
-    
+	/**
+	 * Get all persons
+         * @return 
+	 */
+	List<Person> findAll();
+
+        /**
+         * 
+         * @param personId
+         * @return 
+         */
+	Person findPersonById(Long personId);
+
+        /**
+         * 
+         * @param userName
+         * @return 
+         */
+        Person findPersonByUserName(String userName);
+        
+        /**
+         * 
+         * @param fullName
+         * @return 
+         */
+	List<Person> findPersonsByLastName(String fullName);
 }

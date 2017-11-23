@@ -51,6 +51,7 @@ public class LectureDaoTest extends AbstractTestNGSpringContextTests {
         lecture1.setTime(LocalDateTime.now().plusDays(2));
 
         Lecturer lecturer = new Lecturer();
+        lecturer.setUserName("lecturer123");
         lecturer.setLastName("Bond");
         lecturer.setFirstName("James");
         lecturer.setMiddleName("007");
@@ -90,6 +91,7 @@ public class LectureDaoTest extends AbstractTestNGSpringContextTests {
         Lecture lecture2 = new Lecture();
         lecture2.setTopic("jamesBond");
         Lecturer lecturer = new Lecturer();
+        lecturer.setUserName("lecturer");
         lecturer.setLastName("Bond");
         lecturer.setFirstName("James");
         lecturer.setMiddleName("007");
@@ -201,6 +203,7 @@ public class LectureDaoTest extends AbstractTestNGSpringContextTests {
         Lecture lecture2 = new Lecture();
         lecture2.setTopic("jamesBond");
         Lecturer lecturer = new Lecturer();
+        lecturer.setUserName("lecturer");
         lecturer.setLastName("Bond");
         lecturer.setFirstName("James");
         lecturer.setMiddleName("007");

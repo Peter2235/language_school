@@ -20,13 +20,17 @@ public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    
+    @NotNull
+    @Column(unique = true)
+    private String userName;
+    
     private String firstName;
     private String middleName;
 
     @NotNull
     private String lastName;
-
+    
     @ManyToMany
     private Set<Lecture> lectures = new HashSet<Lecture>();
 
@@ -37,7 +41,8 @@ public class Person {
         this.id = id;
     }
 
-    public Person(String firstName, String middleName, String lastName) {
+    public Person(String userName, String firstName, String middleName, String lastName) {
+        this.userName = userName;
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
@@ -71,6 +76,14 @@ public class Person {
         this.lastName = lastName;
     }
 
+    public String getUserName(){
+        return userName;
+    }
+    
+    public void setUserName(String userName){
+        this.userName = userName;
+    }
+    
     public void addLecture(Lecture lecture) {
         this.lectures.add(lecture);
     }
@@ -91,6 +104,8 @@ public class Person {
             return false;
         if (getMiddleName() != null ? !getMiddleName().equals(person.getMiddleName()) : person.getMiddleName() != null)
             return false;
+         if (getUserName()!= null ? !getUserName().equals(person.getUserName()) : person.getUserName() != null)
+            return false;
         return getLastName().equals(person.getLastName());
     }
 
@@ -98,6 +113,7 @@ public class Person {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result + (userName == null ? 0 : userName.hashCode());
         result = prime * result + (firstName == null ? 0 : firstName.hashCode());
         result = prime * result + (middleName == null ? 0 : middleName.hashCode());
         result = prime * result + (lastName == null ? 0 : lastName.hashCode());

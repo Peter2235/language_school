@@ -57,7 +57,8 @@ public class CourseDaoImpl implements CourseDao {
     @Override
     public Course findByName(String name) {
         try {
-            return em.createQuery("select c from Course c where name = :name", Course.class).setParameter("name", name).getSingleResult();
+            return em.createQuery("select c from Course c where name = :name", Course.class)
+                    .setParameter("name", name).getSingleResult();
         } catch (NoResultException e) {
             return null;
         }
