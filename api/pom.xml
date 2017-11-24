@@ -11,4 +11,11 @@
 
     <artifactId>api</artifactId>
     <name>api</name>
+    <dependencies>
+        <dependency>
+            <groupId>PA165</groupId>
+            <artifactId>dao</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 </project>
