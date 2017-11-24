@@ -13,15 +13,15 @@ import java.util.List;
  */
 
 public interface CourseFacade {
-    CourseDTO findCouseById(Long id);
+    CourseDTO findCourseById(Long id);
 
-    CourseDTO findCouseByName(String name);
+    CourseDTO findCourseByName(String name);
 
-    CourseDTO findCouseByLanguage(Language language);
+    CourseDTO findCourseByLanguage(Language language);
 
-    CourseDTO findCouseByProficiencyLevel(ProficiencyLevel proficiencyLevel);
+    CourseDTO findCourseByProficiencyLevel(ProficiencyLevel proficiencyLevel);
 
-    CourseDTO findCouseByLectures(List<LectureDTO> lectures);
+    CourseDTO findCourseByLectures(List<LectureDTO> lectures);
 
     Collection<CourseDTO> findAllCourses();
 }

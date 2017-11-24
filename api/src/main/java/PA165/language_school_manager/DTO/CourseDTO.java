@@ -1,12 +1,12 @@
 package PA165.language_school_manager.DTO;
 
-import java.util.ArrayList;
-import java.util.List;
+import PA165.language_school_manager.Enums.Language;
+import PA165.language_school_manager.Enums.ProficiencyLevel;
 import lombok.Getter;
 import lombok.Setter;
 
-import PA165.language_school_manager.Enums.Language;
-import PA165.language_school_manager.Enums.ProficiencyLevel;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Viktor Slany
