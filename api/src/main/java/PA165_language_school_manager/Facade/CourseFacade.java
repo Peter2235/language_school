@@ -17,11 +17,7 @@ public interface CourseFacade {
 
     CourseDTO findCourseByName(String name);
 
-    CourseDTO findCourseByLanguage(Language language);
-
-    CourseDTO findCourseByProficiencyLevel(ProficiencyLevel proficiencyLevel);
-
-    CourseDTO findCourseByLectures(List<LectureDTO> lectures);
+    List<CourseDTO> findCourseByLanguage(Language language);
 
     Collection<CourseDTO> findAllCourses();
 }
