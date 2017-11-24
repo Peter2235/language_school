@@ -35,8 +35,8 @@ public class Lecturer extends Person {
     public Lecturer() {
     }
 
-    public Lecturer(String firstName, String middleName, String lastName, Set<Language> languages, boolean isNativeSpeaker) {
-        super(firstName, middleName, lastName);
+    public Lecturer(String userName, String firstName, String middleName, String lastName, Set<Language> languages, boolean isNativeSpeaker) {
+        super(userName, firstName, middleName, lastName);
         this.languages = languages;
         this.isNativeSpeaker = isNativeSpeaker;
     }

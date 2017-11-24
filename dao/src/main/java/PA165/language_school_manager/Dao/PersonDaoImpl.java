@@ -1,11 +1,13 @@
 package PA165.language_school_manager.Dao;
 
+import PA165.language_school_manager.Entities.Lecturer;
 import PA165.language_school_manager.Entities.Person;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import javax.persistence.NoResultException;
 
 /**
  * @author Viktor Slaný
@@ -21,6 +23,26 @@ public class PersonDaoImpl implements PersonDao {
         return entityManager.find(Person.class, id);
     }
 
+    @Override
+    public Person findByUserName(String userName){
+        try {
+            return entityManager.createQuery("select p from Person p where userName = :userName", Person.class)
+                    .setParameter("userName", userName).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+    
+    @Override
+    public List<Person> findByLastName(String lastName) {
+        try {
+            return entityManager.createQuery("select p from Person p where lastName = :lastName", Person.class)
+                    .setParameter("lastName", lastName).getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+    
     @Override
     public void create(Person person) {
         entityManager.persist(person);
@@ -39,5 +61,5 @@ public class PersonDaoImpl implements PersonDao {
     @Override
     public List<Person> findAll() {
         return entityManager.createQuery("select person from Person person", Person.class).getResultList();
-    }
+    } 
 }

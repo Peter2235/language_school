@@ -38,12 +38,15 @@ public class PersonDaoTest extends AbstractTestNGSpringContextTests {
     private Person p2;
     private Person p3;
 
-
     @BeforeMethod
     public void createPeople() {
         p1 = new Person();
         p2 = new Person();
         p3 = new Person();
+
+        p1.setUserName("person1");
+        p2.setUserName("person2");
+        p3.setUserName("person3");
 
         p1.setFirstName("Adam");
         p2.setFirstName("Boris");
@@ -61,12 +64,21 @@ public class PersonDaoTest extends AbstractTestNGSpringContextTests {
     @Test
     public void createPerson() {
         Person person = new Person();
+        person.setUserName("person");
         person.setFirstName("Jan");
         person.setLastName("Novak");
         personDao.create(person);
 
         assertThat(personDao.findById(person.getId())).isNotNull();
         assertThat(person.getFirstName()).isEqualTo("Jan");
+    }
+
+    @Test(expectedExceptions = PersistenceException.class)
+    public void createWithNullUserName() {
+        Person personWithNullUserName = new Person(1l);
+        personWithNullUserName.setUserName(null);
+        personWithNullUserName.setLastName("Novak");
+        personDao.create(personWithNullUserName);
     }
 
     @Test(expectedExceptions = PersistenceException.class)
@@ -96,6 +108,20 @@ public class PersonDaoTest extends AbstractTestNGSpringContextTests {
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void findByNullId() {
         personDao.findById(null);
+    }
+
+    @Test
+    public void findPersonByUserName() {
+        Person person = personDao.findByUserName(p1.getUserName());
+
+        assertThat(person).isNotNull();
+        assertThat(person.getLastName()).isEqualTo("Adamovic");
+    }
+
+    @Test
+    public void findByNullUserName() {
+        Person person = personDao.findByUserName(null);
+        assertThat(person).isNull();
     }
 
     @Test

@@ -51,6 +51,5 @@ public class LecturerDAOImpl implements LecturerDAO {
         } catch (NoResultException e) {
             return null;
         }
-
     }
 }

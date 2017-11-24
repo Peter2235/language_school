@@ -6,27 +6,45 @@
 package PA165.language_school_manager.service.facade;
 
 import PA165.language_school_manager.DTO.PersonDTO;
+import PA165.language_school_manager.Entities.Person;
+import PA165.language_school_manager.service.BeanMappingService;
+import PA165.language_school_manager.service.PersonService;
 import PA165_language_school_manager.Facade.PersonFacade;
 import java.util.Collection;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 /**
  *
  * @author Matúš
  */
 public class PersonFacadeImpl implements PersonFacade{
+    
+    @Autowired
+    private PersonService personService;
 
+    @Autowired
+    private BeanMappingService beanMappingService;
+    
     @Override
     public PersonDTO findPersonById(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Person person = personService.findPersonById(id);
+        return (person == null) ? null : beanMappingService.mapTo(person, PersonDTO.class);
     }
 
     @Override
-    public PersonDTO findPersonByFullName(String fullName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public PersonDTO findPersonByUserName(String userName) {
+        Person person = personService.findPersonByUserName(userName);
+        return (person == null) ? null : beanMappingService.mapTo(person, PersonDTO.class);
+    }
+    
+    @Override
+    public List<PersonDTO> findPersonsByLastName(String lastName) {
+	List<Person> persons = personService.findPersonsByLastName(lastName);
+        return beanMappingService.mapTo(persons, PersonDTO.class);
     }
 
     @Override
     public Collection<PersonDTO> getAllPersons() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+        return beanMappingService.mapTo(personService.findAll(), PersonDTO.class);
+    }  
 }

@@ -14,7 +14,8 @@ import java.util.Collection;
  */
 public interface PersonFacade {
     PersonDTO findPersonById(Long id);
-    PersonDTO findPersonByFullName(String fullName);
+    PersonDTO findPersonByUserName(String userName);
+    List<PersonDTO> findPersonsByLastName(String lastName);
     
     /**
      * Get all people
