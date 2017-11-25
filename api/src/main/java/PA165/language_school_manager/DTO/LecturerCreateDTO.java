@@ -1,37 +1,35 @@
 package PA165.language_school_manager.DTO;
 
-import PA165.language_school_manager.Enums.Language;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.HashSet;
-import java.util.Set;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * @author Peter Tirala
  */
 @Getter
 @Setter
-public class LecturerDTO {
+public class LecturerCreateDTO {
 
-    private Long id;
+    @Size(min = 3, max = 50)
     private String userName;
+
+    @NotNull
     private String firstName;
     private String middleName;
-    private String lastName;
-    private Set<LectureDTO> lectures = new HashSet<>();
-    private Set<Language> languages = new HashSet<>();
-    private boolean isNativeSpeaker;
 
-    public LecturerDTO() {
-    }
+    @NotNull
+    private String lastName;
+    private boolean isNativeSpeaker;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof LecturerDTO)) return false;
+        if (!(o instanceof LecturerCreateDTO)) return false;
 
-        LecturerDTO that = (LecturerDTO) o;
+        LecturerCreateDTO that = (LecturerCreateDTO) o;
 
         if (isNativeSpeaker != that.isNativeSpeaker) return false;
         if (userName != null ? !userName.equals(that.userName) : that.userName != null) return false;
@@ -52,14 +50,11 @@ public class LecturerDTO {
 
     @Override
     public String toString() {
-        return "LecturerDTO{" +
-                "id=" + id +
-                ", userName='" + userName + '\'' +
+        return "LecturerCreateDTO{" +
+                "userName='" + userName + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", middleName='" + middleName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", lectures=" + lectures +
-                ", languages=" + languages +
                 ", isNativeSpeaker=" + isNativeSpeaker +
                 '}';
     }
