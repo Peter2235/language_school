@@ -1,8 +1,8 @@
 package PA165_language_school_manager.Facade;
 
+import PA165.language_school_manager.DTO.LectureDTO;
 import PA165.language_school_manager.DTO.LecturerCreateDTO;
 import PA165.language_school_manager.DTO.LecturerDTO;
-import PA165.language_school_manager.Entities.Lecture;
 import PA165.language_school_manager.Enums.Language;
 
 import java.util.List;
@@ -25,21 +25,21 @@ public interface LecturerFacade {
      * @param firstName first name of lecturer
      * @return LecturerDto
      */
-    LecturerDTO findLecturerByFirstName(String firstName);
+    List<LecturerDTO> findLecturerByFirstName(String firstName);
 
     /**
      * Find lecturer by last name
      * @param lastName last name of lecturer
      * @return LecturerDto
      */
-    LecturerDTO findLecturerByLastName(String lastName);
+    List<LecturerDTO> findLecturerByLastName(String lastName);
 
     /**
      * Find lecturer by lecture he has assigned
      * @param lecture lecture
      * @return LecturerDto
      */
-    LecturerDTO findLecturerByLecture(Lecture lecture);
+    LecturerDTO findLecturerByLecture(LectureDTO lecture);
 
     /**
      * Find all lecturers by language
@@ -55,7 +55,7 @@ public interface LecturerFacade {
      * @param lecturerId lecturer id
      * @param lecture    lectured to assign
      */
-    void assignNewLecture(Long lecturerId, Lecture lecture);
+    void assignNewLecture(Long lecturerId, LectureDTO lecture);
 
     /**
      * Add new language to lecturer
@@ -71,7 +71,7 @@ public interface LecturerFacade {
      * @param newLecturer lecturerCreateDto
      * @return id of created lecturer
      */
-    Long createLecturer(LecturerCreateDTO newLecturer);
+    void createLecturer(LecturerCreateDTO newLecturer);
 
     /**
      * Delete lecturer

@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface LecturerService {
     /**
-     * Find lecturer by id*
+     * Find lecturer by id
      *
      * @param id lecturer id
      * @return LecturerDto
@@ -24,7 +24,7 @@ public interface LecturerService {
      * @param firstName first name of lecturer
      * @return LecturerDto
      */
-    Lecturer findLecturerByFirstName(String firstName);
+    List<Lecturer> findLecturerByFirstName(String firstName);
 
     /**
      * Find lecturer by last name
@@ -32,7 +32,7 @@ public interface LecturerService {
      * @param lastName last name of lecturer
      * @return LecturerDto
      */
-    Lecturer findLecturerByLastName(String lastName);
+    List<Lecturer> findLecturerByLastName(String lastName);
 
     /**
      * Find lecturer by lecture he has assigned
@@ -72,7 +72,7 @@ public interface LecturerService {
      * @param newLecturer lecturerCreateDto
      * @return id of created lecturer
      */
-    Long createLecturer(Lecturer newLecturer);
+    void createLecturer(Lecturer newLecturer);
 
     /**
      * Delete lecturer

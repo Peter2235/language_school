@@ -53,4 +53,28 @@ public interface LecturerDAO {
      * @return List of all lecturers in database who speak with this language.
      */
     List<Lecturer> findByLanguage(Language language);
+
+    /**
+     * Find lecturers by first name
+     *
+     * @param firstName first name
+     * @return List<Lecturer>
+     */
+    List<Lecturer> findByFirstName(String firstName);
+
+    /**
+     * Find lecturers by last name
+     *
+     * @param lastName last name
+     * @return List<Lecturer>
+     */
+    List<Lecturer> findByLastName(String lastName);
+
+    /**
+     * Find lecture by lecture
+     *
+     * @param lectureId lecture id
+     * @return Lecturer
+     */
+    Lecturer findByLecture(Long lectureId);
 }
