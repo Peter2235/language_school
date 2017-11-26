@@ -52,4 +52,34 @@ public class LecturerDAOImpl implements LecturerDAO {
             return null;
         }
     }
+
+    @Override
+    public List<Lecturer> findByFirstName(String firstName) {
+        try {
+            return entityManager.createQuery("select l from Lecturer l where firstName = :firstName", Lecturer.class)
+                    .setParameter("firstName", firstName).getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public List<Lecturer> findByLastName(String lastName) {
+        try {
+            return entityManager.createQuery("select l from Lecturer l where lastName = :lastName", Lecturer.class)
+                    .setParameter("lastName", lastName).getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public Lecturer findByLecture(Long lectureId) {
+        try {
+            return entityManager.createQuery("select l from Lecturer l where lecture.id = :lectureId", Lecturer.class)
+                    .setParameter("lectureId", lectureId).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 }
