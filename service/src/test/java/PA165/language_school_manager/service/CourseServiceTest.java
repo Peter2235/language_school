@@ -10,7 +10,6 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
 
@@ -25,9 +24,8 @@ public class CourseServiceTest extends AbstractTransactionalTestNGSpringContextT
     @Mock
     private CourseDao courseDao;
 
-    @Autowired
     @InjectMocks
-    private CourseService courseService;
+    private CourseService courseService = new CourseServiceImpl();
 
     @BeforeClass
     public void setup() throws ServiceException {
