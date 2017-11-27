@@ -78,14 +78,17 @@ public class LecturerFacadeImpl implements LecturerFacade {
     @Override
     @Transactional
     public void createLecturer(LecturerCreateDTO newLecturer) {
+        Lecturer lecturer = beanMappingService.mapTo(newLecturer,Lecturer.class);
+        lecturerService.createLecturer(lecturer);
+        /*
         Lecturer lecturer = new Lecturer();
         lecturer.setFirstName(newLecturer.getFirstName());
         lecturer.setMiddleName(newLecturer.getMiddleName());
         lecturer.setLastName(newLecturer.getLastName());
         lecturer.setUserName(newLecturer.getUserName());
         lecturer.setNativeSpeaker(newLecturer.isNativeSpeaker());
-
         lecturerService.createLecturer(lecturer);
+        */
     }
 
     @Override
