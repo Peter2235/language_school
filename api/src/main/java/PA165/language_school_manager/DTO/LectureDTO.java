@@ -7,12 +7,59 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-@Getter
-@Setter
 public class LectureDTO {
 
     private Long id;
     private LocalDateTime time;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalDateTime time) {
+        this.time = time;
+    }
+
+    public CourseDTO getCourse() {
+        return course;
+    }
+
+    public void setCourse(CourseDTO course) {
+        this.course = course;
+    }
+
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
+    }
+
+    public LecturerDTO getLecturer() {
+        return lecturer;
+    }
+
+    public void setLecturer(LecturerDTO lecturer) {
+        this.lecturer = lecturer;
+    }
+
+    public Set<PersonDTO> getStudents() {
+        return students;
+    }
+
+    public void setStudents(Set<PersonDTO> students) {
+        this.students = students;
+    }
+
     private CourseDTO course;
     private String topic;
     private LecturerDTO lecturer;
