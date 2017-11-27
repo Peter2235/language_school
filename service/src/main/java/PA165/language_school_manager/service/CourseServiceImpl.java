@@ -3,7 +3,9 @@ package PA165.language_school_manager.service;
 import PA165.language_school_manager.Dao.CourseDao;
 import PA165.language_school_manager.Entities.Course;
 import PA165.language_school_manager.Enums.Language;
+import PA165.language_school_manager.LanguageSchoolException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 
 import java.util.List;
 
@@ -18,21 +20,84 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Course findById(Long id) {
-        return courseDao.findById(id);
+        if (id == null) {
+            throw new IllegalArgumentException("Id can not be null");
+        }
+        try {
+            return courseDao.findById(id);
+        } catch (Throwable e) {
+            throw new LanguageSchoolException("Course create failed");
+        }
     }
 
     @Override
     public List<Course> findAll() {
-        return courseDao.findAll();
+        try {
+            return courseDao.findAll();
+        } catch (Throwable e) {
+            throw new LanguageSchoolException("Course create failed");
+        }
     }
 
     @Override
     public List<Course> findByLanguage(Language language) {
-        return courseDao.findByLanguage(language);
+        if (language == null) {
+            throw new IllegalArgumentException("Language can not be null");
+        }
+        try {
+            return courseDao.findByLanguage(language);
+        } catch (Throwable e) {
+            throw new LanguageSchoolException("Course create failed");
+        }
     }
 
     @Override
     public Course findByName(String name) {
-        return courseDao.findByName(name);
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("Name can not be empty");
+        }
+        try {
+            return courseDao.findByName(name);
+        } catch (Throwable e) {
+            throw new LanguageSchoolException("Course create failed");
+        }
+    }
+
+    @Override
+    public void createCourse(Course course) throws DataAccessException {
+        if (course == null) {
+            throw new IllegalArgumentException("Course can not be null");
+        }
+        try {
+            courseDao.create(course);
+        } catch (Throwable e) {
+            throw new LanguageSchoolException("Course create failed");
+        }
+
+    }
+
+    @Override
+    public void updateCourse(Course course) throws DataAccessException {
+        if (course == null) {
+            throw new IllegalArgumentException("Course can not be null");
+        }
+        try {
+            courseDao.update(course);
+        } catch (Throwable e) {
+            throw new LanguageSchoolException("Course update failed");
+        }
+
+    }
+
+    @Override
+    public void deleteCourse(Course course) throws DataAccessException {
+        if (course == null) {
+            throw new IllegalArgumentException("Course can not be null");
+        }
+        try {
+            courseDao.delete(course);
+        } catch (Throwable e) {
+            throw new LanguageSchoolException("Course delete failed");
+        }
     }
 }

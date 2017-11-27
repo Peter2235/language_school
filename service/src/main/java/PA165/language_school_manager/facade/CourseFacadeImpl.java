@@ -1,11 +1,10 @@
-package PA165.language_school_manager.service.facade;
+package PA165.language_school_manager.facade;
 
+import PA165.language_school_manager.service.BeanMappingService;
+import PA165.language_school_manager.DTO.CourseCreateDTO;
 import PA165.language_school_manager.DTO.CourseDTO;
-import PA165.language_school_manager.DTO.LectureDTO;
 import PA165.language_school_manager.Entities.Course;
 import PA165.language_school_manager.Enums.Language;
-import PA165.language_school_manager.Enums.ProficiencyLevel;
-import PA165.language_school_manager.service.BeanMappingService;
 import PA165.language_school_manager.service.CourseService;
 import PA165_language_school_manager.Facade.CourseFacade;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,5 +45,24 @@ public class CourseFacadeImpl implements CourseFacade {
     @Override
     public Collection<CourseDTO> findAllCourses() {
         return beanMappingService.mapTo(courseService.findAll(), CourseDTO.class);
+    }
+
+    @Override
+    public Long createCourse(CourseCreateDTO course) {
+        Course newCourse = beanMappingService.mapTo(course, Course.class);
+        courseService.createCourse(newCourse);
+        return newCourse.getId();
+    }
+
+    @Override
+    public void updateCourse(CourseDTO course) {
+        Course newCourse = beanMappingService.mapTo(course, Course.class);
+        courseService.updateCourse(newCourse);
+    }
+
+    @Override
+    public void deleteCourse(CourseDTO course) {
+        Course newCourse = beanMappingService.mapTo(course, Course.class);
+        courseService.deleteCourse(newCourse);
     }
 }
