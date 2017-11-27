@@ -16,15 +16,13 @@
     <dependencies>
         <dependency>
             <groupId>PA165</groupId>
-            <artifactId>api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <type>jar</type>
+            <artifactId>dao</artifactId>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>PA165</groupId>
-            <artifactId>dao</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <type>jar</type>
+            <artifactId>api</artifactId>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>net.sf.dozer</groupId>
