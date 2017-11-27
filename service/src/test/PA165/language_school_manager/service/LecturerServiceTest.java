@@ -9,8 +9,6 @@ import PA165.language_school_manager.Dao.LecturerDAO;
 import PA165.language_school_manager.Entities.Lecture;
 import PA165.language_school_manager.Entities.Lecturer;
 import PA165.language_school_manager.Enums.Language;
-import java.util.HashSet;
-import java.util.Set;
 import org.hibernate.service.spi.ServiceException;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -20,6 +18,10 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
 import org.testng.annotations.BeforeMethod;
+
+import java.util.HashSet;
+import java.util.Set;
+
 import static org.assertj.core.api.Assertions.assertThat;
 /**
  *
@@ -68,7 +70,7 @@ public class LecturerServiceTest extends AbstractTransactionalTestNGSpringContex
     
     @Test
     public void addLanguageTest(){
-        Language language = language.ENGLISH;
+        Language language = Language.ENGLISH;
         lecturerService.addLanguage(testLecturer.getId(), language);
         
         assertThat(lecturerDao.findById(testLecturer.getId()).getLanguages())
