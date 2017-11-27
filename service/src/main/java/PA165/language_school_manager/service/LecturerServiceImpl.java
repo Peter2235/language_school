@@ -4,6 +4,7 @@ import PA165.language_school_manager.Dao.LecturerDAO;
 import PA165.language_school_manager.Entities.Lecture;
 import PA165.language_school_manager.Entities.Lecturer;
 import PA165.language_school_manager.Enums.Language;
+import PA165.language_school_manager.LanguageSchoolException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,11 @@ public class LecturerServiceImpl implements LecturerService {
         if (id == null) {
             throw new IllegalArgumentException("Id can not be null");
         }
-        return lecturerDAO.findById(id);
+        try {
+            return lecturerDAO.findById(id);
+        } catch (Throwable e) {
+            throw new LanguageSchoolException("Course create failed");
+        }
     }
 
     @Override
@@ -31,7 +36,11 @@ public class LecturerServiceImpl implements LecturerService {
         if (firstName == null || firstName.isEmpty()) {
             throw new IllegalArgumentException("First name can not be empty");
         }
-        return lecturerDAO.findByFirstName(firstName);
+        try {
+            return lecturerDAO.findByFirstName(firstName);
+        } catch (Throwable e) {
+            throw new LanguageSchoolException("Course create failed");
+        }
     }
 
     @Override
@@ -39,7 +48,11 @@ public class LecturerServiceImpl implements LecturerService {
         if (lastName == null || lastName.isEmpty()) {
             throw new IllegalArgumentException("Last name can not be empty");
         }
-        return lecturerDAO.findByLastName(lastName);
+        try {
+            return lecturerDAO.findByLastName(lastName);
+        } catch (Throwable e) {
+            throw new LanguageSchoolException("Course create failed");
+        }
     }
 
     @Override
@@ -47,7 +60,11 @@ public class LecturerServiceImpl implements LecturerService {
         if (lecture == null) {
             throw new IllegalArgumentException("Lecture can not be null");
         }
-        return lecturerDAO.findByLecture(lecture.getId());
+        try {
+            return lecturerDAO.findByLecture(lecture.getId());
+        } catch (Throwable e) {
+            throw new LanguageSchoolException("Course create failed");
+        }
     }
 
     @Override
@@ -55,7 +72,11 @@ public class LecturerServiceImpl implements LecturerService {
         if (language == null) {
             throw new IllegalArgumentException("Language can not be null");
         }
-        return lecturerDAO.findByLanguage(language);
+        try {
+            return lecturerDAO.findByLanguage(language);
+        } catch (Throwable e) {
+            throw new LanguageSchoolException("Course create failed");
+        }
     }
 
     @Override
@@ -73,7 +94,11 @@ public class LecturerServiceImpl implements LecturerService {
         }
 
         lecturer.getLectures().add(lecture);
-        lecturerDAO.update(lecturer);
+        try {
+            lecturerDAO.update(lecturer);
+        } catch (Throwable e) {
+            throw new LanguageSchoolException("Course create failed");
+        }
     }
 
     @Override
@@ -91,7 +116,12 @@ public class LecturerServiceImpl implements LecturerService {
         }
 
         lecturer.getLanguages().add(language);
-        lecturerDAO.update(lecturer);
+
+        try {
+            lecturerDAO.update(lecturer);
+        } catch (Throwable e) {
+            throw new LanguageSchoolException("Course create failed");
+        }
     }
 
     @Override
@@ -99,7 +129,11 @@ public class LecturerServiceImpl implements LecturerService {
         if (newLecturer == null) {
             throw new IllegalArgumentException("Lecturer can not be null");
         }
-        lecturerDAO.create(newLecturer);
+        try {
+            lecturerDAO.create(newLecturer);
+        } catch (Throwable e) {
+            throw new LanguageSchoolException("Course create failed");
+        }
     }
 
     @Override
@@ -107,7 +141,11 @@ public class LecturerServiceImpl implements LecturerService {
         if (id == null) {
             throw new IllegalArgumentException("Id can not be null");
         }
-        Lecturer lecturer = lecturerDAO.findById(id);
-        lecturerDAO.delete(lecturer);
+        try {
+            Lecturer lecturer = lecturerDAO.findById(id);
+            lecturerDAO.delete(lecturer);
+        } catch (Throwable e) {
+            throw new LanguageSchoolException("Course create failed");
+        }
     }
 }
