@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  *
- * @author MatĂşĹˇ
+ * @author Matúš Sedlák
  */
 public interface PersonFacade {
     PersonDTO findPersonById(Long id);
