@@ -1,12 +1,12 @@
-package PA165.language_school_manager.service.facade;
+package PA165.language_school_manager.facade;
 
+import PA165.language_school_manager.service.BeanMappingService;
 import PA165.language_school_manager.DTO.LectureDTO;
 import PA165.language_school_manager.DTO.LecturerCreateDTO;
 import PA165.language_school_manager.DTO.LecturerDTO;
 import PA165.language_school_manager.Entities.Lecture;
 import PA165.language_school_manager.Entities.Lecturer;
 import PA165.language_school_manager.Enums.Language;
-import PA165.language_school_manager.service.BeanMappingService;
 import PA165.language_school_manager.service.LecturerService;
 import PA165_language_school_manager.Facade.LecturerFacade;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,14 +78,17 @@ public class LecturerFacadeImpl implements LecturerFacade {
     @Override
     @Transactional
     public void createLecturer(LecturerCreateDTO newLecturer) {
+        Lecturer lecturer = beanMappingService.mapTo(newLecturer,Lecturer.class);
+        lecturerService.createLecturer(lecturer);
+        /*
         Lecturer lecturer = new Lecturer();
         lecturer.setFirstName(newLecturer.getFirstName());
         lecturer.setMiddleName(newLecturer.getMiddleName());
         lecturer.setLastName(newLecturer.getLastName());
         lecturer.setUserName(newLecturer.getUserName());
         lecturer.setNativeSpeaker(newLecturer.isNativeSpeaker());
-
         lecturerService.createLecturer(lecturer);
+        */
     }
 
     @Override

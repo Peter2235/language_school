@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package PA165.language_school_manager.service.facade;
+package PA165.language_school_manager.facade;
 
+import PA165.language_school_manager.service.BeanMappingService;
 import PA165.language_school_manager.DTO.PersonDTO;
 import PA165.language_school_manager.Entities.Person;
-import PA165.language_school_manager.service.BeanMappingService;
 import PA165.language_school_manager.service.PersonService;
 import PA165_language_school_manager.Facade.PersonFacade;
 import java.util.Collection;
