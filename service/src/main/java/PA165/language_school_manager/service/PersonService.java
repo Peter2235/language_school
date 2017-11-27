@@ -41,4 +41,22 @@ public interface PersonService {
          * @return 
          */
 	List<Person> findPersonsByLastName(String fullName);
+        
+        /**
+         * 
+         * @param person 
+         */
+        void createPerson(Person person);
+        
+        /**
+         * 
+         * @param person 
+         */
+        void updatePerson(Person person);
+        
+        /**
+         * 
+         * @param id 
+         */
+        void deletePerson(Person person);
 }

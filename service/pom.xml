@@ -11,7 +11,7 @@
 
     <artifactId>service</artifactId>
     <packaging>jar</packaging>
-    <name>Service Layer</name>
+    <name>service</name>
     
     <dependencies>
         <dependency>
