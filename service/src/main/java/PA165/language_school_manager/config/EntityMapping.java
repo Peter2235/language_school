@@ -27,6 +27,5 @@ public class EntityMapping extends BeanMappingBuilder {
         mapping(Lecture.class, LectureDTO.class, TypeMappingOptions.mapNull(false))
                 .fields(field("lecturers").accessible(true), field("lecturers").accessible(true))
                 .fields(field("students").accessible(true), field("students").accessible(true));
-        //TODO add other mapping options in future
     }
 }

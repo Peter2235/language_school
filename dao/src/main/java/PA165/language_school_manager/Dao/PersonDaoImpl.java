@@ -44,18 +44,21 @@ public class PersonDaoImpl implements PersonDao {
     }
     
     @Override
-    public void create(Person person) {
+    public Person create(Person person) {
         entityManager.persist(person);
+        return person;
     }
 
     @Override
-    public void update(Person person) {
+    public Person update(Person person) {
         entityManager.merge(person);
+        return person;
     }
 
     @Override
-    public void delete(Person person) {
+    public Person delete(Person person) {
         entityManager.remove(entityManager.merge(person));
+        return person;
     }
 
     @Override

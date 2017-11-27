@@ -36,21 +36,21 @@ public interface PersonDao {
      *
      * @param person Person in language school.
      */
-    void create(Person person);
+    Person create(Person person);
 
     /**
      * Update person in database.
      *
      * @param person Person in language school.
      */
-    void update(Person person);
+    Person update(Person person);
 
     /**
      * Delete person from database.
      *
      * @param person Person in language school.
      */
-    void delete(Person person);
+    Person delete(Person person);
 
     /**
      * Find all persons in database.

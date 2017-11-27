@@ -52,6 +52,10 @@ public class Person {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -119,4 +123,5 @@ public class Person {
         result = prime * result + (lastName == null ? 0 : lastName.hashCode());
         return result;
     }
+
 }
