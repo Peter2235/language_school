@@ -1,8 +1,5 @@
 package PA165.language_school_manager.DTO;
 
-import PA165.language_school_manager.Entities.Course;
-import PA165.language_school_manager.Entities.Lecturer;
-import PA165.language_school_manager.Entities.Person;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,10 +13,10 @@ public class LectureDTO {
 
     private Long id;
     private LocalDateTime time;
-    private Course course;
+    private CourseDTO course;
     private String topic;
-    private Lecturer lecturer;
-    private Set<Person> students = new HashSet<>();
+    private LecturerDTO lecturer;
+    private Set<PersonDTO> students = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {
