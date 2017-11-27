@@ -11,8 +11,7 @@ import java.util.List;
 /**
  * @author Viktor Slany
  */
-@Getter
-@Setter
+
 public class CourseDTO {
 
     private Long id;
@@ -20,6 +19,46 @@ public class CourseDTO {
     private Language language;
     private ProficiencyLevel proficiencyLevel;
     private List<LectureDTO> lectures = new ArrayList<>();
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Language getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(Language language) {
+        this.language = language;
+    }
+
+    public ProficiencyLevel getProficiencyLevel() {
+        return proficiencyLevel;
+    }
+
+    public void setProficiencyLevel(ProficiencyLevel proficiencyLevel) {
+        this.proficiencyLevel = proficiencyLevel;
+    }
+
+    public List<LectureDTO> getLectures() {
+        return lectures;
+    }
+
+    public void setLectures(List<LectureDTO> lectures) {
+        this.lectures = lectures;
+    }
 
     public CourseDTO() {
     }
