@@ -31,7 +31,7 @@ public interface PersonFacade {
      * Method used to store person given as a parameter
      * @param person
      */
-    void createPerson(PersonCreateDTO person);
+    PersonDTO createPerson(PersonCreateDTO person);
     
     /**
      * 

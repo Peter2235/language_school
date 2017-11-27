@@ -5,25 +5,44 @@
  */
 package PA165.language_school_manager.DTO;
 
-import lombok.Getter;
-import lombok.Setter;
 
 /**
- *
  * @author Matúš
  */
-@Getter
-@Setter
 public class PersonDTO {
 
     private Long id;
     private String userName;
     private String lastName;
 
-    private PersonDTO() {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public PersonDTO() {
 
     }
-    
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -31,7 +50,7 @@ public class PersonDTO {
         result = prime * result + ((userName == null) ? 0 : userName.hashCode());
         return result;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -48,10 +67,10 @@ public class PersonDTO {
             return false;
         return true;
     }
-    
+
     @Override
-    public String toString(){
-        return "PersonDTO{" + 
+    public String toString() {
+        return "PersonDTO{" +
                 "id=" + id +
                 "userName=" + userName +
                 ", fullName='" + lastName + '\'' +

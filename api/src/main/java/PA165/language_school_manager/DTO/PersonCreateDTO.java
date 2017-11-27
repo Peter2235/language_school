@@ -14,9 +14,7 @@ import lombok.Setter;
  *
  * @author Matúš
  */
-@Getter
-@Setter
-@EqualsAndHashCode
+
 public class PersonCreateDTO {
     
     @NotNull
@@ -26,7 +24,56 @@ public class PersonCreateDTO {
     
     @NotNull
     private String lastName;
-    
+
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public PersonCreateDTO() {
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PersonCreateDTO)) return false;
+
+        PersonCreateDTO that = (PersonCreateDTO) o;
+
+        if (!getUserName().equals(that.getUserName())) return false;
+        if (getFirstName() != null ? !getFirstName().equals(that.getFirstName()) : that.getFirstName() != null)
+            return false;
+        return getLastName().equals(that.getLastName());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getUserName().hashCode();
+        result = 31 * result + (getFirstName() != null ? getFirstName().hashCode() : 0);
+        result = 31 * result + getLastName().hashCode();
+        return result;
+    }
+
     @Override
     public String toString() {
         return "PersonCreateDTO{" +
