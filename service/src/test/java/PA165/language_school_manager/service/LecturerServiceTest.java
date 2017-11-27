@@ -9,6 +9,7 @@ import PA165.language_school_manager.Dao.LecturerDAO;
 import PA165.language_school_manager.Entities.Lecture;
 import PA165.language_school_manager.Entities.Lecturer;
 import PA165.language_school_manager.Enums.Language;
+import PA165.language_school_manager.config.ServiceConfiguration;
 import org.hibernate.service.spi.ServiceException;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -23,11 +24,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import org.springframework.test.context.ContextConfiguration;
 /**
  *
  * @author Matúš Sedlák
  */
-//@ContextConfiguration(classes=ServiceConfiguration.class)
+@ContextConfiguration(classes=ServiceConfiguration.class)
 public class LecturerServiceTest extends AbstractTransactionalTestNGSpringContextTests{
     
     @Mock
