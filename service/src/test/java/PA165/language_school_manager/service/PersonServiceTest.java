@@ -3,12 +3,14 @@
 //
 //import PA165.language_school_manager.Dao.PersonDao;
 //import PA165.language_school_manager.Entities.Person;
+//import PA165.language_school_manager.LanguageSchoolException;
 //import PA165.language_school_manager.config.ServiceConfiguration;
 //import org.junit.BeforeClass;
 //import org.mockito.InjectMocks;
 //import org.mockito.Mock;
 //import org.mockito.MockitoAnnotations;
 //import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.dao.DataAccessException;
 //import org.springframework.test.context.ContextConfiguration;
 //import org.testng.annotations.BeforeMethod;
 //import org.testng.annotations.Test;
@@ -161,8 +163,8 @@
 //        testedPerson.setLastName("Székesfehervárbalatonszavadisóstó");
 //    }
 //
-//    @Test
-//    public void createPerson() { //throws DataAccessException ??
+//    @Test(expectedExceptions = LanguageSchoolException.class)
+//    public void createPerson(){
 //        int sizeBefore = personMap.values().size();
 //
 //        personService.createPerson(testedPerson);
@@ -170,28 +172,28 @@
 //
 //    }
 //
-//    @Test(expectedExceptions = IllegalArgumentException.class)
+//    @Test(expectedExceptions = LanguageSchoolException.class)
 //    public void createNullPerson() {
 //        personService.createPerson(null);
 //    }
 //
-//    @Test(expectedExceptions = IllegalArgumentException.class)
+//    @Test(expectedExceptions = LanguageSchoolException.class)
 //    public void createPersonWithNullLastName() {
 //        personService.createPerson(new Person());
 //    }
 //
-//    @Test(expectedExceptions = IllegalArgumentException.class)
+//    @Test(expectedExceptions = LanguageSchoolException.class)
 //    public void createPersonWithNullUserName() {
 //        personService.createPerson(new Person());
 //    }
 //
-//    @Test(expectedExceptions = IllegalArgumentException.class)
+//    @Test(expectedExceptions = LanguageSchoolException.class)
 //    public void createPersonWithDuplicatedUserName() {
 //        testedPerson.setUserName(person1.getUserName());
 //        personService.createPerson(testedPerson);
 //    }
 //
-//    @Test(expectedExceptions = IllegalArgumentException.class)
+//    @Test(expectedExceptions = LanguageSchoolException.class)
 //    public void createPersonWithNotNullId() {
 //        testedPerson = new Person(counter * 3L);
 //        testedPerson.setUserName("DanoDrevoFanboy");
@@ -209,24 +211,24 @@
 //        assertThat(updatedPerson).isEqualToComparingFieldByField(person1);
 //    }
 //
-//    @Test(expectedExceptions = IllegalArgumentException.class)
+//    @Test(expectedExceptions = LanguageSchoolException.class)
 //    public void updateNullPerson() {
 //        personService.updatePerson(null);
 //    }
 //
-//    @Test(expectedExceptions = IllegalArgumentException.class)
+//    @Test(expectedExceptions = LanguageSchoolException.class)
 //    public void updatePersonWithNullLastName() {
 //        person1.setLastName(null);
 //        personService.updatePerson(person1);
 //    }
 //
-//    @Test(expectedExceptions = IllegalArgumentException.class)
+//    @Test(expectedExceptions = LanguageSchoolException.class)
 //    public void updatePersonWithNullUserName() {
 //        person1.setUserName(null);
 //        personService.updatePerson(person1);
 //    }
 //
-//    @Test(expectedExceptions = IllegalArgumentException.class)
+//    @Test(expectedExceptions = LanguageSchoolException.class)
 //    public void updatePersonWithDuplicatedUserName() {
 //        person1.setUserName("NAJLEPSIA");
 //        personService.updatePerson(person1);
@@ -239,12 +241,12 @@
 //        assertThat(personMap.values()).hasSize(sizeBefore - 1).doesNotContain(person1);
 //    }
 //
-//    @Test(expectedExceptions = IllegalArgumentException.class)
+//    @Test(expectedExceptions = LanguageSchoolException.class)
 //    public void deleteNullPerson() {
 //        personService.deletePerson(null);
 //    }
 //
-//    @Test
+//    @Test(expectedExceptions = LanguageSchoolException.class)
 //    public void deletePersonNotInDatabase() {
 //        int sizeBefore = personMap.values().size();
 //        personService.deletePerson(testedPerson);
@@ -257,13 +259,13 @@
 //        assertThat(personService.findAll()).containsExactlyInAnyOrder(person1, person2);
 //    }
 //
-//    @Test(expectedExceptions = IllegalArgumentException.class)
+//    @Test(expectedExceptions = LanguageSchoolException.class)
 //    public void findPersonById() {
 //        Person adam = personService.findPersonById(person1.getId());
 //        assertThat(adam).isEqualToComparingFieldByField(person1);
 //    }
 //
-//    @Test(expectedExceptions = IllegalArgumentException.class)
+//    @Test(expectedExceptions = LanguageSchoolException.class)
 //    public void findPersonByNullId() {
 //        personService.findPersonById(null);
 //    }
@@ -285,7 +287,7 @@
 //        assertThat(adam).isEmpty();
 //    }
 //
-//    @Test(expectedExceptions = IllegalArgumentException.class)
+//    @Test(expectedExceptions = LanguageSchoolException.class)
 //    public void findPersonByLastNameNull() {
 //        personService.findPersonsByLastName(null);
 //    }
@@ -296,12 +298,12 @@
 //        assertThat(adam).isEqualToComparingFieldByField(person1);
 //    }
 //
-//    @Test(expectedExceptions = IllegalArgumentException.class)
+//    @Test(expectedExceptions = LanguageSchoolException.class)
 //    public void findPersonByUserNameNotInDB() {
 //        personService.findPersonByUserName("stefan");
 //    }
 //
-//    @Test(expectedExceptions = IllegalArgumentException.class)
+//    @Test(expectedExceptions = LanguageSchoolException.class)
 //    public void findPersonByUserNameNull() {
 //        personService.findPersonsByLastName(null);
 //    }
