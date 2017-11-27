@@ -1,4 +1,4 @@
-package java.PA165.language_school_manager.facade;
+package PA165.language_school_manager.facade;
 
 import PA165.language_school_manager.DTO.CourseCreateDTO;
 import PA165.language_school_manager.Dao.CourseDao;

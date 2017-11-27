@@ -1,10 +1,9 @@
-package java.PA165.language_school_manager.service;
+package PA165.language_school_manager.service;
 
 import PA165.language_school_manager.Dao.CourseDao;
 import PA165.language_school_manager.Entities.Course;
 import PA165.language_school_manager.Enums.Language;
 import PA165.language_school_manager.config.ServiceConfiguration;
-import PA165.language_school_manager.service.CourseService;
 import org.hibernate.service.spi.ServiceException;
 import org.junit.BeforeClass;
 import org.junit.Test;
