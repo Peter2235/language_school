@@ -56,7 +56,7 @@ public interface PersonService {
         
         /**
          * 
-         * @param id 
+         * @param person
          */
         void deletePerson(Person person);
 }
