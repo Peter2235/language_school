@@ -52,9 +52,10 @@ public class PersonFacadeImpl implements PersonFacade{
 
     @Override
     @Transactional
-    public void createPerson(PersonCreateDTO person) {
+    public PersonDTO createPerson(PersonCreateDTO person) {
         Person mapPerson = beanMappingService.mapTo(person, Person.class);
         personService.createPerson(mapPerson);
+        return beanMappingService.mapTo(mapPerson, PersonDTO.class);
     }
 
     @Override
