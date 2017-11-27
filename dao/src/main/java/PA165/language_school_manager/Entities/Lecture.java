@@ -18,6 +18,10 @@ import java.util.Set;
 @Entity
 public class Lecture {
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
