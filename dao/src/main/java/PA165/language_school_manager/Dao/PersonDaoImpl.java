@@ -26,7 +26,7 @@ public class PersonDaoImpl implements PersonDao {
     @Override
     public Person findByUserName(String userName){
         try {
-            return entityManager.createQuery("select p from Person p where userName = :userName", Person.class)
+            return entityManager.createQuery("select p from Person p where p.userName = :userName", Person.class)
                     .setParameter("userName", userName).getSingleResult();
         } catch (NoResultException e) {
             return null;
@@ -36,7 +36,7 @@ public class PersonDaoImpl implements PersonDao {
     @Override
     public List<Person> findByLastName(String lastName) {
         try {
-            return entityManager.createQuery("select p from Person p where lastName = :lastName", Person.class)
+            return entityManager.createQuery("select p from Person p where p.lastName = :lastName", Person.class)
                     .setParameter("lastName", lastName).getResultList();
         } catch (NoResultException e) {
             return null;
@@ -44,18 +44,21 @@ public class PersonDaoImpl implements PersonDao {
     }
     
     @Override
-    public void create(Person person) {
+    public Person create(Person person) {
         entityManager.persist(person);
+        return person;
     }
 
     @Override
-    public void update(Person person) {
+    public Person update(Person person) {
         entityManager.merge(person);
+        return person;
     }
 
     @Override
-    public void delete(Person person) {
+    public Person delete(Person person) {
         entityManager.remove(entityManager.merge(person));
+        return person;
     }
 
     @Override
