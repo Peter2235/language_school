@@ -1,4 +1,4 @@
-package PA165.language_school_manager.service.facade;
+package PA165.language_school_manager.facade;
 
 import PA165.language_school_manager.DTO.LectureDTO;
 import PA165.language_school_manager.Entities.Lecture;
