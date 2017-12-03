@@ -8,14 +8,13 @@ package PA165.language_school_manager;
 import PA165.language_school_manager.Dao.LecturerDAO;
 import PA165.language_school_manager.Entities.Lecturer;
 import PA165.language_school_manager.Enums.Language;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 
 import java.util.HashSet;
 import java.util.List;
@@ -27,9 +26,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Jan Safarik
  */
 @ContextConfiguration(classes = ApplicationContext.class)
-@TestExecutionListeners(TransactionalTestExecutionListener.class)
+@RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
-public class LecturerDaoTest extends AbstractTestNGSpringContextTests {
+public class LecturerDaoTest {
 
     @Autowired
     private LecturerDAO lecturerDao;
@@ -37,7 +36,7 @@ public class LecturerDaoTest extends AbstractTestNGSpringContextTests {
     private Lecturer l1;
     private Lecturer l2;
 
-    @BeforeMethod
+    @Before
     public void createLecturers() {
         l1 = new Lecturer("lecturer1", "Christopher", "Biggie Smalls", "Wallace", new HashSet<>(), false);
         l1.addLanguage(Language.ITALIAN);
@@ -123,12 +122,12 @@ public class LecturerDaoTest extends AbstractTestNGSpringContextTests {
         assertThat(lecturers).isEmpty();
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void findByIdNull() {
         lecturerDao.findById(null);
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void createLecturerNull() {
         lecturerDao.create(null);
     }

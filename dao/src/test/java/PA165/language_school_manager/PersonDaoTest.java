@@ -7,14 +7,17 @@ package PA165.language_school_manager;
 
 import PA165.language_school_manager.Dao.PersonDao;
 import PA165.language_school_manager.Entities.Person;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+
 
 import javax.persistence.PersistenceException;
 import java.util.List;
@@ -27,9 +30,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Matúš
  */
 @ContextConfiguration(classes = ApplicationContext.class)
-@TestExecutionListeners(TransactionalTestExecutionListener.class)
+@RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
-public class PersonDaoTest extends AbstractTestNGSpringContextTests {
+public class PersonDaoTest {
 
     @Autowired
     private PersonDao personDao;
@@ -38,7 +41,7 @@ public class PersonDaoTest extends AbstractTestNGSpringContextTests {
     private Person p2;
     private Person p3;
 
-    @BeforeMethod
+    @Before
     public void createPeople() {
         p1 = new Person();
         p2 = new Person();
@@ -73,7 +76,7 @@ public class PersonDaoTest extends AbstractTestNGSpringContextTests {
         assertThat(person.getFirstName()).isEqualTo("Jan");
     }
 
-    @Test(expectedExceptions = PersistenceException.class)
+    @Test(expected = PersistenceException.class)
     public void createWithNullUserName() {
         Person personWithNullUserName = new Person(1l);
         personWithNullUserName.setUserName(null);
@@ -81,7 +84,7 @@ public class PersonDaoTest extends AbstractTestNGSpringContextTests {
         personDao.create(personWithNullUserName);
     }
 
-    @Test(expectedExceptions = PersistenceException.class)
+    @Test(expected = PersistenceException.class)
     public void createWithNullLastName() {
         Person personWithNullLastName = new Person(1l);
         personWithNullLastName.setFirstName("Jan");
@@ -105,7 +108,7 @@ public class PersonDaoTest extends AbstractTestNGSpringContextTests {
         assertThat(person).isNull();
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void findByNullId() {
         personDao.findById(null);
     }
@@ -155,7 +158,7 @@ public class PersonDaoTest extends AbstractTestNGSpringContextTests {
                 .isNull();
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void deletePersonNull() {
         personDao.delete(null);
     }
@@ -167,7 +170,7 @@ public class PersonDaoTest extends AbstractTestNGSpringContextTests {
         assertThat(p1.getFirstName()).isEqualTo("Peter");
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void updateNull() {
         personDao.update(null);
     }

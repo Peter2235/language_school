@@ -14,9 +14,14 @@
 
     <dependencies>
         <dependency>
-            <groupId>PA165</groupId>
-            <artifactId>dao</artifactId>
-            <version>${project.parent.version}</version>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.18</version>
+        </dependency>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-web-api</artifactId>
+            <version>6.0</version>
         </dependency>
     </dependencies>
 </project>
