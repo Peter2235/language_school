@@ -4,14 +4,12 @@ import PA165.language_school_manager.Dao.CourseDao;
 import PA165.language_school_manager.Entities.Course;
 import PA165.language_school_manager.Enums.Language;
 import PA165.language_school_manager.Enums.ProficiencyLevel;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
-import org.testng.annotations.Test;
-
+import org.junit.Test;
 import javax.persistence.PersistenceException;
 import javax.validation.ConstraintViolationException;
 import java.util.List;
@@ -24,9 +22,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Peter Tirala
  */
 @ContextConfiguration(classes = ApplicationContext.class)
-@TestExecutionListeners(TransactionalTestExecutionListener.class)
+@RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
-public class CourseDaoTest extends AbstractTestNGSpringContextTests {
+public class CourseDaoTest {
 
     @Autowired
     private CourseDao courseDao;
@@ -46,7 +44,7 @@ public class CourseDaoTest extends AbstractTestNGSpringContextTests {
         assertThat(all).contains(course);
     }
 
-    @Test(expectedExceptions = PersistenceException.class)
+    @Test(expected = PersistenceException.class)
     public void createWithSameName() {
         Course course = new Course();
         course.setName("TestCourse");
@@ -63,7 +61,7 @@ public class CourseDaoTest extends AbstractTestNGSpringContextTests {
         courseDao.create(course2);
     }
 
-    @Test(expectedExceptions = ConstraintViolationException.class)
+    @Test(expected = ConstraintViolationException.class)
     public void createWithNullLanguage() {
         Course course = new Course();
         course.setName("TestCourse");
@@ -72,7 +70,7 @@ public class CourseDaoTest extends AbstractTestNGSpringContextTests {
         courseDao.create(course);
     }
 
-    @Test(expectedExceptions = ConstraintViolationException.class)
+    @Test(expected = ConstraintViolationException.class)
     public void createWithNullProficiencyLevel() {
         Course course = new Course();
         course.setName("TestCourse");
@@ -103,7 +101,7 @@ public class CourseDaoTest extends AbstractTestNGSpringContextTests {
         assertThat(course).isNull();
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void findByIdNullTest() {
         courseDao.findById(null);
     }
@@ -255,7 +253,7 @@ public class CourseDaoTest extends AbstractTestNGSpringContextTests {
         assertThat(course2).isNull();
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void deleteCourseNull() {
         courseDao.delete(null);
     }
@@ -278,7 +276,7 @@ public class CourseDaoTest extends AbstractTestNGSpringContextTests {
         assertThat(coures2.getName()).isEqualTo("TestCourse2");
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void updateNull() {
         courseDao.update(null);
     }

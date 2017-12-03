@@ -7,7 +7,6 @@ package PA165_language_school_manager.Facade;
 
 import PA165.language_school_manager.DTO.PersonCreateDTO;
 import PA165.language_school_manager.DTO.PersonDTO;
-import PA165.language_school_manager.Entities.Person;
 
 import java.util.Collection;
 import java.util.List;

@@ -8,14 +8,13 @@ import PA165.language_school_manager.Entities.Lecture;
 import PA165.language_school_manager.Entities.Lecturer;
 import PA165.language_school_manager.Enums.Language;
 import PA165.language_school_manager.Enums.ProficiencyLevel;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 
 import javax.persistence.PersistenceException;
 import javax.validation.ConstraintViolationException;
@@ -29,9 +28,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 
 @ContextConfiguration(classes = ApplicationContext.class)
-@TestExecutionListeners(TransactionalTestExecutionListener.class)
+@RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
-public class LectureDaoTest extends AbstractTestNGSpringContextTests {
+public class LectureDaoTest {
 
     @Autowired
     private LectureDao lectureDao;
@@ -44,7 +43,7 @@ public class LectureDaoTest extends AbstractTestNGSpringContextTests {
 
     private Lecture lecture1;
 
-    @BeforeMethod
+    @Before
     public void setup() {
         lecture1 = new Lecture();
         lecture1.setTopic("jamesBond");
@@ -80,13 +79,13 @@ public class LectureDaoTest extends AbstractTestNGSpringContextTests {
         assertThat(lecture1.getTopic()).isEqualTo("jamesBond");
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void createNullLecture() {
         lectureDao.create(null);
     }
 
 
-    @Test(expectedExceptions = PersistenceException.class)
+    @Test(expected = PersistenceException.class)
     public void createLectureWithNullDate() {
         Lecture lecture2 = new Lecture();
         lecture2.setTopic("jamesBond");
@@ -111,7 +110,7 @@ public class LectureDaoTest extends AbstractTestNGSpringContextTests {
 
     }
 
-    @Test(expectedExceptions = ConstraintViolationException.class)
+    @Test(expected = ConstraintViolationException.class)
     public void createLectureWithNullCourse() {
         Lecture lecture3 = new Lecture();
         lecture3.setTopic("jamesBond");
@@ -127,7 +126,7 @@ public class LectureDaoTest extends AbstractTestNGSpringContextTests {
         lectureDao.create(lecture3);
     }
 
-    @Test(expectedExceptions = PersistenceException.class)
+    @Test(expected = PersistenceException.class)
     public void createLectureWithNullLecturer() {
         Lecture lecture2 = new Lecture();
         lecture2.setTopic("jamesBond");
@@ -149,7 +148,7 @@ public class LectureDaoTest extends AbstractTestNGSpringContextTests {
         assertThat(lecture.getTopic()).isNotNull().isEqualTo("jamesBond");
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void findLectureByIdNull() {
         lectureDao.findById(null);
     }
@@ -176,7 +175,7 @@ public class LectureDaoTest extends AbstractTestNGSpringContextTests {
         assertThat(lectureDao.findById(lecture1.getId())).isNull();
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void deleteNullLecture() {
         lectureDao.delete(null);
     }
@@ -193,12 +192,12 @@ public class LectureDaoTest extends AbstractTestNGSpringContextTests {
         assertThat(lecture1.getTopic()).isEqualTo("secondTopic");
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void updateNullLecture() {
         lectureDao.update(null);
     }
 
-    @Test(expectedExceptions = PersistenceException.class)
+    @Test(expected = PersistenceException.class)
     public void updateLectureWithNullDate() {
         Lecture lecture2 = new Lecture();
         lecture2.setTopic("jamesBond");
@@ -222,7 +221,7 @@ public class LectureDaoTest extends AbstractTestNGSpringContextTests {
         lectureDao.update(lecture2);
     }
 
-    @Test(expectedExceptions = ConstraintViolationException.class)
+    @Test(expected = ConstraintViolationException.class)
     public void updateLectureWithNullCourse() {
         Lecture lecture3 = new Lecture();
         lecture3.setTopic("jamesBond");
@@ -238,7 +237,7 @@ public class LectureDaoTest extends AbstractTestNGSpringContextTests {
         lectureDao.update(lecture3);
     }
 
-    @Test(expectedExceptions = PersistenceException.class)
+    @Test(expected = PersistenceException.class)
     public void updateLectureWithNullLecturer() {
         Lecture lecture2 = new Lecture();
         lecture2.setTopic("jamesBond");
