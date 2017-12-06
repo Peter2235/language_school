@@ -6,6 +6,7 @@ import PA165.language_school_manager.Enums.Language;
 import PA165.language_school_manager.LanguageSchoolException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
  * @author Viktor Slany
  */
 
+@Service
 public class CourseServiceImpl implements CourseService {
 
     @Autowired
