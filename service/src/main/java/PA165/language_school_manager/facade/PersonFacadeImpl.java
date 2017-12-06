@@ -14,11 +14,15 @@ import PA165_language_school_manager.Facade.PersonFacade;
 import java.util.Collection;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 /**
  *
  * @author Matúš
  */
+
+@Service
+@Transactional
 public class PersonFacadeImpl implements PersonFacade{
     
     @Autowired

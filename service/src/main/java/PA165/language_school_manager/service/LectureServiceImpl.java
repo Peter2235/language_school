@@ -3,17 +3,20 @@ package PA165.language_school_manager.service;
 import PA165.language_school_manager.Entities.Course;
 import PA165.language_school_manager.Entities.Lecture;
 import PA165.language_school_manager.LanguageSchoolException;
+import org.dozer.inject.Inject;
 import org.springframework.beans.factory.annotation.Autowired;
 import PA165.language_school_manager.Dao.LectureDao;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.TransactionRequiredException;
+import java.util.Collections;
 import java.util.List;
 
+@Service
 public class LectureServiceImpl implements LectureService {
 
-    @Autowired
+    @Inject
     private LectureDao lectureDAO;
 
     @Override
@@ -21,12 +24,22 @@ public class LectureServiceImpl implements LectureService {
         if (id == null){
             throw new NullPointerException("ID cant be null");
         }
-        return lectureDAO.findById(id);
+        try {
+            return lectureDAO.findById(id);
+        } catch (Throwable e) {
+            throw new LanguageSchoolException("find lecture by id failed " + e);
+        }
+
     }
 
     @Override
     public List<Lecture> findAllLectures() {
-        return lectureDAO.findAll();
+        try {
+            return Collections.unmodifiableList(lectureDAO.findAll());
+        }catch (Throwable e){
+            throw new LanguageSchoolException("find all lectures failed " + e);
+        }
+
     }
 
     @Override
@@ -34,7 +47,12 @@ public class LectureServiceImpl implements LectureService {
         if (topic == null){
             throw new NullPointerException("topic cant be null");
         }
-        return lectureDAO.findByTopic(topic);
+        try {
+            return lectureDAO.findByTopic(topic);
+        } catch (Throwable e){
+            throw new LanguageSchoolException("find lecture by topic failed " + e);
+        }
+
     }
 
     @Override
@@ -66,6 +84,9 @@ public class LectureServiceImpl implements LectureService {
     public void updateLecture(Lecture lecture) {
         if (lecture == null){
             throw new NullPointerException("lecture cant be null");
+        }
+        if (lecture.getId() == null){
+            throw new NullPointerException("lectures ID is null - not in DB");
         }
         try {
             lectureDAO.update(lecture);

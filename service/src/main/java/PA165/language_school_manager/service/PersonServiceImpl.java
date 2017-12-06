@@ -10,11 +10,14 @@ import PA165.language_school_manager.Entities.Person;
 import PA165.language_school_manager.LanguageSchoolException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Matúš
  */
+
+@Service
 public class PersonServiceImpl implements PersonService {
 
     @Autowired
