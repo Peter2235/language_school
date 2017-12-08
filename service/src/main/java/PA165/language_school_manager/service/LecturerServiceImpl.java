@@ -93,7 +93,7 @@ public class LecturerServiceImpl implements LecturerService {
             throw new NullPointerException("Lecturer not found");
         }
 
-        lecturer.getLectures().add(lecture);
+        lecturer.addLecture(lecture);
         try {
             lecturerDAO.update(lecturer);
         } catch (Throwable e) {
