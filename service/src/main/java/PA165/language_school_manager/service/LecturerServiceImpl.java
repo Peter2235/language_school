@@ -5,10 +5,12 @@ import PA165.language_school_manager.Entities.Lecture;
 import PA165.language_school_manager.Entities.Lecturer;
 import PA165.language_school_manager.Enums.Language;
 import PA165.language_school_manager.LanguageSchoolException;
+import java.util.HashSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Peter Tirala
@@ -115,7 +117,9 @@ public class LecturerServiceImpl implements LecturerService {
             throw new NullPointerException("Lecturer not found");
         }
 
-        lecturer.getLanguages().add(language);
+        Set<Language> languages = new HashSet<>(lecturer.getLanguages());
+        languages.add(language);
+        lecturer.setLanguages(languages);
 
         try {
             lecturerDAO.update(lecturer);
@@ -146,6 +150,15 @@ public class LecturerServiceImpl implements LecturerService {
             lecturerDAO.delete(lecturer);
         } catch (Throwable e) {
             throw new LanguageSchoolException("Course create failed");
+        }
+    }
+
+    @Override
+    public void updateLecturer(Lecturer lecturer) {
+        try {
+            lecturerDAO.delete(lecturer);
+        } catch (Throwable e) {
+            throw new LanguageSchoolException("Person delete failed");
         }
     }
 }

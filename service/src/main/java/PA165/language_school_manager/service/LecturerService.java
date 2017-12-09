@@ -70,7 +70,6 @@ public interface LecturerService {
      * Create new lecturer
      *
      * @param newLecturer lecturerCreateDto
-     * @return id of created lecturer
      */
     void createLecturer(Lecturer newLecturer);
 
@@ -80,4 +79,10 @@ public interface LecturerService {
      * @param id lecturerId
      */
     void deleteLecturer(Long id);
+    
+    /**
+     * Update lecturer
+     * @param lecturer lecturer to update
+     */
+    void updateLecturer(Lecturer lecturer);
 }

@@ -1,5 +1,6 @@
 package PA165.language_school_manager.DTO;
 
+import PA165.language_school_manager.Enums.Language;
 import lombok.Getter;
 import lombok.Setter;
 
