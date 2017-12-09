@@ -1,23 +1,34 @@
 package PA165.language_school_manager.facade;
 
 import PA165.language_school_manager.DTO.CourseCreateDTO;
-import PA165.language_school_manager.Dao.CourseDao;
+import PA165.language_school_manager.DTO.CourseDTO;
 import PA165.language_school_manager.Entities.Course;
 import PA165.language_school_manager.Enums.Language;
+import PA165.language_school_manager.Enums.ProficiencyLevel;
 import PA165.language_school_manager.config.ServiceConfiguration;
+import PA165.language_school_manager.service.BeanMappingService;
+import PA165.language_school_manager.service.CourseService;
 import PA165_language_school_manager.Facade.CourseFacade;
 import org.hibernate.service.spi.ServiceException;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.Spy;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.inject.Inject;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * @author Peter Tirala
@@ -29,58 +40,86 @@ public class CourseFacadeTest {
     @InjectMocks
     private CourseFacade courseFacade = new CourseFacadeImpl();
 
+    @Inject
+    @Spy
+    private BeanMappingService mapper;
+
     @Mock
-    private CourseDao courseDao;
+    private CourseService courseService;
 
-    @BeforeClass
-    public void setup() throws ServiceException {
+    private CourseCreateDTO courseCreateDTO;
+    private CourseDTO courseDTO;
+    private Course course;
+    private List<Course> courseList = new ArrayList<>();
+
+    @Before
+    public void setUp() throws ServiceException {
         MockitoAnnotations.initMocks(this);
-    }
 
-    @Test
-    public void findByIdTest() {
-        Course course = new Course();
-        courseDao.create(course);
-
-        assertThat(courseFacade.findCourseById(course.getId()))
-                .isNotNull();
-    }
-
-    @Test
-    public void findAllTest() {
-        Course course = new Course();
-        courseDao.create(course);
-
-        assertThat(courseFacade.findAllCourses())
-                .isNotEmpty();
-    }
-
-    @Test
-    public void findByLanguageTest() {
-        Course course = new Course();
+        course = new Course();
+        course.setId(1L);
+        course.setName("Name");
         course.setLanguage(Language.ENGLISH);
-        courseDao.create(course);
+        course.setProficiencyLevel(ProficiencyLevel.A1);
 
-        assertThat(courseFacade.findCourseByLanguage(Language.ENGLISH))
-                .isNotNull();
-    }
+        courseDTO = new CourseDTO();
+        courseDTO.setName("Name");
+        courseDTO.setId(1L);
+        courseDTO.setLanguage(Language.ENGLISH);
+        courseDTO.setProficiencyLevel(ProficiencyLevel.A1);
 
-    @Test
-    public void findByNameTest() {
-        Course course = new Course();
-        course.setName("Test");
-        courseDao.create(course);
+        courseCreateDTO = new CourseCreateDTO();
+        courseCreateDTO.setName("Name");
+        courseCreateDTO.setLanguage(Language.ENGLISH);
+        courseCreateDTO.setProficiencyLevel(ProficiencyLevel.A1);
 
-        assertThat(courseFacade.findCourseByName("Test"))
-                .isNotNull();
+        courseList.add(course);
+
+        when(courseService.findById(1L)).thenReturn(course);
+        when(courseService.findAll()).thenReturn(courseList);
+        when(courseService.findByLanguage(Language.ENGLISH)).thenReturn(courseList);
+        when(courseService.findByName("Name")).thenReturn(course);
     }
 
     @Test
     public void createCourseTest() {
-        CourseCreateDTO course = new CourseCreateDTO();
-        courseFacade.createCourse(course);
+        courseFacade.createCourse(courseCreateDTO);
+        verify(courseService).createCourse(course);
+    }
 
-        assertThat(courseDao.findAll())
-                .isNotEmpty();
+    @Test
+    public void updateCourseTest() {
+        courseFacade.updateCourse(courseDTO);
+        verify(courseService).updateCourse(course);
+    }
+
+    @Test
+    public void findByIdTest() {
+        CourseDTO courseById = courseFacade.findCourseById(1L);
+        assertThat(courseById).isEqualTo(courseDTO);
+    }
+
+    @Test
+    public void findAllTest() {
+        Collection<CourseDTO> allCourses = courseFacade.findAllCourses();
+        assertThat(allCourses).contains(courseDTO);
+    }
+
+    @Test
+    public void findByLanguageTest() {
+        List<CourseDTO> courseByLanguage = courseFacade.findCourseByLanguage(Language.ENGLISH);
+        assertThat(courseByLanguage).contains(courseDTO);
+    }
+
+    @Test
+    public void findByNameTest() {
+        CourseDTO dto = courseFacade.findCourseByName("Name");
+        assertThat(dto).isEqualTo(courseDTO);
+    }
+
+    @Test
+    public void deleteCourseTest() {
+        courseFacade.deleteCourse(courseDTO);
+        verify(courseService).deleteCourse(course);
     }
 }

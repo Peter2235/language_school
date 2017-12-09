@@ -3,6 +3,7 @@ package PA165.language_school_manager.service;
 import PA165.language_school_manager.Dao.CourseDao;
 import PA165.language_school_manager.Entities.Course;
 import PA165.language_school_manager.Enums.Language;
+import PA165.language_school_manager.Enums.ProficiencyLevel;
 import PA165.language_school_manager.config.ServiceConfiguration;
 import org.hibernate.service.spi.ServiceException;
 import org.junit.Before;
@@ -13,8 +14,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -31,47 +36,54 @@ public class CourseServiceTest {
     @InjectMocks
     private CourseService courseService = new CourseServiceImpl();
 
+    private Course course;
+    private List<Course> courses = new ArrayList<>();
+
     @Before
-    public void setup() throws ServiceException {
+    public void setUp() throws ServiceException {
         MockitoAnnotations.initMocks(this);
+
+        TestUtils.mockCourseDao(courseDao, courses);
+
+        course = TestUtils.createCourse(ProficiencyLevel.A1, "Name", Language.ENGLISH);
+        courseService.createCourse(course);
     }
 
     @Test
     public void findByIdTest() {
-        Course course = new Course();
-        courseDao.create(course);
+        assertThat(courseService.findById(course.getId())).isEqualTo(course);
+    }
 
-        assertThat(courseService.findById(course.getId()))
-                .isEqualTo(course);
+    @Test(expected = IllegalArgumentException.class)
+    public void findByIdNullTest() {
+        courseService.findById(null);
     }
 
     @Test
     public void findAllTest() {
-        Course course = new Course();
-        courseDao.create(course);
-
-        assertThat(courseService.findAll())
-                .contains(course);
+        List<Course> courses = courseService.findAll();
+        assertThat(courses.size()).isEqualTo(1);
+        assertThat(courses).contains(course);
     }
 
     @Test
     public void findByLanguageTest() {
-        Course course = new Course();
-        course.setLanguage(Language.ENGLISH);
-        courseDao.create(course);
+        assertThat(courseService.findByLanguage(Language.ENGLISH)).contains(course);
+    }
 
-        assertThat(courseService.findByLanguage(Language.ENGLISH))
-                .contains(course);
+    @Test(expected = IllegalArgumentException.class)
+    public void findByLanguageNullTest() {
+        courseService.findByLanguage(null);
     }
 
     @Test
     public void findByNameTest() {
-        Course course = new Course();
-        course.setName("Test");
-        courseDao.create(course);
+        assertThat(courseService.findByName("Name")).isEqualTo(course);
+    }
 
-        assertThat(courseService.findByName("Test"))
-                .isEqualTo(course);
+    @Test(expected = IllegalArgumentException.class)
+    public void findByNameNullTest() {
+        courseService.findByName(null);
     }
 
     @Test
@@ -79,31 +91,23 @@ public class CourseServiceTest {
         Course course = new Course();
         courseService.createCourse(course);
 
-        assertThat(courseDao.findById(course.getId()))
-                .isEqualTo(course);
+        assertThat(courseService.findById(course.getId())).isEqualTo(course);
     }
 
     @Test
     public void updateCourseTest() {
-        Course course = new Course();
-        courseDao.create(course);
-
         course.setName("Test");
         courseService.updateCourse(course);
 
-        Course byId = courseDao.findById(course.getId());
+        Course byId = courseService.findById(course.getId());
         assertThat(byId.getName()).isEqualTo("Test");
     }
 
     @Test
     public void deleteCourseTest() {
-        Course course = new Course();
-        courseDao.create(course);
-
         courseService.deleteCourse(course);
 
-        assertThat(courseDao.findAll())
-                .isEmpty();
+        assertThat(courseService.findAll()).isEmpty();
     }
 
 }
