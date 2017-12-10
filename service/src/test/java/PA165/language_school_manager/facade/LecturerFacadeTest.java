@@ -10,15 +10,21 @@ import PA165.language_school_manager.DTO.LecturerCreateDTO;
 import PA165.language_school_manager.DTO.LecturerDTO;
 import PA165.language_school_manager.Enums.Language;
 import PA165.language_school_manager.config.ServiceConfiguration;
+import PA165.language_school_manager.service.BeanMappingService;
+import PA165.language_school_manager.service.LecturerService;
 import PA165_language_school_manager.Facade.LecturerFacade;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.inject.Inject;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -34,12 +40,21 @@ public class LecturerFacadeTest {
     @InjectMocks
     private LecturerFacade lecturerFacade = new LecturerFacadeImpl();
 
+    @Inject
+    @Spy
+    private BeanMappingService mapper;
+
+    @Mock
+    private LecturerService lecturerService;
+
     private LecturerCreateDTO lecturerCreateDto;
     private LecturerDTO lecturerDto;
     private LectureDTO lectureDto;
 
     @Before
     public void setUp() throws Exception {
+        MockitoAnnotations.initMocks(this);
+
         lecturerCreateDto = new LecturerCreateDTO();
         lecturerCreateDto.setFirstName("Adam");
         lecturerCreateDto.setLastName("Adamovic");
