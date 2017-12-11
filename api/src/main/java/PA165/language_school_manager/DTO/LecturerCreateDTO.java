@@ -1,5 +1,8 @@
 package PA165.language_school_manager.DTO;
 
+import PA165.language_school_manager.Enums.Language;
+import java.util.HashSet;
+import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,6 +23,8 @@ public class LecturerCreateDTO {
     private String firstName;
     private String middleName;
 
+    private Set<Language> languages = new HashSet<>();
+    
     @NotNull
     private String lastName;
     private boolean isNativeSpeaker;
