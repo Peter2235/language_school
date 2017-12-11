@@ -97,6 +97,13 @@ public class LecturerFacadeImpl implements LecturerFacade {
     @Override
     @Transactional
     public void deleteLecturer(Long id) {
-        lecturerService.deleteLecturer(id);
+        lecturerService.deleteLecturer(lecturerService.findLecturerById(id).getId());
+    }
+
+    @Override
+    @Transactional
+    public void updateLecturer(LecturerCreateDTO newLecturer) {
+        Lecturer lecturer = beanMappingService.mapTo(newLecturer, Lecturer.class);
+        lecturerService.updateLecturer(lecturer);
     }
 }

@@ -92,7 +92,7 @@ public class LecturerServiceTest {
      public void findLecturerByLectureTest(){
         Lecture lecture = TestUtils.createLecture(
                 "topic", 
-                testLecturer, new Course());
+                testLecturer, new Course(1l));
         
         lecturerService.assignNewLecture(testLecturer.getId(), lecture);
         

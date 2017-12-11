@@ -20,14 +20,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.Spy;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Set;
 import javax.inject.Inject;
@@ -35,9 +30,9 @@ import javax.inject.Inject;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.hibernate.service.spi.ServiceException;
 import org.mockito.Mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
-import static org.mockito.Mockito.verify;
 import org.mockito.Spy;
 
 /**
@@ -75,19 +70,22 @@ public class LecturerFacadeTest {
         lecturer.setFirstName("Adam");
         lecturer.setLastName("Adamovic");
         lecturer.setUserName("adam123");
+        lecturer.addLanguage(Language.ENGLISH);
         lecturer.setNativeSpeaker(false);
 
         lecturerDto = new LecturerDTO();
         lecturerDto.setFirstName("Adam");
         lecturerDto.setLastName("Adamovic");
         lecturerDto.setUserName("adam123");
+        lecturerDto.addLanguage(Language.ENGLISH);
+        lecturerDto.setNativeSpeaker(false);
+        
         lecturerCreateDto = new LecturerCreateDTO();
         lecturerCreateDto.setFirstName("Adam");
         lecturerCreateDto.setLastName("Adamovic");
         lecturerCreateDto.setUserName("adam123");
-        Set<Language> languages = new HashSet<>(lecturerCreateDto.getLanguages());
-        languages.add(Language.ENGLISH);
-        lecturerCreateDto.setLanguages(languages);
+        lecturerCreateDto.addLanguage(Language.ENGLISH);
+        lecturerCreateDto.setNativeSpeaker(false);
 
         lectureDto = new LectureDTO();
         lectureDto.setTopic("englishlesson");
@@ -101,7 +99,7 @@ public class LecturerFacadeTest {
         when(lecturerService.findLecturersByLanguage(Language.ENGLISH)).thenReturn(lecturerList);
     }
 
-    /*@Test
+    @Test
     public void createLecturerTest() {
         lecturerFacade.createLecturer(lecturerCreateDto);
         verify(lecturerService).createLecturer(lecturer);
@@ -109,13 +107,13 @@ public class LecturerFacadeTest {
     
     @Test
     public void updateLecturer() {
-        lecturerFacade.createLecturer(lecturerCreateDto);
+        lecturerFacade.updateLecturer(lecturerCreateDto);
         verify(lecturerService).updateLecturer(lecturer);
     }
     
-    @Test
+    /*@Test
     public void deleteLecturerTest() {
-        lecturerFacade.createLecturer(lecturerCreateDto);
+        lecturerFacade.deleteLecturer(lecturerService);
         verify(lecturerService).deleteLecturer(lecturer.getId());
     }*/
 
@@ -137,7 +135,7 @@ public class LecturerFacadeTest {
                 .contains(lecturerDto);
     }
 
-    /*@Test
+    @Test
     public void findLecturerByLectureTest() {
         LecturerDTO foundLecturer = lecturerFacade.findLecturerByLecture(lectureDto);
         assertThat(foundLecturer)
@@ -145,7 +143,8 @@ public class LecturerFacadeTest {
         assertThat(foundLecturer.getLectures())
                 .isNotEmpty()
                 .contains(lectureDto);
-    }*/
+    }
+
     @Test
     public void findLecturersByLanguage() {
         List<LecturerDTO> lecturers

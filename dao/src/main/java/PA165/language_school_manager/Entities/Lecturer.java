@@ -41,11 +41,7 @@ public class Lecturer extends Person {
     public Set<Language> getLanguages() {
         return Collections.unmodifiableSet(languages);
     }
-
-    public void setLanguages(Set<Language> languages) {
-        this.languages = languages;
-    }
-
+    
     public void addLanguage(Language language) {
         languages.add(language);
     }

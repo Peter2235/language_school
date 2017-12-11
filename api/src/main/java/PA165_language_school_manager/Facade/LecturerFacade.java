@@ -74,6 +74,13 @@ public interface LecturerFacade {
     void createLecturer(LecturerCreateDTO newLecturer);
 
     /**
+     * Update lecturer
+     *
+     * @param newLecturer lecturerCreateDto
+     */
+    void updateLecturer(LecturerCreateDTO newLecturer);
+    
+    /**
      * Delete lecturer
      *
      * @param id lecturerId

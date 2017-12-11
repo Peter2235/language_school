@@ -117,9 +117,7 @@ public class LecturerServiceImpl implements LecturerService {
             throw new NullPointerException("Lecturer not found");
         }
 
-        Set<Language> languages = new HashSet<>(lecturer.getLanguages());
-        languages.add(language);
-        lecturer.setLanguages(languages);
+        lecturer.addLanguage(language);
 
         try {
             lecturerDAO.update(lecturer);

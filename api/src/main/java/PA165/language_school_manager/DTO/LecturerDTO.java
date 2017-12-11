@@ -26,6 +26,10 @@ public class LecturerDTO {
     public LecturerDTO() {
     }
 
+    public void addLanguage(Language language){
+        languages.add(language);
+    }
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

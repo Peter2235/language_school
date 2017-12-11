@@ -3,6 +3,8 @@ package PA165.language_school_manager.DTO;
 import PA165.language_school_manager.Enums.Language;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.ElementCollection;
+import javax.persistence.Enumerated;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,6 +31,10 @@ public class LecturerCreateDTO {
     private String lastName;
     private boolean isNativeSpeaker;
 
+    public void addLanguage(Language language){
+        languages.add(language);
+    }
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
