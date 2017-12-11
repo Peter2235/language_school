@@ -20,9 +20,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.inject.Inject;
 import java.util.List;
 import java.util.Set;
 import javax.inject.Inject;
@@ -76,7 +81,6 @@ public class LecturerFacadeTest {
         lecturerDto.setFirstName("Adam");
         lecturerDto.setLastName("Adamovic");
         lecturerDto.setUserName("adam123");
-
         lecturerCreateDto = new LecturerCreateDTO();
         lecturerCreateDto.setFirstName("Adam");
         lecturerCreateDto.setLastName("Adamovic");

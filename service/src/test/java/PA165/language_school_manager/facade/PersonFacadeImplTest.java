@@ -3,14 +3,21 @@ package PA165.language_school_manager.facade;
 import PA165.language_school_manager.DTO.PersonCreateDTO;
 import PA165.language_school_manager.DTO.PersonDTO;
 import PA165.language_school_manager.config.ServiceConfiguration;
+import PA165.language_school_manager.service.BeanMappingService;
+import PA165.language_school_manager.service.PersonService;
 import PA165_language_school_manager.Facade.PersonFacade;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import javax.inject.Inject;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -25,12 +32,21 @@ public class PersonFacadeImplTest {
     @InjectMocks
     private PersonFacade personFacade = new PersonFacadeImpl();
 
+    @Inject
+    @Spy
+    private BeanMappingService mapper;
+
+    @Mock
+    private PersonService personService;
+
     private PersonDTO person1;
     private PersonDTO person2;
 
 
     @Before
     public void setUp() {
+        MockitoAnnotations.initMocks(this);
+
         PersonCreateDTO personCreate1 = new PersonCreateDTO();
         PersonCreateDTO personCreate2 = new PersonCreateDTO();
 
