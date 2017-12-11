@@ -8,6 +8,7 @@ package PA165.language_school_manager.facade;
 import PA165.language_school_manager.DTO.LectureDTO;
 import PA165.language_school_manager.DTO.LecturerCreateDTO;
 import PA165.language_school_manager.DTO.LecturerDTO;
+import PA165.language_school_manager.Entities.Lecturer;
 import PA165.language_school_manager.Enums.Language;
 import PA165.language_school_manager.config.ServiceConfiguration;
 import PA165.language_school_manager.service.BeanMappingService;
@@ -25,9 +26,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
 
 /**
  *
@@ -50,6 +53,8 @@ public class LecturerFacadeTest {
     private LecturerCreateDTO lecturerCreateDto;
     private LecturerDTO lecturerDto;
     private LectureDTO lectureDto;
+    private Lecturer lecturer;
+    private List<Lecturer> lecturerList = new ArrayList<>();
 
     @Before
     public void setUp() throws Exception {
@@ -61,23 +66,29 @@ public class LecturerFacadeTest {
         lecturerCreateDto.setUserName("adam123");
 
         lecturerDto = new LecturerDTO();
-        lecturerDto.setFirstName("Peter");
-        lecturerDto.setLastName("Petrovic");
-        lecturerDto.setUserName("peter123");
+        lecturerDto.setFirstName("Adam");
+        lecturerDto.setLastName("Adamovic");
+        lecturerDto.setUserName("adam123");
+
+        lecturer = new Lecturer();
+        lecturer.setFirstName("Adam");
+        lecturer.setLastName("Adamovic");
+        lecturer.setUserName("adam123");
+
+        lecturerList.add(lecturer);
 
         lectureDto = new LectureDTO();
         lectureDto.setTopic("englishlesson");
         lecturerFacade.assignNewLecture(lecturerDto.getId(), lectureDto);
         lecturerFacade.addLanguage(lecturerDto.getId(), Language.ENGLISH);
+
+        when(lecturerService.findLecturerByFirstName("Adam")).thenReturn(lecturerList);
     }
 
     @Test
     public void findLecturerByFirstNameTest() {
         List<LecturerDTO> lecturerDTO = lecturerFacade.findLecturerByFirstName(lecturerCreateDto.getFirstName());
-        assertThat(lecturerDTO.get(0))
-                .isEqualTo("Adam");
-        assertThat(lecturerDTO)
-                .isNotNull();
+        assertThat(lecturerDTO).isNotEmpty().contains(lecturerDto);
     }
 
     @Test
