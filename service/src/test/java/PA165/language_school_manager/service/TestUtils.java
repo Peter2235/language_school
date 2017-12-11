@@ -12,7 +12,10 @@ import PA165.language_school_manager.Enums.Language;
 import PA165.language_school_manager.Enums.ProficiencyLevel;
 import org.mockito.Mockito;
 
+import javax.persistence.EntityExistsException;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 import static org.mockito.Matchers.any;
@@ -297,6 +300,9 @@ public class TestUtils {
 
         when(lectureDao.findById(any(Long.class))).then(invocationOnMock -> {
             Long id = invocationOnMock.getArgumentAt(0, Long.class);
+            if (id == null){
+                throw new IllegalArgumentException();
+            }
             for (Lecture lecture: lectures){
                 if (lecture.getId().equals(id)){
                     return lecture;
@@ -307,6 +313,12 @@ public class TestUtils {
 
         doAnswer(invocationOnMock -> {
             Lecture lecture = invocationOnMock.getArgumentAt(0, Lecture.class);
+            if (lecture == null){
+                throw new IllegalArgumentException();
+            }
+            if (lecture.getId() instanceof Long){
+                throw new EntityExistsException();
+            }
             Random random = new Random();
             lecture.setId(((Double)(random.nextDouble()*20L)).longValue());
             lectures.add(lecture);
