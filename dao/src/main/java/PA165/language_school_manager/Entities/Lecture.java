@@ -7,6 +7,7 @@ package PA165.language_school_manager.Entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.HashSet;

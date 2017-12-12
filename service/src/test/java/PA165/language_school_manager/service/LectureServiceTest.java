@@ -7,6 +7,7 @@ import PA165.language_school_manager.Entities.Lecturer;
 import PA165.language_school_manager.Entities.Person;
 import PA165.language_school_manager.Enums.Language;
 import PA165.language_school_manager.Enums.ProficiencyLevel;
+import PA165.language_school_manager.LanguageSchoolException;
 import PA165.language_school_manager.config.ServiceConfiguration;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,28 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class LectureServiceTest {
 
     @Mock
-    private PersonDao personDao;
-
-    @Mock
-    private LecturerDAO lecturerDAO;
-
-    @Mock
-    private CourseDao courseDao;
-
-    @Mock
     private LectureDao lectureDao;
-
-    @Autowired
-    @InjectMocks
-    private LecturerService lecturerService = new LecturerServiceImpl();
-
-    @Autowired
-    @InjectMocks
-    private CourseService courseService = new CourseServiceImpl();
-
-    @Autowired
-    @InjectMocks
-    private PersonService personService = new PersonServiceImpl();
 
     @Autowired
     @InjectMocks
@@ -63,49 +43,42 @@ public class LectureServiceTest {
     @Before
     public void beforeClass(){
         MockitoAnnotations.initMocks(this);
-
-        TestUtils.mockPersonDao(personDao, students);
-        TestUtils.mockLecturerDao(lecturerDAO, lecturers);
-        TestUtils.mockCourseDao(courseDao, courses);
         TestUtils.mockLectureDao(lectureDao, lectures);
-
         creationOfLecture();
     }
 
 
     public void creationOfLecture(){
-
         Person student1 = TestUtils.createPerson("Makaveli", "Tupac", "Amaru", "Shakur");
         Person student2 = TestUtils.createPerson("Biggie", "Christopher", "George", "Wallace");
+        student1.setId(1L);
+        student2.setId(2L);
         students.add(student1);
         students.add(student2);
-        personService.createPerson(student1);
-        personService.createPerson(student2);
 
         Lecturer lecturer = TestUtils.createLecturer("eazyE", "Eric", "Lynn", "Wright",
                 Collections.singleton(Language.ENGLISH), true);
-        lecturerService.createLecturer(lecturer);
+        lecturer.setId(3L);
+        lecturers.add(lecturer);
+
 
         Course course = TestUtils.createCourse(ProficiencyLevel.C1, "How to hustle", Language.ENGLISH);
-        courseService.createCourse(course);
+        course.setId(4L);
+        courses.add(course);
 
         lecture = TestUtils.createLecture("Have a vision", lecturer, course);
         lectureService.createLecture(lecture);
 
         course.addLecture(lecture);
-        courseService.updateCourse(course);
         student1.addLecture(lecture);
         student2.addLecture(lecture);
         lecture.addStudent(student1);
         lecture.addStudent(student2);
-        personService.updatePerson(student1);
-        personService.updatePerson(student2);
         lectureService.updateLecture(lecture);
 
-        lecturerService.assignNewLecture(lecturer.getId(), lecture);
+        lecturer.addLecture(lecture);
 
         course.addLecture(lecture);
-        courseService.updateCourse(course);
 
     }
 
@@ -115,29 +88,73 @@ public class LectureServiceTest {
         assertThat(lectureToFind.getTopic()).isEqualTo(lecture.getTopic());
     }
 
+    @Test(expected = LanguageSchoolException.class)
+    public void findLectureByIdNullId(){
+        lectureService.findLectureById(null);
+    }
+
     @Test
     public void findAllLecturesTest(){
-        throw new UnsupportedOperationException();
+        List<Lecture> newList = lectureService.findAllLectures();
+        assertThat(newList).containsExactlyInAnyOrder(lectures.get(0));
     }
 
     @Test
     public void findLectureByTopicTest(){
-        throw new UnsupportedOperationException();
+        Lecture newLecture = lectureService.findLectureByTopic("Have a vision");
+        assertThat(newLecture.getTopic()).isEqualTo("Have a vision");
     }
 
     @Test
     public void createLectureTest(){
-        throw new UnsupportedOperationException();
+        Lecture newLecture = TestUtils.createLecture("create lecture", lecturers.get(0), courses.get(0));
+        lecturers.get(0).addLecture(newLecture);
+        courses.get(0).addLecture(newLecture);
+        newLecture.addStudent(students.get(0));
+        students.get(0).addLecture(newLecture);
+        assertThat(newLecture.getId()).isEqualTo(null);
+        lectureService.createLecture(newLecture);
+        assertThat(newLecture.getId()).isNotEqualTo(null).isInstanceOf(Long.class);
+    }
+
+    @Test(expected = LanguageSchoolException.class)
+    public void createAlreadyExistingLecture(){
+        lectureService.createLecture(lecture);
+    }
+
+    @Test(expected = LanguageSchoolException.class)
+    public void createLectureNullLecture(){
+        lectureService.createLecture(null);
     }
 
     @Test
     public void deleteLectureTest(){
-        throw new UnsupportedOperationException();
+        assertThat(lectures.get(0)).isNotNull();
+        lectureService.deleteLecture(lectures.get(0).getId());
+        assertThat(lectures.size()).isEqualTo(0);
+    }
+
+    @Test(expected = LanguageSchoolException.class)
+    public void deleteLectureNullLectureIdTest(){
+        lectureService.deleteLecture(null);
     }
 
     @Test
     public void updateLectureTest(){
-        throw new UnsupportedOperationException();
+        assertThat(lectures.get(0).getTopic()).isEqualTo("Have a vision");
+        lectureService.deleteLecture(lectures.get(0).getId());
+        assertThat(lectures.size()).isEqualTo(0);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void updateLectureNullIdTest(){
+        lectures.get(0).setId(null);
+        lectureService.updateLecture(lectures.get(0));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void updateLectureNullLecture(){
+        lectureService.updateLecture(null);
     }
 
 }

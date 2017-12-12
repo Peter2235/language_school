@@ -21,9 +21,6 @@ public class LectureServiceImpl implements LectureService {
 
     @Override
     public Lecture findLectureById(Long id) {
-        if (id == null){
-            throw new NullPointerException("ID cant be null");
-        }
         try {
             return lectureDAO.findById(id);
         } catch (Throwable e) {
@@ -57,21 +54,15 @@ public class LectureServiceImpl implements LectureService {
 
     @Override
     public void createLecture(Lecture lecture) {
-        if (lecture == null){
-            throw new NullPointerException("lecture cant be null");
-        }
         try {
             lectureDAO.create(lecture);
         } catch (Exception e){
-            throw new LanguageSchoolException("Problem with creating lecture " + lecture.toString());
+            throw new LanguageSchoolException("Problem with creating lecture " + e);
         }
     }
 
     @Override
     public void deleteLecture(Long id) {
-        if (id == null){
-            throw new NullPointerException("ID cant be null");
-        }
         try {
             Lecture lecture = lectureDAO.findById(id);
             lectureDAO.delete(lecture);
