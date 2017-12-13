@@ -2,10 +2,12 @@ package PA165.language_school_manager.facade;
 
 import PA165.language_school_manager.DTO.PersonCreateDTO;
 import PA165.language_school_manager.DTO.PersonDTO;
+import PA165.language_school_manager.Entities.Person;
 import PA165.language_school_manager.config.ServiceConfiguration;
 import PA165.language_school_manager.service.BeanMappingService;
 import PA165.language_school_manager.service.PersonService;
 import PA165_language_school_manager.Facade.PersonFacade;
+import org.hibernate.service.spi.ServiceException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,100 +16,93 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.inject.Inject;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * @author Viktor Slany
  */
-
 @ContextConfiguration(classes = ServiceConfiguration.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 public class PersonFacadeImplTest {
 
-    @InjectMocks
-    private PersonFacade personFacade = new PersonFacadeImpl();
+    @Autowired
+    private PersonFacade personFacade;
 
-    @Inject
-    @Spy
-    private BeanMappingService mapper;
-
-    @Mock
-    private PersonService personService;
-
-    private PersonDTO person1;
-    private PersonDTO person2;
-
+    private PersonDTO personDTO;
+    private PersonCreateDTO personCreateDTO;
 
     @Before
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
+    public void setUp() throws ServiceException{
 
-        PersonCreateDTO personCreate1 = new PersonCreateDTO();
-        PersonCreateDTO personCreate2 = new PersonCreateDTO();
 
-        personCreate1.setLastName("lebo");
-        personCreate1.setUserName("nam");
 
-        personCreate2.setLastName("hadze");
-        personCreate2.setUserName("errory");
+        personCreateDTO = new PersonCreateDTO();
+        personCreateDTO.setUserName("BestUserName");
+        personCreateDTO.setLastName("mrkvicka");
 
-        person1 = personFacade.createPerson(personCreate1);
-        person2 = personFacade.createPerson(personCreate2);
+
+        personDTO = personFacade.createPerson(personCreateDTO);
     }
-
     @After
-    public void tearDown() throws Exception {
-
+    public void tearDown(){
+        for (PersonDTO personDTO: personFacade.getAllPersons()) {
+            personFacade.deletePerson(personDTO);
+        }
+        assertThat(personFacade.getAllPersons()).isEmpty();
     }
 
     @Test
     public void findPersonById() {
-        assertThat(personFacade.findPersonById(person1.getId())).isEqualToComparingFieldByField(person1);
+        PersonDTO foundPersonDTO = personFacade.findPersonById(personDTO.getId());
+        assertThat(foundPersonDTO).isEqualTo(personDTO);
     }
 
     @Test
     public void findPersonByUserName() {
-        assertThat(personFacade.findPersonByUserName(person1.getUserName())).isEqualToComparingFieldByField(person1);
+        PersonDTO foundPersonDTO = personFacade.findPersonByUserName("BestUserName");
+        assertThat(foundPersonDTO).isEqualTo(personDTO);
     }
 
     @Test
     public void findPersonsByLastName() {
-        assertThat(personFacade.findPersonsByLastName(person1.getLastName())).containsOnlyOnce(person1);
+        List<PersonDTO> foundPersonDTO = personFacade.findPersonsByLastName("mrkvicka");
+        assertThat(foundPersonDTO).contains(personDTO);
     }
 
     @Test
     public void getAllPersons() {
-        assertThat(personFacade.getAllPersons()).hasSize(2).containsExactlyInAnyOrder(person1, person2);
+        Collection<PersonDTO> foundPersonDTO = personFacade.getAllPersons();
+        assertThat(foundPersonDTO).contains(personDTO);
     }
 
     @Test
     public void createPerson() {
-        assertThat(personFacade.getAllPersons()).hasSize(2).contains(person1, person2);
-        PersonCreateDTO personCreate3 = new PersonCreateDTO();
-        personCreate3.setLastName("prosiiim");
-        personCreate3.setUserName("pomooc");
-        PersonDTO person3 = personFacade.createPerson(personCreate3);
-        assertThat(personFacade.getAllPersons()).hasSize(3).contains(person1, person2, person3);
-
+       assertThat(personFacade.getAllPersons()).contains(personDTO);
     }
 
     @Test
     public void updatePerson() {
-        person1.setUserName("not today");
-        personFacade.updatePerson(person1);
-        assertThat(personFacade.findPersonById(person1.getId())).isEqualToComparingFieldByField(person1);
+        personDTO.setUserName("kalerab");
+        personFacade.updatePerson(personDTO);
+        assertThat(personFacade.findPersonById(personDTO.getId())).isEqualTo(personDTO);
     }
 
     @Test
     public void deletePerson() {
-        assertThat(personFacade.getAllPersons()).hasSize(2).contains(person1, person2);
-        personFacade.deletePerson(person2);
-        assertThat(personFacade.getAllPersons()).hasSize(3).contains(person1);
+        personFacade.deletePerson(personDTO);
+        assertThat(personFacade.getAllPersons()).isEmpty();
 
     }
 }
