@@ -1,4 +1,4 @@
-package PA165.language_school_manager.config;
+package PA165.language_school_manager.mvc.config;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -17,7 +17,7 @@ import javax.validation.Validator;
 
 @EnableWebMvc
 @Configuration
-@ComponentScan(basePackages = "PA165.language_school_manager.controllers")
+@ComponentScan(basePackages = "PA165.language_school_manager.mvc.controllers")
 public class MySpringMvcConfig extends WebMvcConfigurerAdapter {
 
 

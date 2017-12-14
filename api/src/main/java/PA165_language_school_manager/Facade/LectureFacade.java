@@ -2,8 +2,10 @@ package PA165_language_school_manager.Facade;
 
 import PA165.language_school_manager.DTO.LectureCreateDTO;
 import PA165.language_school_manager.DTO.LectureDTO;
-
+        
 import java.util.List;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 public interface LectureFacade {
 

@@ -10,7 +10,6 @@
     
     <div class="jumbotron">
         <h1>Hero comes the bum !</h1>
-        
     </div>
 
 </jsp:attribute>

@@ -25,6 +25,9 @@ public class Person {
     @Column(unique = true)
     private String userName;
     
+    @Column
+    private boolean admin;
+    
     private String firstName;
     private String middleName;
 
@@ -48,6 +51,14 @@ public class Person {
         this.lastName = lastName;
     }
 
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
+    
     public Long getId() {
         return id;
     }
