@@ -10,9 +10,11 @@ import PA165.language_school_manager.service.CourseService;
 import PA165.language_school_manager.service.LectureService;
 import PA165.language_school_manager.service.LecturerService;
 import PA165.language_school_manager.service.PersonService;
-import org.dozer.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -23,20 +25,22 @@ import java.util.Map;
  * @author Viktor Slany
  */
 
+@Service
+@Transactional
 public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
 
     final static Logger log = LoggerFactory.getLogger(SampleDataLoadingFacadeImpl.class);
 
-    @Inject
+    @Autowired
     private PersonService personService;
 
-    @Inject
+    @Autowired
     private LecturerService lecturerService;
 
-    @Inject
+    @Autowired
     private CourseService courseService;
 
-    @Inject
+    @Autowired
     private LectureService lectureService;
 
     private Map<String, Person> personMap = new HashMap<>();
@@ -49,7 +53,8 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         loadPerson();
         loadLecturer();
         loadCourse();
-        loadLecture();
+        //Todo: repair lecture
+//        loadLecture();
     }
 
     private void loadPerson() {
