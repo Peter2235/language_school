@@ -99,4 +99,10 @@ public class LecturerFacadeImpl implements LecturerFacade {
     public void deleteLecturer(Long id) {
         lecturerService.deleteLecturer(id);
     }
+
+    @Override
+    public List<LecturerDTO> findAllLecturers() {
+        List<Lecturer> lecturers = lecturerService.findAllLecturers();
+        return beanMappingService.mapTo(lecturers, LecturerDTO.class);
+    }
 }

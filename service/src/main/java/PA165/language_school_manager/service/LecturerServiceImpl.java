@@ -149,4 +149,9 @@ public class LecturerServiceImpl implements LecturerService {
             throw new LanguageSchoolException("Course create failed");
         }
     }
+
+    @Override
+    public List<Lecturer> findAllLecturers() {
+        return lecturerDAO.findAll();
+    }
 }

@@ -81,4 +81,11 @@ public interface LecturerService {
      * @param id lecturerId
      */
     void deleteLecturer(Long id);
+    
+    /**
+     * Finds all lecturers
+     * 
+     * @return List of Lecturers
+     */
+    List<Lecturer> findAllLecturers();
 }
