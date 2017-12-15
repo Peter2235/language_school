@@ -8,7 +8,7 @@ import PA165.language_school_manager.Enums.ProficiencyLevel;
 import PA165.language_school_manager.config.ServiceConfiguration;
 import PA165.language_school_manager.service.BeanMappingService;
 import PA165.language_school_manager.service.CourseService;
-import PA165_language_school_manager.Facade.CourseFacade;
+import PA165.language_school_manager.Facade.CourseFacade;
 import org.hibernate.service.spi.ServiceException;
 import org.junit.Before;
 import org.junit.Test;

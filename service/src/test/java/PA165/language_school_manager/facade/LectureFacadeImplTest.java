@@ -1,19 +1,12 @@
 package PA165.language_school_manager.facade;
 
 import PA165.language_school_manager.DTO.*;
-import PA165.language_school_manager.Dao.LectureDao;
-import PA165.language_school_manager.Entities.Lecture;
 import PA165.language_school_manager.Enums.Language;
 import PA165.language_school_manager.Enums.ProficiencyLevel;
 import PA165.language_school_manager.config.ServiceConfiguration;
 import PA165.language_school_manager.service.BeanMappingService;
 import PA165.language_school_manager.service.LectureService;
-import PA165.language_school_manager.service.PersonService;
-import PA165_language_school_manager.Facade.CourseFacade;
-import PA165_language_school_manager.Facade.LectureFacade;
-import PA165_language_school_manager.Facade.LecturerFacade;
-import PA165_language_school_manager.Facade.PersonFacade;
-import org.junit.After;
+import PA165.language_school_manager.Facade.LectureFacade;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,17 +14,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.inject.Inject;
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

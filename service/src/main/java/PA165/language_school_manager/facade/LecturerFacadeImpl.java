@@ -8,7 +8,7 @@ import PA165.language_school_manager.Entities.Lecture;
 import PA165.language_school_manager.Entities.Lecturer;
 import PA165.language_school_manager.Enums.Language;
 import PA165.language_school_manager.service.LecturerService;
-import PA165_language_school_manager.Facade.LecturerFacade;
+import PA165.language_school_manager.Facade.LecturerFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

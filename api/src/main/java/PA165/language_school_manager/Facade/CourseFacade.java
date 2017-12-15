@@ -1,4 +1,4 @@
-package PA165_language_school_manager.Facade;
+package PA165.language_school_manager.Facade;
 
 import PA165.language_school_manager.DTO.CourseCreateDTO;
 import PA165.language_school_manager.DTO.CourseDTO;

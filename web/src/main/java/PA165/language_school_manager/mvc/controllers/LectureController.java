@@ -6,8 +6,8 @@
 package PA165.language_school_manager.mvc.controllers;
 
 import PA165.language_school_manager.DTO.LectureCreateDTO;
-import PA165_language_school_manager.Facade.LectureFacade;
 import javax.validation.Valid;
+import PA165.language_school_manager.Facade.LectureFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

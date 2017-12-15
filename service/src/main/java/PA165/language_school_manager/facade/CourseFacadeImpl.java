@@ -6,7 +6,7 @@ import PA165.language_school_manager.DTO.CourseDTO;
 import PA165.language_school_manager.Entities.Course;
 import PA165.language_school_manager.Enums.Language;
 import PA165.language_school_manager.service.CourseService;
-import PA165_language_school_manager.Facade.CourseFacade;
+import PA165.language_school_manager.Facade.CourseFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

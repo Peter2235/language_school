@@ -15,7 +15,7 @@ import PA165.language_school_manager.Enums.Language;
 import PA165.language_school_manager.config.ServiceConfiguration;
 import PA165.language_school_manager.service.BeanMappingService;
 import PA165.language_school_manager.service.LecturerService;
-import PA165_language_school_manager.Facade.LecturerFacade;
+import PA165.language_school_manager.Facade.LecturerFacade;
 import java.time.LocalDateTime;
 import org.junit.Before;
 import org.junit.Test;

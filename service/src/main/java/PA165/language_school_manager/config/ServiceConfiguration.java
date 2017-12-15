@@ -1,6 +1,14 @@
 package PA165.language_school_manager.config;
 
 import PA165.language_school_manager.ApplicationContext;
+import PA165.language_school_manager.facade.CourseFacadeImpl;
+import PA165.language_school_manager.facade.LectureFacadeImpl;
+import PA165.language_school_manager.facade.LecturerFacadeImpl;
+import PA165.language_school_manager.facade.PersonFacadeImpl;
+import PA165.language_school_manager.service.CourseServiceImpl;
+import PA165.language_school_manager.service.LectureServiceImpl;
+import PA165.language_school_manager.service.LecturerServiceImpl;
+import PA165.language_school_manager.service.PersonServiceImpl;
 import org.dozer.DozerBeanMapper;
 //import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.Mapper;
@@ -17,7 +25,8 @@ import java.util.List;
  */
 @Configuration
 @Import(ApplicationContext.class)
-@ComponentScan(basePackages = "PA165.language_school_manager")
+@ComponentScan(basePackageClasses = {CourseFacadeImpl.class, LecturerFacadeImpl.class, LectureFacadeImpl.class, PersonFacadeImpl.class,
+        CourseServiceImpl.class, LecturerServiceImpl.class, LectureServiceImpl.class, PersonServiceImpl.class})
 public class ServiceConfiguration {
 
     @Bean
