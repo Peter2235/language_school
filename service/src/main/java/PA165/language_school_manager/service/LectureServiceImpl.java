@@ -1,22 +1,18 @@
 package PA165.language_school_manager.service;
 
-import PA165.language_school_manager.Entities.Course;
+import PA165.language_school_manager.Dao.LectureDao;
 import PA165.language_school_manager.Entities.Lecture;
 import PA165.language_school_manager.LanguageSchoolException;
-import org.dozer.inject.Inject;
 import org.springframework.beans.factory.annotation.Autowired;
-import PA165.language_school_manager.Dao.LectureDao;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityExistsException;
-import javax.persistence.TransactionRequiredException;
 import java.util.Collections;
 import java.util.List;
 
 @Service
 public class LectureServiceImpl implements LectureService {
 
-    @Inject
+    @Autowired
     private LectureDao lectureDAO;
 
     @Override
