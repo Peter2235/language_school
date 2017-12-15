@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package PA165_language_school_manager.Facade;
+package PA165.language_school_manager.Facade;
 
 import PA165.language_school_manager.DTO.PersonCreateDTO;
 import PA165.language_school_manager.DTO.PersonDTO;

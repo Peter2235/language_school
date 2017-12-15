@@ -10,11 +10,10 @@ import PA165.language_school_manager.service.BeanMappingService;
 import PA165.language_school_manager.DTO.PersonDTO;
 import PA165.language_school_manager.Entities.Person;
 import PA165.language_school_manager.service.PersonService;
-import PA165_language_school_manager.Facade.PersonFacade;
+import PA165.language_school_manager.Facade.PersonFacade;
 import java.util.Collection;
 import java.util.List;
 
-import org.dozer.inject.Inject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

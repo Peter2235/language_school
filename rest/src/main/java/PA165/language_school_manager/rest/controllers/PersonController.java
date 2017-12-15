@@ -3,7 +3,7 @@ package PA165.language_school_manager.rest.controllers;
 import PA165.language_school_manager.DTO.PersonCreateDTO;
 import PA165.language_school_manager.DTO.PersonDTO;
 import PA165.language_school_manager.rest.exceptions.ResourceNotFoundException;
-import PA165_language_school_manager.Facade.PersonFacade;
+import PA165.language_school_manager.Facade.PersonFacade;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 

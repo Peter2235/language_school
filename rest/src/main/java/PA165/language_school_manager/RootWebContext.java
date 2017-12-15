@@ -21,7 +21,7 @@ import java.util.Locale;
 @EnableWebMvc
 @Configuration
 @Import(ServiceConfiguration.class)
-@ComponentScan(basePackages = {"PA165.language_school_manager.rest"})
+@ComponentScan(basePackages = {"PA165.language_school_manager.rest.controllers"})
 public class RootWebContext extends WebMvcConfigurerAdapter {
 
     @Override
