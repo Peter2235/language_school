@@ -25,7 +25,7 @@ import static org.mockito.Mockito.when;
 public class TestUtils {
 
     public static Course createCourse(ProficiencyLevel proficiencyLevel,
-                                      String name, Language language){
+                                      String name, Language language) {
         Course course = new Course();
         course.setProficiencyLevel(proficiencyLevel);
         course.setName(name);
@@ -34,7 +34,7 @@ public class TestUtils {
     }
 
     public static Person createPerson(String userName, String firstName,
-                                      String middleName, String lastName){
+                                      String middleName, String lastName) {
         // For consistency in test code
 
         Person person = new Person(userName, firstName, middleName, lastName);
@@ -43,14 +43,14 @@ public class TestUtils {
 
     public static Lecturer createLecturer(String userName, String firstName,
                                           String middleName, String lastName,
-                                          Set<Language> languages, boolean nativeSpeaker){
+                                          Set<Language> languages, boolean nativeSpeaker) {
         // For consistency in test code
 
         Lecturer lecturer = new Lecturer(userName, firstName, middleName, lastName, languages, nativeSpeaker);
         return lecturer;
     }
 
-    public static Lecture createLecture(String topic, Lecturer lecturer, Course course){
+    public static Lecture createLecture(String topic, Lecturer lecturer, Course course) {
         Lecture lecture = new Lecture();
         lecture.setTopic(topic);
         lecture.setTime(LocalDateTime.now().plusDays(1));
@@ -59,11 +59,11 @@ public class TestUtils {
         return lecture;
     }
 
-    public static void mockPersonDao(PersonDao personDao, List<Person> students){
+    public static void mockPersonDao(PersonDao personDao, List<Person> students) {
         when(personDao.create(any(Person.class))).then(invoke -> {
             Person person = invoke.getArgumentAt(0, Person.class);
             Random random = new Random();
-            person.setId(((Double)(random.nextDouble()*20L)).longValue());
+            person.setId(((Double) (random.nextDouble() * 20L)).longValue());
             students.add(person);
             return person;
         });
@@ -73,8 +73,8 @@ public class TestUtils {
         when(personDao.findById(any(Long.class))).then(invoke -> {
             Long id = invoke.getArgumentAt(0, Long.class);
             Person person = null;
-            for (Person student: students){
-                if (student.getId().equals(id)){
+            for (Person student : students) {
+                if (student.getId().equals(id)) {
                     person = student;
                     break;
                 }
@@ -85,8 +85,8 @@ public class TestUtils {
         when(personDao.findByUserName(any(String.class))).then(invoke -> {
             String name = invoke.getArgumentAt(0, String.class);
             Person person = null;
-            for (Person student: students){
-                if (student.getUserName().equals(name)){
+            for (Person student : students) {
+                if (student.getUserName().equals(name)) {
                     person = student;
                     break;
                 }
@@ -96,27 +96,26 @@ public class TestUtils {
 
         when(personDao.findByLastName(any(String.class))).then(invoke -> {
             String name = invoke.getArgumentAt(0, String.class);
-            Person person = null;
-            for (Person student: students){
-                if (student.getLastName().equals(name)){
-                    person = student;
-                    break;
+            List<Person> people = new ArrayList<>();
+            for (Person student : students) {
+                if (student.getLastName().equals(name)) {
+                    people.add(student);
                 }
             }
-            return person;
+            return people;
         });
 
         when(personDao.update(any(Person.class))).then(invoke -> {
             Person person = invoke.getArgumentAt(0, Person.class);
-            for (Person student: students){
-                if (student.getId().equals(person.getId())){
+            for (Person student : students) {
+                if (student.getId().equals(person.getId())) {
                     students.remove(student);
                     break;
                 }
             }
-            if (person.getId() == null){
+            if (person.getId() == null) {
                 Random random = new Random();
-                person.setId(((Double)(random.nextDouble()*20L)).longValue());
+                person.setId(((Double) (random.nextDouble() * 20L)).longValue());
             }
             students.add(person);
             return person;
@@ -131,13 +130,13 @@ public class TestUtils {
 
     }
 
-    public static void mockLecturerDao(LecturerDAO lecturerDAO, List<Lecturer> lecturers){
+    public static void mockLecturerDao(LecturerDAO lecturerDAO, List<Lecturer> lecturers) {
 
         when(lecturerDAO.findById(any(Long.class))).then(invoke -> {
             Long id = invoke.getArgumentAt(0, Long.class);
             Lecturer lecturer = null;
-            for (Lecturer lecturer1: lecturers){
-                if (lecturer1.getId().equals(id)){
+            for (Lecturer lecturer1 : lecturers) {
+                if (lecturer1.getId().equals(id)) {
                     lecturer = lecturer1;
                     break;
                 }
@@ -148,22 +147,22 @@ public class TestUtils {
         doAnswer(invocationOnMock -> {
             Lecturer lecturer = invocationOnMock.getArgumentAt(0, Lecturer.class);
             Random random = new Random();
-            lecturer.setId(((Double)(random.nextDouble()*20L)).longValue());
+            lecturer.setId(((Double) (random.nextDouble() * 20L)).longValue());
             lecturers.add(lecturer);
             return null;
         }).when(lecturerDAO).create(any(Lecturer.class));
 
         doAnswer(invocationOnMock -> {
             Lecturer lecturer = invocationOnMock.getArgumentAt(0, Lecturer.class);
-            for (Lecturer lecturer1: lecturers){
-                if (lecturer1.getId().equals(lecturer.getId())){
+            for (Lecturer lecturer1 : lecturers) {
+                if (lecturer1.getId().equals(lecturer.getId())) {
                     lecturers.remove(lecturer1);
                     break;
                 }
             }
-            if (lecturer.getId() == null){
+            if (lecturer.getId() == null) {
                 Random random = new Random();
-                lecturer.setId(((Double)(random.nextDouble()*20L)).longValue());
+                lecturer.setId(((Double) (random.nextDouble() * 20L)).longValue());
             }
             lecturers.add(lecturer);
             return null;
@@ -171,7 +170,7 @@ public class TestUtils {
 
         doAnswer(invocationOnMock -> {
             Lecturer lecturer = invocationOnMock.getArgumentAt(0, Lecturer.class);
-            if (lecturers.contains(lecturer)){
+            if (lecturers.contains(lecturer)) {
                 lecturers.remove(lecturer);
             }
             lecturer.setId(null);
@@ -183,8 +182,8 @@ public class TestUtils {
         when(lecturerDAO.findByFirstName(any(String.class))).then(invoke -> {
             String name = invoke.getArgumentAt(0, String.class);
             List<Lecturer> lecturersToReturn = new ArrayList<>();
-            for (Lecturer lecturer1: lecturers){
-                if (lecturer1.getFirstName().equals(name)){
+            for (Lecturer lecturer1 : lecturers) {
+                if (lecturer1.getFirstName().equals(name)) {
                     lecturersToReturn.add(lecturer1);
                 }
             }
@@ -194,8 +193,8 @@ public class TestUtils {
         when(lecturerDAO.findByLastName(any(String.class))).then(invoke -> {
             String name = invoke.getArgumentAt(0, String.class);
             List<Lecturer> lecturersToReturn = new ArrayList<>();
-            for (Lecturer lecturer1: lecturers){
-                if (lecturer1.getLastName().equals(name)){
+            for (Lecturer lecturer1 : lecturers) {
+                if (lecturer1.getLastName().equals(name)) {
                     lecturersToReturn.add(lecturer1);
                 }
             }
@@ -204,9 +203,9 @@ public class TestUtils {
 
         when(lecturerDAO.findByLecture(any(Long.class))).then(invoke -> {
             Long id = invoke.getArgumentAt(0, Long.class);
-            for (Lecturer lecturer1: lecturers){
-                for (Lecture lecture: lecturer1.getLectures()){
-                    if (lecture.getId().equals(id)){
+            for (Lecturer lecturer1 : lecturers) {
+                for (Lecture lecture : lecturer1.getLectures()) {
+                    if (lecture.getId().equals(id)) {
                         return lecturer1;
                     }
                 }
@@ -217,8 +216,8 @@ public class TestUtils {
         when(lecturerDAO.findByLanguage(any(Language.class))).then(invoke -> {
             Language language = invoke.getArgumentAt(0, Language.class);
             List<Lecturer> lecturersToReturn = new ArrayList<>();
-            for (Lecturer lecturer: lecturers){
-                if (lecturer.getLanguages().contains(language)){
+            for (Lecturer lecturer : lecturers) {
+                if (lecturer.getLanguages().contains(language)) {
                     lecturersToReturn.add(lecturer);
                 }
             }
@@ -227,33 +226,35 @@ public class TestUtils {
 
     }
 
-    public static void mockCourseDao(CourseDao courseDao, List<Course> courses){
+    public static void mockCourseDao(CourseDao courseDao, List<Course> courses) {
 
         doAnswer(invocationOnMock -> {
             Course course = invocationOnMock.getArgumentAt(0, Course.class);
             Random random = new Random();
-            course.setId(((Double)(random.nextDouble()*20L)).longValue());
+            course.setId(((Double) (random.nextDouble() * 20L)).longValue());
             courses.add(course);
             return null;
         }).when(courseDao).create(any(Course.class));
 
         when(courseDao.findById(any(Long.class))).then(invocationOnMock -> {
             Long id = invocationOnMock.getArgumentAt(0, Long.class);
-            for (Course course: courses){
-                if (course.getId().equals(id)){
+            for (Course course : courses) {
+                if (course.getId().equals(id)) {
                     return course;
                 }
             }
             return null;
         });
 
-        when(courseDao.findAll()).then(invocationOnMock -> {return Collections.unmodifiableList(courses);});
+        when(courseDao.findAll()).then(invocationOnMock -> {
+            return Collections.unmodifiableList(courses);
+        });
 
         when(courseDao.findByLanguage(any(Language.class))).then(invocationOnMock -> {
             Language language = invocationOnMock.getArgumentAt(0, Language.class);
             List<Course> coursesToReturn = new ArrayList<>();
-            for (Course course: courses){
-                if (course.getLanguage().equals(language)){
+            for (Course course : courses) {
+                if (course.getLanguage().equals(language)) {
                     coursesToReturn.add(course);
                 }
             }
@@ -262,8 +263,8 @@ public class TestUtils {
 
         when(courseDao.findByName(any(String.class))).then(invocationOnMock -> {
             String name = invocationOnMock.getArgumentAt(0, String.class);
-            for (Course course: courses){
-                if (course.getName().equals(name)){
+            for (Course course : courses) {
+                if (course.getName().equals(name)) {
                     return course;
                 }
             }
@@ -272,17 +273,17 @@ public class TestUtils {
 
         doAnswer(invocationOnMock -> {
             Course course = invocationOnMock.getArgumentAt(0, Course.class);
-            for (Course oldCourse: courses){
-                if (oldCourse.getId().equals(course.getId())){
+            for (Course oldCourse : courses) {
+                if (oldCourse.getId().equals(course.getId())) {
                     oldCourse.setLanguage(course.getLanguage());
                     oldCourse.setName(course.getName());
                     oldCourse.setProficiencyLevel(course.getProficiencyLevel());
                     break;
                 }
             }
-            if (course.getId() == null){
+            if (course.getId() == null) {
                 Random random = new Random();
-                course.setId(((Double)(random.nextDouble()*20L)).longValue());
+                course.setId(((Double) (random.nextDouble() * 20L)).longValue());
                 courses.add(course);
             }
             return null;
@@ -296,15 +297,15 @@ public class TestUtils {
 
     }
 
-    public static void mockLectureDao(LectureDao lectureDao, List<Lecture> lectures){
+    public static void mockLectureDao(LectureDao lectureDao, List<Lecture> lectures) {
 
         when(lectureDao.findById(any(Long.class))).then(invocationOnMock -> {
             Long id = invocationOnMock.getArgumentAt(0, Long.class);
-            if (id == null){
+            if (id == null) {
                 throw new IllegalArgumentException();
             }
-            for (Lecture lecture: lectures){
-                if (lecture.getId().equals(id)){
+            for (Lecture lecture : lectures) {
+                if (lecture.getId().equals(id)) {
                     return lecture;
                 }
             }
@@ -313,14 +314,14 @@ public class TestUtils {
 
         doAnswer(invocationOnMock -> {
             Lecture lecture = invocationOnMock.getArgumentAt(0, Lecture.class);
-            if (lecture == null){
+            if (lecture == null) {
                 throw new IllegalArgumentException();
             }
-            if (lecture.getId() instanceof Long){
+            if (lecture.getId() instanceof Long) {
                 throw new EntityExistsException();
             }
             Random random = new Random();
-            lecture.setId(((Double)(random.nextDouble()*20L)).longValue());
+            lecture.setId(((Double) (random.nextDouble() * 20L)).longValue());
             lectures.add(lecture);
             return null;
         }).when(lectureDao).create(any(Lecture.class));
@@ -334,26 +335,28 @@ public class TestUtils {
 
         doAnswer(invocationOnMock -> {
             Lecture lecture = invocationOnMock.getArgumentAt(0, Lecture.class);
-            for(Lecture oldLecture: lectures){
-                if (oldLecture.getId().equals(lecture.getId())){
+            for (Lecture oldLecture : lectures) {
+                if (oldLecture.getId().equals(lecture.getId())) {
                     lectures.remove(oldLecture);
                     break;
                 }
             }
-            if (lecture.getId() == null){
+            if (lecture.getId() == null) {
                 Random random = new Random();
-                lecture.setId(((Double)(random.nextDouble()*20L)).longValue());
+                lecture.setId(((Double) (random.nextDouble() * 20L)).longValue());
             }
             lectures.add(lecture);
             return null;
         }).when(lectureDao).update(any(Lecture.class));
 
-        when(lectureDao.findAll()).then(invocationOnMock -> {return Collections.unmodifiableList(lectures);});
+        when(lectureDao.findAll()).then(invocationOnMock -> {
+            return Collections.unmodifiableList(lectures);
+        });
 
         when(lectureDao.findByTopic(any(String.class))).then(invocationOnMock -> {
             String topic = invocationOnMock.getArgumentAt(0, String.class);
-            for (Lecture lecture: lectures){
-                if (lecture.getTopic().equals(topic)){
+            for (Lecture lecture : lectures) {
+                if (lecture.getTopic().equals(topic)) {
                     return lecture;
                 }
             }

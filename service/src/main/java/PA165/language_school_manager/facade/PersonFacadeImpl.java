@@ -27,10 +27,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class PersonFacadeImpl implements PersonFacade{
     
-    @Inject
+    @Autowired
     private PersonService personService;
 
-    @Inject
+    @Autowired
     private BeanMappingService beanMappingService;
     
     @Override
