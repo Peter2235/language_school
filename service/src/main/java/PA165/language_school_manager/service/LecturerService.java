@@ -1,5 +1,6 @@
 package PA165.language_school_manager.service;
 
+import PA165.language_school_manager.DTO.LectureDTO;
 import PA165.language_school_manager.Entities.Lecture;
 import PA165.language_school_manager.Entities.Lecturer;
 import PA165.language_school_manager.Enums.Language;

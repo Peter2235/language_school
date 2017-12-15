@@ -5,6 +5,10 @@
  */
 package PA165.language_school_manager.DTO;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
 
 /**
  * @author Matúš
@@ -14,7 +18,8 @@ public class PersonDTO {
     private Long id;
     private String userName;
     private String lastName;
-
+    private Set<LectureDTO> lectures = new HashSet<LectureDTO>();
+    
     public Long getId() {
         return id;
     }
@@ -39,6 +44,14 @@ public class PersonDTO {
         this.lastName = lastName;
     }
 
+    public Set<LectureDTO> getLectures() {
+        return Collections.unmodifiableSet(lectures);
+    }
+    
+    public void addLecture(LectureDTO lectureDto){
+        lectures.add(lectureDto);
+    }
+    
     public PersonDTO() {
 
     }

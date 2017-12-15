@@ -12,14 +12,13 @@ import java.util.Set;
  */
 @Getter
 @Setter
-public class LecturerDTO {
+public class LecturerDTO extends PersonDTO{
 
     private Long id;
     private String userName;
     private String firstName;
     private String middleName;
     private String lastName;
-    private Set<LectureDTO> lectures = new HashSet<>();
     private Set<Language> languages = new HashSet<>();
     private boolean isNativeSpeaker;
 
@@ -58,7 +57,7 @@ public class LecturerDTO {
                 ", firstName='" + firstName + '\'' +
                 ", middleName='" + middleName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", lectures=" + lectures +
+      //          ", lectures=" +  +
                 ", languages=" + languages +
                 ", isNativeSpeaker=" + isNativeSpeaker +
                 '}';

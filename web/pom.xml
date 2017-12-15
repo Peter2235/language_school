@@ -73,7 +73,18 @@
             <artifactId>mockito-all</artifactId>
             <scope>test</scope>
         </dependency>
-
+        <dependency>
+            <groupId>PA165</groupId>
+            <artifactId>api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>PA165</groupId>
+            <artifactId>service</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
 
     <build>

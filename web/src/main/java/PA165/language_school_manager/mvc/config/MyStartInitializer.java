@@ -1,4 +1,4 @@
-package PA165.language_school_manager.config;
+package PA165.language_school_manager.mvc.config;
 
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;

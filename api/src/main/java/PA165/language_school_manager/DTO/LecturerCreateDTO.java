@@ -1,5 +1,8 @@
 package PA165.language_school_manager.DTO;
 
+import PA165.language_school_manager.Enums.Language;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +14,7 @@ import javax.validation.constraints.Size;
  */
 @Getter
 @Setter
-public class LecturerCreateDTO {
+public class LecturerCreateDTO extends PersonCreateDTO{
 
     @Size(min = 3, max = 50)
     private String userName;
@@ -23,7 +26,7 @@ public class LecturerCreateDTO {
     @NotNull
     private String lastName;
     private boolean isNativeSpeaker;
-
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
