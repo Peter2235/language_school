@@ -12,16 +12,17 @@
         <thead>
         <tr>
             <th>id</th>
-            <th>added</th>
-            <th>product name</th>
-            <th>description</th>
-            <th>color</th>
-            <th>price</th>
+            <th>topic</th>
+            <th>time</th>
+            <th>lecturer</th>
         </tr>
         </thead>
         <tbody>
             <tr>
                <td>${lecture.id}</td> 
+               <td>${lecture.topic}</td>
+               <td><javatime:parseLocalDateTime value="${lecture.time}" pattern="dd.MM.yyyy HH:mm" var="parsedDate"/>${parsedDate}</td>
+               <td><c:out value="${lecture.lecturer.lastName}"/></td>
             </tr>
         </tbody>
     </table>

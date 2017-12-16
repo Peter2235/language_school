@@ -47,7 +47,7 @@ public class CourseFacadeImpl implements CourseFacade {
     }
 
     @Override
-    public Collection<CourseDTO> findAllCourses() {
+    public List<CourseDTO> findAllCourses() {
         return beanMappingService.mapTo(courseService.findAll(), CourseDTO.class);
     }
 

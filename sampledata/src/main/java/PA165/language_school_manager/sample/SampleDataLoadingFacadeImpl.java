@@ -120,6 +120,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         lecture.setTime(time);
         lecture.setCourse(course);
         lecture.setLecturer(lecturer);
+        lecture.setTopic(topic);
         
         lectureService.createLecture(lecture);
 
