@@ -15,6 +15,8 @@ import javax.validation.constraints.NotNull;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.EnumType;
+import javax.persistence.FetchType;
 
 /**
  * @author Viktor Slaný + Peter Tirala
@@ -22,8 +24,8 @@ import java.util.Set;
 @Entity
 public class Lecturer extends Person {
 
-    @ElementCollection
-    @Enumerated
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Enumerated(EnumType.STRING)
     private Set<Language> languages = new HashSet<>();
 
     @NotNull

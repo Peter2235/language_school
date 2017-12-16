@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author Matúš
  */
-@WebFilter(urlPatterns = {"/lectures/*"})
+//@WebFilter(urlPatterns = {"/lectures/*"})
 public class ProtectFilter implements Filter {
 
     private final static Logger log = LoggerFactory.getLogger(ProtectFilter.class);
