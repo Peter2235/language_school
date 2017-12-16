@@ -25,30 +25,6 @@
             <div class="container">
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <c:if test="${not empty authenticatedUser}">
-                            <li><my:a href="/user/show">Users</my:a></li>
-                            <c:if test="${not empty authenticatedUser && authenticatedUser.userType == 'ADMIN'}">
-                                <li><my:a href="/sport/list">Sports</my:a></li>
-                            </c:if>
-                        </c:if>
-                    </ul>
-                    <c:choose>
-                        <c:when test="${empty authenticatedUser}">
-                            <form class="navbar-form pull-right" action="${pageContext.request.contextPath}/login/trylogin" method ="post">
-                                <input class="span2" type="text" placeholder="Login name" name="logname">
-                                <input class="span2" type="password" placeholder="Password" name="password">
-                                <button type="submit" class="btn">Sign in</button>
-                            </form>
-                        </c:when>
-                        <c:otherwise>
-                            <form class="navbar-text pull-right" method="post" action="${pageContext.request.contextPath}/login/logout">
-                                Logged in as <c:out value="${authenticatedUser.firstName} ${authenticatedUser.lastName}"/>
-                                &nbsp;&nbsp;
-                                <button type="submit" class="btn">Logout</button>
-                            </form>
-                        </c:otherwise>
-                    </c:choose>
-
                 </div><!--/.nav-collapse -->
 
             </div>
