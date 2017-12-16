@@ -15,48 +15,72 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public interface PersonService {
-	/**
-	 * Get all persons
-         * @return 
-	 */
-	List<Person> findAll();
 
-        /**
-         * 
-         * @param personId
-         * @return 
-         */
-	Person findPersonById(Long personId);
+    /**
+     * Get all persons
+     *
+     * @return
+     */
+    List<Person> findAll();
 
-        /**
-         * 
-         * @param userName
-         * @return 
-         */
-        Person findPersonByUserName(String userName);
-        
-        /**
-         * 
-         * @param fullName
-         * @return 
-         */
-	List<Person> findPersonsByLastName(String fullName);
-        
-        /**
-         * 
-         * @param person 
-         */
-        void createPerson(Person person);
-        
-        /**
-         * 
-         * @param person 
-         */
-        void updatePerson(Person person);
-        
-        /**
-         * 
-         * @param person
-         */
-        void deletePerson(Person person);
+    /**
+     *
+     * @param personId
+     * @return
+     */
+    Person findPersonById(Long personId);
+
+    /**
+     *
+     * @param userName
+     * @return
+     */
+    Person findPersonByUserName(String userName);
+
+    /**
+     *
+     * @param fullName
+     * @return
+     */
+    List<Person> findPersonsByLastName(String fullName);
+
+    /**
+     *
+     * @param person
+     */
+    void createPerson(Person person);
+
+    /**
+     *
+     * @param person
+     */
+    void updatePerson(Person person);
+
+    /**
+     *
+     * @param person
+     */
+    void deletePerson(Person person);
+
+    /**
+     *
+     * @param mapTo
+     * @return
+     */
+    boolean isAdmin(Person person);
+
+    /**
+     * 
+     * @param findPersonById
+     * @param password
+     * @return 
+     */
+    boolean authenticate(Person findPersonById, String password);
+    
+    /**
+     * 
+     * @param person
+     * @param unencryptedPassword 
+     */
+    void registerPerson(Person person, String unencryptedPassword);
 }

@@ -16,7 +16,7 @@
                     <div class="col-sm-10">
                     <form:select path="course.id" cssClass="form-control">
                         <c:forEach items="${courses}" var="c">
-                            <form:option value="${c.id}"></form:option>
+                            <form:option value="${c.id}">${c.name}</form:option>
                         </c:forEach>
                     </form:select>
                     <p class="help-block"><form:errors path="course.id" cssClass="error"/></p>
