@@ -33,7 +33,7 @@ public class LectureDaoImpl implements LectureDao {
 
     @Override
     public void delete(Lecture l) {
-        em.remove(l);
+        em.remove(em.merge(l));
     }
 
     @Override

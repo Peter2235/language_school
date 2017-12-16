@@ -66,7 +66,7 @@ public class CourseDaoImpl implements CourseDao {
 
     @Override
     public void delete(Course course) {
-        em.remove(course);
+        em.remove(em.merge(course));
     }
 
     @Override
