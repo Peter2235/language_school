@@ -24,7 +24,7 @@ import javax.sql.DataSource;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories
-@ComponentScan(basePackageClasses = {CourseDao.class, LectureDao.class, LecturerDAO.class, PersonDao.class})
+@ComponentScan(basePackageClasses = {CourseDao.class, LectureDao.class, LecturerDAO.class, PersonDao.class}, basePackages = "PA165.language_school_manager")
 public class ApplicationContext {
 
     @Bean

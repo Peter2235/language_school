@@ -79,4 +79,11 @@ public interface LecturerFacade {
      * @param id lecturerId
      */
     void deleteLecturer(Long id);
+    
+    /**
+     * Finds all Lecturers
+     * 
+     * @return List of LecturerDTOs
+     */
+    List<LecturerDTO> findAllLecturers();
 }

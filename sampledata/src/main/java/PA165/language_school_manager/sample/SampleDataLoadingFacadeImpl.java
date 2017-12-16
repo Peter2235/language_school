@@ -54,6 +54,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         loadLecturer();
         loadCourse();
         loadPerson();
+
     }
 
     private void loadPerson() {
@@ -139,6 +140,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         lecture.setCourse(course);
         lectureService.createLecture(lecture);
 
+
         Lecturer lecturer = new Lecturer();
         lecturer.setUserName(userName);
         lecturer.setLastName(lastName);
@@ -148,6 +150,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         
         lecture.setLecturer(lecturer);
         
+
         log.debug("Creating lecture: \"" + name.toLowerCase() + "\": " + lecture);
         lectureMap.put(name.toLowerCase(), lecture);
     }

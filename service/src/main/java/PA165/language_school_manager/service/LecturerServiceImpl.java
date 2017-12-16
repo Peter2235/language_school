@@ -6,6 +6,7 @@ import PA165.language_school_manager.Entities.Lecture;
 import PA165.language_school_manager.Entities.Lecturer;
 import PA165.language_school_manager.Enums.Language;
 import PA165.language_school_manager.LanguageSchoolException;
+import java.util.Collections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -147,6 +148,15 @@ public class LecturerServiceImpl implements LecturerService {
             lecturerDAO.delete(lecturer);
         } catch (Throwable e) {
             throw new LanguageSchoolException("Course create failed");
+        }
+    }
+
+    @Override
+    public List<Lecturer> findAllLecturers() {
+        try {
+            return Collections.unmodifiableList(lecturerDAO.findAll());
+        }catch (Throwable e){
+            throw new LanguageSchoolException("find all lectures failed " + e);
         }
     }
 }
