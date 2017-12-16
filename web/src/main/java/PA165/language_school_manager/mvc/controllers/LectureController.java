@@ -17,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -27,9 +28,9 @@ import org.springframework.web.util.UriComponentsBuilder;
  * @author Matúš
  */
 @Controller
-@RequestMapping("/lectures")
+@RequestMapping("/lecture")
 public class LectureController {
-
+    
     final static Logger log = LoggerFactory.getLogger(LectureController.class);
 
     @Autowired
@@ -38,14 +39,21 @@ public class LectureController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Model model) {
         model.addAttribute("lectures", lectureFacade.findAllLectures());
-        return "/lectures/list";
+        return "/lecture/list";
     }
 
+    @RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
+    public String viewLecture(@PathVariable long id, Model model){
+        log.debug("view({})", id);
+        model.addAttribute("lecture", lectureFacade.findLectureById(id));
+        return "lecture/view";
+    }
+    
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String newLecture(Model model) {
         log.debug("new()");
         model.addAttribute("lectureCreate", new LectureCreateDTO());
-        return "lectures/new";
+        return "lecture/new";
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)

@@ -12,8 +12,8 @@
                    modelAttribute="lectureCreate" cssClass="form-horizontal">
             <div class="form-group ${name_error?'has-error':''}">
                 <div class="col-sm-10">
-                    <form:input path="name" cssClass="form-control"/>
-                    <form:errors path="name" cssClass="help-block"/>
+                    <form:input path="topic" cssClass="form-control"/>
+                    <form:errors path="topic" cssClass="help-block"/>
                 </div>
             </div>
             <button class="btn btn-primary" type="submit">Create Lecture</button>

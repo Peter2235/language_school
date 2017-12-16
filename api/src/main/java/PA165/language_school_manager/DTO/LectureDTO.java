@@ -80,22 +80,9 @@ public class LectureDTO {
 
     @Override
     public int hashCode() {
-        int result = time.hashCode();
-        result = 31 * result + course.hashCode();
-        result = 31 * result + lecturer.hashCode();
+        int result = 1;
+        //result = 31 * result + course.hashCode();
+        //result = 31 * result + lecturer.hashCode();
         return result;
     }
-
-    /*@Override
-    public String toString() {
-        return "LectureDTO{" +
-                "id=" + id +
-                ", time=" + time +
-                ", course=" + course +
-                ", topic='" + topic + '\'' +
-                ", lecturer=" + lecturer +
-                ", students=" + students +
-                '}';
-    }*/
-
 }

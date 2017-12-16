@@ -25,18 +25,19 @@
             <c:forEach items="${lectures}" var="lecture">
                 <tr>
                     <td>${lecture.id}</td>
-                    <td><fmt:formatDate value="${lecture.time}" pattern="yyyy-MM-dd"/></td>
+                    <td></td>
                     <td><c:out value="${lecture.course.name}"/></td>
                     <td>${lecture.topic}</td>
                     <td><c:out value="${lecture.lecturer.firstName} ${lecture.lecturer.lastName}"/></td>
                     <td></td>
                     <td>
-                        <my:a href="/lecture/detail/${lecture.id}" class="btn btn-primary">View</my:a>
+                        <my:a href="/lecture/view/${lecture.id}" class="btn btn-primary">View</my:a>
                     </td>
                 </tr>
             </c:forEach>
         </tbody>
     </table>
+    <button class="btn btn-primary" type="submit">Create Lecture</button>
     
 </jsp:attribute>
 </my:pagetemplate>

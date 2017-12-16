@@ -100,15 +100,4 @@ public class CourseDTO {
             return false;
         return true;
     }
-
-    /*@Override
-    public String toString() {
-        return "CourseDTO{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", language=" + language +
-                ", proficiencyLevel=" + proficiencyLevel +
-                ", lectures=" + lectures +
-                '}';
-    }*/
 }
