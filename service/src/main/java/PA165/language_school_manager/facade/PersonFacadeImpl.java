@@ -5,6 +5,7 @@
  */
 package PA165.language_school_manager.facade;
 
+import PA165.language_school_manager.DTO.PersonAuthenticateDTO;
 import PA165.language_school_manager.DTO.PersonCreateDTO;
 import PA165.language_school_manager.service.BeanMappingService;
 import PA165.language_school_manager.DTO.PersonDTO;
@@ -17,21 +18,21 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 /**
  *
  * @author Matúš
  */
-
 @Service
 @Transactional
-public class PersonFacadeImpl implements PersonFacade{
-    
+public class PersonFacadeImpl implements PersonFacade {
+
     @Autowired
     private PersonService personService;
 
     @Autowired
     private BeanMappingService beanMappingService;
-    
+
     @Override
     public PersonDTO findPersonById(Long id) {
         Person person = personService.findPersonById(id);
@@ -43,17 +44,17 @@ public class PersonFacadeImpl implements PersonFacade{
         Person person = personService.findPersonByUserName(userName);
         return (person == null) ? null : beanMappingService.mapTo(person, PersonDTO.class);
     }
-    
+
     @Override
     public List<PersonDTO> findPersonsByLastName(String lastName) {
-	List<Person> persons = personService.findPersonsByLastName(lastName);
+        List<Person> persons = personService.findPersonsByLastName(lastName);
         return beanMappingService.mapTo(persons, PersonDTO.class);
     }
 
     @Override
     public Collection<PersonDTO> getAllPersons() {
         return beanMappingService.mapTo(personService.findAll(), PersonDTO.class);
-    }  
+    }
 
     @Override
     @Transactional
@@ -74,4 +75,16 @@ public class PersonFacadeImpl implements PersonFacade{
         Person mapPerson = beanMappingService.mapTo(person, Person.class);
         personService.deletePerson(mapPerson);
     }
+
+    @Override
+    public boolean isAdmin(PersonDTO person) {
+        return personService.isAdmin(beanMappingService.mapTo(person, Person.class));
+    }
+
+    @Override
+    public boolean authenticate(PersonAuthenticateDTO person) {
+        return personService.authenticate(
+                personService.findPersonById(person.getPersonId()), person.getPassword());
+    }
+
 }

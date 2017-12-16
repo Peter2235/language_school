@@ -25,6 +25,16 @@ public class Person {
     @Column(unique = true)
     private String userName;
     
+    private String passwordHash;
+
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
+    
     @Column
     private boolean admin;
     
