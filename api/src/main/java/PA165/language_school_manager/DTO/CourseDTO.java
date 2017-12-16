@@ -101,7 +101,7 @@ public class CourseDTO {
         return true;
     }
 
-    @Override
+    /*@Override
     public String toString() {
         return "CourseDTO{" +
                 "id=" + id +
@@ -110,5 +110,5 @@ public class CourseDTO {
                 ", proficiencyLevel=" + proficiencyLevel +
                 ", lectures=" + lectures +
                 '}';
-    }
+    }*/
 }

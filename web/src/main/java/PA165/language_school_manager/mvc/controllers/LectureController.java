@@ -47,7 +47,7 @@ public class LectureController {
     public String newLecture(Model model) {
         log.debug("new()");
         model.addAttribute("lectureCreate", new LectureCreateDTO());
-        return "lecture/new";
+        return "lectures/new";
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
