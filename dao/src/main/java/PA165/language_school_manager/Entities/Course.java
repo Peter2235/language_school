@@ -41,7 +41,7 @@ public class Course {
     @NotNull
     private ProficiencyLevel proficiencyLevel;
 
-    @OneToMany
+    @OneToMany(mappedBy = "course", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Lecture> lectures = new ArrayList<Lecture>();
 
     public Course() {

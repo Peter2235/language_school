@@ -50,11 +50,11 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
 
     @Override
     public void loadData() {
-        loadPerson();
+        loadLecture();
         loadLecturer();
         loadCourse();
-        //Todo: repair lecture
-//        loadLecture();
+        loadPerson();
+
     }
 
     private void loadPerson() {
@@ -129,22 +129,28 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
 
     private void createLecture(LocalDateTime time, String name, Language language, ProficiencyLevel level,
                                String userName, String lastName, boolean isAdmin, boolean isNativeSpeaker) {
-        Lecture lecture = new Lecture();
-        lecture.setTime(time);
         Course course = new Course();
         course.setName(name);
         course.setLanguage(language);
         course.setProficiencyLevel(level);
+        courseService.createCourse(course);
+        
+        Lecture lecture = new Lecture();
+        lecture.setTime(time);
         lecture.setCourse(course);
+        lectureService.createLecture(lecture);
+
 
         Lecturer lecturer = new Lecturer();
         lecturer.setUserName(userName);
         lecturer.setLastName(lastName);
         lecturer.setAdmin(isAdmin);
         lecturer.setNativeSpeaker(isNativeSpeaker);
+        lecturerService.createLecturer(lecturer);
+        
         lecture.setLecturer(lecturer);
+        
 
-        lectureService.createLecture(lecture);
         log.debug("Creating lecture: \"" + name.toLowerCase() + "\": " + lecture);
         lectureMap.put(name.toLowerCase(), lecture);
     }

@@ -86,7 +86,7 @@ public class LectureDTO {
         return result;
     }
 
-    @Override
+    /*@Override
     public String toString() {
         return "LectureDTO{" +
                 "id=" + id +
@@ -96,6 +96,6 @@ public class LectureDTO {
                 ", lecturer=" + lecturer +
                 ", students=" + students +
                 '}';
-    }
+    }*/
 
 }
