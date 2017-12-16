@@ -33,14 +33,14 @@ public class LecturerController {
     public String list(Model model){
         log.debug("list all lecturers");
         model.addAttribute("lecturers", lecturerFacade.findAllLecturers());
-        return "lecturers/list";
+        return "lecturer/list";
     }
     
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String newLecturer(Model model){
         log.debug("Preparing new form for Lecturer");
         model.addAttribute("lecturerCreate", new LecturerCreateDTO());
-        return "lecturers/new";
+        return "lecturer/new";
     }
     
 }
