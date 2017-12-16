@@ -18,7 +18,7 @@ import java.util.List;
  * @author Matúš Sedlák
  */
 @Entity
-//@Table(name = "COURSES")
+@Table(name = "COURSES")
 public class Course {
 
     @Id

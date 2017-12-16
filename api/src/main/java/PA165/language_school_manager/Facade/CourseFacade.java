@@ -41,7 +41,7 @@ public interface CourseFacade {
      *
      * @return List of courses stored in database
      */
-    Collection<CourseDTO> findAllCourses();
+    List<CourseDTO> findAllCourses();
 
     /**
      * Method used to store course given as a parameter
