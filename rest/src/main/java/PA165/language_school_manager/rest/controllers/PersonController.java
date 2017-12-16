@@ -19,8 +19,7 @@ public class PersonController {
     private PersonFacade personFacade;
 
     /**
-     * Get Person by identifier id curl -i -X GET
-     * http://localhost:8080/pa165/rest/person/1
+     * Get Person by identifier id
      *
      * @param id identifier for a person
      * @return PersonDTO
@@ -37,8 +36,7 @@ public class PersonController {
     }
 
     /**
-     * Get Person by username id curl -i -X GET
-     * http://localhost:8080/pa165/rest/person/username/testUsername
+     * Get Person by username
      *
      * @param username username
      * @return PersonDTO
@@ -55,8 +53,7 @@ public class PersonController {
     }
 
     /**
-     * Get Person by last name id curl -i -X GET
-     * http://localhost:8080/pa165/rest/person/lastname/testLastName
+     * Get Person by last name
      *
      * @param lastName lastname of a person
      * @return PersonDTO
@@ -73,8 +70,7 @@ public class PersonController {
     }
 
     /**
-     * Get list of Pesron curl -i -X GET
-     * http://localhost:8080/pa165/rest/person
+     * Get list of Pesron
      *
      *  @return List of PersonDto
      */
@@ -84,11 +80,7 @@ public class PersonController {
     }
 
     /**
-     * Create a new person by POST method
-     * curl -X POST -i -H "Content-Type: application/json" --data
-     * '{"name":"test","description":"test","color":"UNDEFINED","price":"200",
-     * "currency":"CZK", "categoryId":"1"}'
-     * http://localhost:8080/pa165/rest/person/create
+     * Create a new person
      *
      * @param person PersonCreateDto with required fields for creation
      * @return the created product PersonDto
@@ -100,11 +92,7 @@ public class PersonController {
     }
 
     /**
-     * Update a person by PUT method
-     * curl -X POST -i -H "Content-Type: application/json" --data
-     * '{"name":"test","description":"test","color":"UNDEFINED","price":"200",
-     * "currency":"CZK", "categoryId":"1"}'
-     * http://localhost:8080/pa165/rest/person/update
+     * Update a person
      *
      * @param person PersonDto with required fields for creation
      */
@@ -115,8 +103,7 @@ public class PersonController {
     }
 
     /**
-     * Delete one person by id curl -i -X DELETE
-     * http://localhost:8080/pa165/rest/person//1
+     * Delete one person
      *
      * @param id identifier for person
      * @throws ResourceNotFoundException
