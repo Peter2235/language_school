@@ -37,7 +37,7 @@ public class Lecture {
     private String topic;
 
     @ManyToOne
-    //@NotNull
+    @NotNull
     private Lecturer lecturer;
 
     @ManyToMany(mappedBy = "lectures")

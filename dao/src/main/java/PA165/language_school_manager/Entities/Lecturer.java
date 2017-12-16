@@ -40,6 +40,11 @@ public class Lecturer extends Person {
         this.isNativeSpeaker = isNativeSpeaker;
     }
 
+    public Lecturer(String userName, String firstName, String middleName, String lastName, boolean isNativeSpeaker) {
+        super(userName, firstName, middleName, lastName);
+        this.isNativeSpeaker = isNativeSpeaker;
+    }
+
     public Set<Language> getLanguages() {
         return Collections.unmodifiableSet(languages);
     }

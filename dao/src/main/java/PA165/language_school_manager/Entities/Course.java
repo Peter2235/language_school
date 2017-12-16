@@ -18,7 +18,7 @@ import java.util.List;
  * @author Matúš Sedlák
  */
 @Entity
-@Table(name = "COURSES")
+//@Table(name = "COURSES")
 public class Course {
 
     @Id
@@ -41,7 +41,7 @@ public class Course {
     @NotNull
     private ProficiencyLevel proficiencyLevel;
 
-    @OneToMany(mappedBy = "course", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
     private List<Lecture> lectures = new ArrayList<Lecture>();
 
     public Course() {
