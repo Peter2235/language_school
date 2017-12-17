@@ -184,11 +184,6 @@ public class LectureDaoTest {
     }
 
     @Test
-    public void deleteNotExistingLecture() {
-        lectureDao.delete(new Lecture());
-    }
-
-    @Test
     public void updateLecture() {
         lecture1.setTopic("secondTopic");
         lectureDao.update(lecture1);
