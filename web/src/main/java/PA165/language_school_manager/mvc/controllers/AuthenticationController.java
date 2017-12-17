@@ -80,13 +80,13 @@ public class AuthenticationController {
         request.getSession().setAttribute("person", matchingP);
         
         redirectAttributes.addFlashAttribute("alert_success", "Log " + formBean.getUserName() + " successful");
-        return "redirect:" + request.getHeader("Referer");
+        return "home";
     }
     
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logoutUser(Model model, HttpServletRequest request) {
         log.debug("[AUTH] Logout");
         request.getSession().removeAttribute("person");
-        return "redirect:" + request.getHeader("Referer");
+        return "home";
     }
 }
