@@ -12,7 +12,7 @@
 <my:pagetemplate title="Students">
 <jsp:attribute name="body">
 
-    <my:a href="/persons/new" class="btn btn-primary">
+    <my:a href="/person/new" class="btn btn-primary">
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
         New Student
     </my:a>
@@ -43,7 +43,7 @@
                     <td>${person.lastName}</td>
                     <td></td>
                     <td>
-                        <form method="post" action="${pageContext.request.contextPath}/persons/delete/${person.id}">
+                        <form method="post" action="${pageContext.request.contextPath}/person/delete/${person.id}">
                             <button type="submit" class="btn btn-primary">Delete</button>
                         </form>
                     </td>

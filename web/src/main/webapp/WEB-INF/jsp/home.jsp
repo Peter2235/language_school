@@ -16,7 +16,7 @@
               role="button">Show Lectures</a></p>
         <p><a class="btn btn-lg btn-success" href="${pageContext.request.contextPath}/lecturers/list"
               role="button">Show Lecturers</a></p>
-        <p><a class="btn btn-lg btn-success" href="${pageContext.request.contextPath}/persons/list"
+        <p><a class="btn btn-lg btn-success" href="${pageContext.request.contextPath}/person/list"
               role="button">Show Students</a></p>
     </div>
 
