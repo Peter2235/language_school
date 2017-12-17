@@ -32,6 +32,26 @@
                 </tr>
             </tbody>
         </table>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Time</th>
+                    <th>Topic</th>
+                    <th>Course</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <c:forEach items="${lectures}" var="lecture">
+                        <td>${lecture.id}</td>
+                        <td>${lecture.time}</td>
+                        <td>${lecture.topic}</td>
+                        <td>${lecture.course.name}</td>
+                    </c:forEach>
+                </tr>
+            </tbody>
+        </table>
         <my:a href="/lecturer/list" class="btn btn-primary">List of Lecturers</my:a>
 
     </jsp:attribute>

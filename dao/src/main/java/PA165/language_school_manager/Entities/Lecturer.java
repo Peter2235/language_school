@@ -54,12 +54,12 @@ public class Lecturer extends Person {
         this.language = language;
     }
 
-    public boolean isNativeSpeaker() {
+    public boolean getNativeSpeaker() {
         return nativeSpeaker;
     }
 
     public void setNativeSpeaker(boolean nativeSpeaker) {
-        nativeSpeaker = nativeSpeaker;
+        this.nativeSpeaker = nativeSpeaker;
     }
 
     @Override
@@ -70,7 +70,7 @@ public class Lecturer extends Person {
 
         Lecturer lecturer = (Lecturer) o;
 
-        if (isNativeSpeaker() != lecturer.isNativeSpeaker()) return false;
+        if (getNativeSpeaker() != lecturer.getNativeSpeaker()) return false;
         return getLanguage().equals(lecturer.getLanguage());
     }
 
@@ -80,7 +80,7 @@ public class Lecturer extends Person {
         int result = 1;
         result = prime * result + super.hashCode();
         result = prime * result + ((language == null) ? 0 : language.hashCode());
-        result = prime * result + (isNativeSpeaker() ? 1 : 0);
+        result = prime * result + (getNativeSpeaker() ? 1 : 0);
         return result;
     }
 }

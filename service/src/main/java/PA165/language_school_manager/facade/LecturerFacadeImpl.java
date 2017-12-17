@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Peter Tirala
@@ -22,7 +24,8 @@ import java.util.List;
 @Service
 public class LecturerFacadeImpl implements LecturerFacade {
 
-
+    private final static Logger log = LoggerFactory.getLogger(LecturerFacadeImpl.class);
+    
     @Autowired
     private BeanMappingService beanMappingService;
 

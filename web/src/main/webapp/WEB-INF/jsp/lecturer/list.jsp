@@ -6,26 +6,15 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <my:pagetemplate title="Lecturers">
-<jsp:attribute name="body">
+    <jsp:attribute name="body">
 
-    <my:a href="/persons/new" class="btn btn-primary">
-        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-        New Lecturer
-    </my:a>
-    <table class="table">
-        <caption>Lecturers</caption>
-        <thead>
-            <tr>
-                <th>id</th>
-                <th>Username</th>
-                <th>First name</th>
-                <th>Middle name</th>
-                <th>Last name</th>
-                <th>Native speaker</th>
-            </tr>
-        </thead>
-        <tbody>
-            <c:forEach items="${lecturers}" var="lecturer">
+        <my:a href="/lecturer/new" class="btn btn-primary">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            New Lecturer
+        </my:a>
+        <table class="table">
+            <caption>Lecturers</caption>
+            <thead>
                 <tr>
                     <th>id</th>
                     <th>Username</th>

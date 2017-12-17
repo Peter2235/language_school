@@ -49,15 +49,11 @@
                     <form:errors path="language" cssClass="error"/>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group ${nativeSpeaker_error?'has-error':''}">
                 <form:label path="nativeSpeaker" cssClass="col-sm-2 control-label">Native Speaker</form:label>
                     <div class="col-sm-10">
-                    <form:select path="nativeSpeaker" cssClass="form-control">
-                        <c:forEach items="${booleans}" var="c">
-                            <form:option value="${c}">${c}</form:option>
-                        </c:forEach>
-                    </form:select>
-                    <form:errors path="nativeSpeaker" cssClass="error"/>
+                    <form:checkbox path="nativeSpeaker" cssClass="form-control"/>
+                    <form:errors path="nativeSpeaker" cssClass="help-block"/>
                 </div>
             </div>
             <button class="btn btn-primary" type="submit">Create Lecturer</button>

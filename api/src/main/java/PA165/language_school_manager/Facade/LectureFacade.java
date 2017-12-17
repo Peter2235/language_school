@@ -57,6 +57,7 @@ public interface LectureFacade {
      */
     List<LectureDTO> findLectureByCourse(CourseDTO courseDTO);
 
+    /**
      * method to find all lectures of given lecturer
      * @param lecturer - lecturer of lectures
      * @return List of LectureDTOs

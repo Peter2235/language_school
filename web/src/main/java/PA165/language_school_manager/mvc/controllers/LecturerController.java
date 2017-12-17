@@ -6,6 +6,7 @@
 package PA165.language_school_manager.mvc.controllers;
 
 import PA165.language_school_manager.DTO.CourseDTO;
+import PA165.language_school_manager.DTO.LectureDTO;
 import PA165.language_school_manager.DTO.LecturerCreateDTO;
 import PA165.language_school_manager.DTO.LecturerDTO;
 import PA165.language_school_manager.Enums.Language;
@@ -65,6 +66,8 @@ public class LecturerController {
         if (bindingResult.hasErrors()) {
             return "lecturer/new";
         }
+        Boolean zkouska = formBean.getNativeSpeaker();
+        log.warn(zkouska.toString());
         Long id = lecturerFacade.createLecturer(formBean);
         redirectAttributes.addFlashAttribute("alert_success", "Lecturer " + id + " was created");
         return "redirect:" + uriBuilder.path("/lecturer/view/{id}").buildAndExpand(id).encode().toUriString();
@@ -72,7 +75,9 @@ public class LecturerController {
 
     @RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
     public String viewLecturer(@PathVariable long id, Model model) {
-        model.addAttribute("lecturer", lecturerFacade.findLecturerById(id));
+        LecturerDTO lecturer = lecturerFacade.findLecturerById(id);
+        model.addAttribute("lecturer", lecturer);
+        model.addAttribute("lectures", lectureFacade.findLecturesByLecturer(lecturer));
         return "/lecturer/view";
     }
 
