@@ -12,7 +12,7 @@ import java.util.Set;
 
 public class LectureCreateDTO {
 
-    @NotNull
+    //@NotNull
     private LocalDateTime time;
 
     @NotNull

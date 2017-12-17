@@ -84,7 +84,7 @@ public class PersonFacadeImpl implements PersonFacade {
     @Override
     public boolean authenticate(PersonAuthenticateDTO person) {
         return personService.authenticate(
-                personService.findPersonById(person.getPersonId()), person.getPassword());
+                personService.findPersonByUserName(person.getUserName()), person.getPassword());
     }
 
 }

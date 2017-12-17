@@ -27,7 +27,7 @@ public class Lecture {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    //@NotNull
     private LocalDateTime time;
 
     @ManyToOne
