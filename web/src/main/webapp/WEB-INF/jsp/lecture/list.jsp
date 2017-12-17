@@ -7,11 +7,6 @@
 
 <my:pagetemplate title="Lectures">
     <jsp:attribute name="body">
-
-        <my:a href="/lecture/new" class="btn btn-primary">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-            New Lecture
-        </my:a>
         <my:a href="http://localhost:8080/pa165/" class="btn btn-primary">
             <span class="glyphicon glyphicon" aria-hidden="true"></span>
             Return to home page

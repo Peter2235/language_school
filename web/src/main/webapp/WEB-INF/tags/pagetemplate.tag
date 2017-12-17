@@ -23,10 +23,13 @@
         <!-- navigation bar -->
         <nav class="navbar navbar-inverse navbar-static-top">
             <div class="container">
-                <div id="navbar" class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                </div><!--/.nav-collapse -->
+                <a class="navbar-brand" href="${pageContext.request.contextPath}">Home</a>
 
+                <form class="navbar-text pull-right" method="get" action="${pageContext.request.contextPath}/auth/logout">
+                    Logged in as <c:out value="${authenticatedUser.firstName} ${authenticatedUser.lastName}"/>
+                    &nbsp;&nbsp;
+                    <button type="submit" class="btn">Logout</button>
+                </form>
             </div>
         </nav>
 
