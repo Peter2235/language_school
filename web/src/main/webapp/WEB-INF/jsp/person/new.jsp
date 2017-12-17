@@ -12,14 +12,15 @@
 <my:pagetemplate title="New person">
     <jsp:attribute name="body">
 
-    <my:a href="/persons/list" class="btn btn-primary">
+<%--    <my:a href="/persons/list" class="btn btn-primary">
         <span class="glyphicon glyphicon" aria-hidden="true"></span>
         Save
     </my:a>
     <my:a href="/persons/list" class="btn btn-primary">
         <span class="glyphicon glyphicon" aria-hidden="true"></span>
         Cancel
-    </my:a>
+    </my:a>--%>
+
         <form:form method="post" action="${pageContext.request.contextPath}/person/create"
                    modelAttribute="personCreate" cssClass="form-horizontal">
             <div class="form-group ${name_error?'has-error':''}">
@@ -36,6 +37,7 @@
                 </div>
             </div>
 
+            <button class="btn btn-primary" type="submit">Create Student</button>
         </form:form>
 
     </jsp:attribute>
