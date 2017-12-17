@@ -9,12 +9,16 @@
     @author Viktor Slany
  --%>
 
-<my:pagetemplate title="Persons">
+<my:pagetemplate title="Students">
 <jsp:attribute name="body">
 
     <my:a href="/persons/new" class="btn btn-primary">
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-        Create new person
+        New Student
+    </my:a>
+    <my:a href="http://localhost:8080/pa165/" class="btn btn-primary">
+        <span class="glyphicon glyphicon" aria-hidden="true"></span>
+        Return to home page
     </my:a>
     <table class="table">
         <caption>Persons</caption>
@@ -28,6 +32,7 @@
             <th>Role</th>
         </tr>
         </thead>
+
         <tbody>
         <c:forEach items="${persons}" var="person">
                 <tr>
@@ -37,7 +42,13 @@
                     <td></td>
                     <td>${person.lastName}</td>
                     <td></td>
+                    <td>
+                        <form method="post" action="${pageContext.request.contextPath}/persons/delete/${person.id}">
+                            <button type="submit" class="btn btn-primary">Delete</button>
+                        </form>
+                    </td>
                 </tr>
+
             </c:forEach>
         </tbody>
     </table>
