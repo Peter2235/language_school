@@ -2,6 +2,7 @@ package PA165.language_school_manager.Facade;
 
 import PA165.language_school_manager.DTO.CourseCreateDTO;
 import PA165.language_school_manager.DTO.CourseDTO;
+import PA165.language_school_manager.DTO.LectureDTO;
 import PA165.language_school_manager.Enums.Language;
 
 import java.util.Collection;
@@ -64,4 +65,12 @@ public interface CourseFacade {
      * @param course - course which should be deleted
      */
     void deleteCourse(CourseDTO course);
+
+    /**
+     * Assign lecture to course
+     *
+     * @param course course
+     * @param lecture lecture
+     */
+    void assignNewLecture(CourseDTO course, LectureDTO lecture);
 }

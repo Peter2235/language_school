@@ -1,6 +1,7 @@
 package PA165.language_school_manager.service;
 
 import PA165.language_school_manager.Entities.Course;
+import PA165.language_school_manager.Entities.Lecture;
 import PA165.language_school_manager.Enums.Language;
 
 import java.util.List;
@@ -62,4 +63,12 @@ public interface CourseService {
      * @param course - course which should be deleted
      */
     void deleteCourse(Course course);
+
+    /**
+     * Assign lecture to course
+     *
+     * @param course course
+     * @param lecture lecture
+     */
+    void assignNewLecture(Course course, Lecture lecture);
 }

@@ -1,5 +1,7 @@
 package PA165.language_school_manager.facade;
 
+import PA165.language_school_manager.DTO.LectureDTO;
+import PA165.language_school_manager.Entities.Lecture;
 import PA165.language_school_manager.service.BeanMappingService;
 import PA165.language_school_manager.DTO.CourseCreateDTO;
 import PA165.language_school_manager.DTO.CourseDTO;
@@ -68,5 +70,12 @@ public class CourseFacadeImpl implements CourseFacade {
     public void deleteCourse(CourseDTO course) {
         Course newCourse = beanMappingService.mapTo(course, Course.class);
         courseService.deleteCourse(newCourse);
+    }
+
+    @Override
+    public void assignNewLecture(CourseDTO course, LectureDTO lecture) {
+        Course newCourse = beanMappingService.mapTo(course, Course.class);
+        Lecture newLecture = beanMappingService.mapTo(lecture, Lecture.class);
+        courseService.assignNewLecture(newCourse,newLecture);
     }
 }
