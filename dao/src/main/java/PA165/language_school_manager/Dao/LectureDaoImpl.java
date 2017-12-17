@@ -5,11 +5,13 @@
  */
 package PA165.language_school_manager.Dao;
 
+import PA165.language_school_manager.Entities.Course;
 import PA165.language_school_manager.Entities.Lecture;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -51,5 +53,18 @@ public class LectureDaoImpl implements LectureDao {
     public Lecture findByTopic(String t) {
         return em.createQuery("select t from Lecture t where topic = :topic", Lecture.class).setParameter("topic", t)
                 .getSingleResult();
+    }
+
+    @Override
+    public List<Lecture> findByCourse(Course c) {
+        if (c == null) {
+            return new ArrayList<>();
+        }
+        List<Lecture> listToReturn = em.createQuery("select l from Lecture l where course = :course", Lecture.class).setParameter("course", c).getResultList();
+
+        if (listToReturn == null) {
+            listToReturn = new ArrayList<>();
+        }
+        return listToReturn;
     }
 }

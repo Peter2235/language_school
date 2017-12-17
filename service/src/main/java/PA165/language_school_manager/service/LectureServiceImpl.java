@@ -1,6 +1,7 @@
 package PA165.language_school_manager.service;
 
 import PA165.language_school_manager.Dao.LectureDao;
+import PA165.language_school_manager.Entities.Course;
 import PA165.language_school_manager.Entities.Lecture;
 import PA165.language_school_manager.LanguageSchoolException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,18 @@ public class LectureServiceImpl implements LectureService {
             throw new LanguageSchoolException("find lecture by topic failed " + e);
         }
 
+    }
+
+    @Override
+    public List<Lecture> findLectureByCourse(Course course) {
+        if (course == null) {
+            throw new NullPointerException("Course cant be null");
+        }
+        try {
+            return lectureDAO.findByCourse(course);
+        } catch (Throwable e) {
+            throw new LanguageSchoolException("find lecture by topic failed " + e);
+        }
     }
 
     @Override
