@@ -1,5 +1,6 @@
 package PA165.language_school_manager.service;
 
+import PA165.language_school_manager.Entities.Course;
 import PA165.language_school_manager.Entities.Lecture;
 
 import java.util.List;
@@ -25,6 +26,14 @@ public interface LectureService {
      * @return - Lecture of searchd lecture
      */
     Lecture findLectureByTopic(String topic);
+
+    /**
+     * Find lectures by course
+     *
+     * @param course course
+     * @return List of lectures
+     */
+    List<Lecture> findLectureByCourse(Course course);
 
     /**
      * Method to delete lecture

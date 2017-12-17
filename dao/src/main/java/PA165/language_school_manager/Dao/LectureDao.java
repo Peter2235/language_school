@@ -5,6 +5,7 @@
  */
 package PA165.language_school_manager.Dao;
 
+import PA165.language_school_manager.Entities.Course;
 import PA165.language_school_manager.Entities.Lecture;
 
 import java.util.List;
@@ -57,4 +58,12 @@ public interface LectureDao {
      * @return Lecture with given topic
      */
     public Lecture findByTopic(String l);
+
+    /**
+     * Get list of lectures by course
+     *
+     * @param c course
+     * @return list of lectures
+     */
+    public List<Lecture> findByCourse(Course c);
 }
