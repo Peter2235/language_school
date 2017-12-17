@@ -12,10 +12,6 @@
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
         New Lecturer
     </my:a>
-    <my:a href="http://localhost:8080/pa165/" class="btn btn-primary">
-        <span class="glyphicon glyphicon" aria-hidden="true"></span>
-        Return to home page
-    </my:a>
     <table class="table">
         <caption>Lecturers</caption>
         <thead>
