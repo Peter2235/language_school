@@ -4,9 +4,11 @@ import PA165.language_school_manager.DTO.CourseCreateDTO;
 import PA165.language_school_manager.DTO.CourseDTO;
 import PA165.language_school_manager.DTO.LectureCreateDTO;
 import PA165.language_school_manager.DTO.LectureDTO;
+import PA165.language_school_manager.Entities.Lecture;
 import PA165.language_school_manager.Enums.Language;
 import PA165.language_school_manager.Enums.ProficiencyLevel;
 import PA165.language_school_manager.Facade.CourseFacade;
+import PA165.language_school_manager.Facade.LectureFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * Controller for course
@@ -33,6 +36,9 @@ public class CourseController {
 
     @Autowired
     private CourseFacade courseFacade;
+
+    @Autowired
+    private LectureFacade lectureFacade;
 
     /**
      * List all courses

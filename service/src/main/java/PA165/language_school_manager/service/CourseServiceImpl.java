@@ -2,6 +2,7 @@ package PA165.language_school_manager.service;
 
 import PA165.language_school_manager.Dao.CourseDao;
 import PA165.language_school_manager.Entities.Course;
+import PA165.language_school_manager.Entities.Lecture;
 import PA165.language_school_manager.Enums.Language;
 import PA165.language_school_manager.LanguageSchoolException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,5 +102,17 @@ public class CourseServiceImpl implements CourseService {
         } catch (Throwable e) {
             throw new LanguageSchoolException("Course delete failed");
         }
+    }
+
+    @Override
+    public void assignNewLecture(Course course, Lecture lecture) {
+        if (course == null) {
+            throw new IllegalArgumentException("Course can not be null");
+        }
+        if (lecture == null) {
+            throw new IllegalArgumentException("Course can not be null");
+        }
+        course.addLecture(lecture);
+        courseDao.update(course);
     }
 }
