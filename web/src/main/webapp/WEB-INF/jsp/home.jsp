@@ -7,11 +7,27 @@
 <my:pagetemplate>
 <jsp:attribute name="body">
 
-    
     <div class="jumbotron">
-        <h1>Hero comes the bum !</h1>
+        <h1>Welcome to Language School !</h1>
+        <p class="lead">This is our language school where you can join to our courses. </p>
+        <p><a class="btn btn-lg btn-success" href="${pageContext.request.contextPath}/course/list"
+              role="button">Show Courses</a></p>
+        <p><a class="btn btn-lg btn-success" href="${pageContext.request.contextPath}/lecture/list"
+              role="button">Show Lectures</a></p>
+        <p><a class="btn btn-lg btn-success" href="${pageContext.request.contextPath}/lecturers/list"
+              role="button">Show Lecturers</a></p>
+        <p><a class="btn btn-lg btn-success" href="${pageContext.request.contextPath}/persons/list"
+              role="button">Show Students</a></p>
     </div>
+
+
+<%--    <div class="row">
+        <c:forEach begin="1" end="12" var="i">
+        <div class="col-xs-12 col-sm-6 col-md-2 col-lg-1">
+            <p><button class="btn btn-default">Button ${i}</button></p>
+        </div>
+        </c:forEach>
+    </div>--%>
 
 </jsp:attribute>
 </my:pagetemplate>
-
