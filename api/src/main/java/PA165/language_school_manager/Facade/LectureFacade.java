@@ -3,6 +3,7 @@ package PA165.language_school_manager.Facade;
 import PA165.language_school_manager.DTO.CourseDTO;
 import PA165.language_school_manager.DTO.LectureCreateDTO;
 import PA165.language_school_manager.DTO.LectureDTO;
+import PA165.language_school_manager.DTO.LecturerDTO;
         
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -56,4 +57,9 @@ public interface LectureFacade {
      */
     List<LectureDTO> findLectureByCourse(CourseDTO courseDTO);
 
+     * method to find all lectures of given lecturer
+     * @param lecturer - lecturer of lectures
+     * @return List of LectureDTOs
+     */
+    List<LectureDTO> findLecturesByLecturer(LecturerDTO lecturer);
 }

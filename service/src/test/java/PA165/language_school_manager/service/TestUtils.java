@@ -43,10 +43,10 @@ public class TestUtils {
 
     public static Lecturer createLecturer(String userName, String firstName,
                                           String middleName, String lastName,
-                                          Set<Language> languages, boolean nativeSpeaker) {
+                                          Language language, boolean nativeSpeaker) {
         // For consistency in test code
 
-        Lecturer lecturer = new Lecturer(userName, firstName, middleName, lastName, languages, nativeSpeaker);
+        Lecturer lecturer = new Lecturer(userName, firstName, middleName, lastName, language, nativeSpeaker);
         return lecturer;
     }
 
@@ -217,7 +217,7 @@ public class TestUtils {
             Language language = invoke.getArgumentAt(0, Language.class);
             List<Lecturer> lecturersToReturn = new ArrayList<>();
             for (Lecturer lecturer : lecturers) {
-                if (lecturer.getLanguages().contains(language)) {
+                if (lecturer.getLanguage().equals(language)) {
                     lecturersToReturn.add(lecturer);
                 }
             }
@@ -363,6 +363,17 @@ public class TestUtils {
             return null;
         });
 
+        when(lectureDao.findByLecturer(any(Lecturer.class))).then((invocation) -> {
+            Lecturer lecturer = invocation.getArgumentAt(0, Lecturer.class);
+            List<Lecture> lecturesToReturn = new ArrayList<>();
+            for (Lecture lecture : lectures) {
+                if (lecture.getLecturer().equals(lecturer)) {
+                    lecturesToReturn.add(lecture);
+                }
+            }
+            return lecturesToReturn;
+        });
+        
     }
 
 }

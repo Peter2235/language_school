@@ -7,6 +7,7 @@ package PA165.language_school_manager.Dao;
 
 import PA165.language_school_manager.Entities.Course;
 import PA165.language_school_manager.Entities.Lecture;
+import PA165.language_school_manager.Entities.Lecturer;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -66,5 +67,10 @@ public class LectureDaoImpl implements LectureDao {
             listToReturn = new ArrayList<>();
         }
         return listToReturn;
+    }
+    
+    
+    public List<Lecture> findByLecturer(Lecturer lecturer) {
+        return em.createQuery("select t from Lecture t where lecturer = :lecturer", Lecture.class).setParameter("lecturer", lecturer).getResultList();
     }
 }

@@ -72,17 +72,18 @@ public class LecturerFacadeImpl implements LecturerFacade {
         lecturerService.assignNewLecture(lecturerId, lecture);
     }
 
-    @Override
-    @Transactional
-    public void addLanguage(Long lecturerId, Language language) {
-        lecturerService.addLanguage(lecturerId, language);
-    }
+//    @Override
+//    @Transactional
+//    public void addLanguage(Long lecturerId, Language language) {
+//        lecturerService.addLanguage(lecturerId, language);
+//    }
 
     @Override
     @Transactional
-    public void createLecturer(LecturerCreateDTO newLecturer) {
+    public Long createLecturer(LecturerCreateDTO newLecturer) {
         Lecturer lecturer = beanMappingService.mapTo(newLecturer,Lecturer.class);
         lecturerService.createLecturer(lecturer);
+        return lecturer.getId();
         /*
         Lecturer lecturer = new Lecturer();
         lecturer.setFirstName(newLecturer.getFirstName());
@@ -101,8 +102,17 @@ public class LecturerFacadeImpl implements LecturerFacade {
     }
 
     @Override
+    @Transactional
     public List<LecturerDTO> findAllLecturers() {
         List<Lecturer> lecturers = lecturerService.findAllLecturers();
         return beanMappingService.mapTo(lecturers, LecturerDTO.class);
+    }
+
+    @Override
+    @Transactional
+    public void updateLecturer(LecturerDTO lecturer) {
+        Lecturer lecturer1 = lecturerService.findLecturerById(lecturer.getId());
+        lecturer1 = beanMappingService.mapTo(lecturer, Lecturer.class);
+        lecturerService.updateLecturer(lecturer1);
     }
 }

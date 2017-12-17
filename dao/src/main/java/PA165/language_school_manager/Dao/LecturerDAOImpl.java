@@ -46,7 +46,7 @@ public class LecturerDAOImpl implements LecturerDAO {
     @Override
     public List<Lecturer> findByLanguage(Language language) {
         try {
-            return entityManager.createQuery("select l from Lecturer l where :language member of l.languages", Lecturer.class)
+            return entityManager.createQuery("select l from Lecturer l where language = :language", Lecturer.class)
                     .setParameter("language", language).getResultList();
         } catch (NoResultException e) {
             return null;

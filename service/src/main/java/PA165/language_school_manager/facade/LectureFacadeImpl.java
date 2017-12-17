@@ -64,5 +64,9 @@ public class LectureFacadeImpl implements LectureFacade {
     public List<LectureDTO> findLectureByCourse(CourseDTO courseDTO) {
         Course course = beanMappingService.mapTo(courseDTO, Course.class);
         return beanMappingService.mapTo(lectureService.findLectureByCourse(course), LectureDTO.class);
+    public List<LectureDTO> findLecturesByLecturer(LecturerDTO lecturer) {
+        Lecturer lecturer1 = beanMappingService.mapTo(lecturer, Lecturer.class);
+        List<Lecture> lectures = lectureService.findLecturesByLecturer(lecturer1);
+        return beanMappingService.mapTo(lectures, LectureDTO.class);
     }
 }

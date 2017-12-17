@@ -28,7 +28,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  *
  * @author Matúš
  */
-@WebFilter(urlPatterns = {"/lecture/*"})
+//@WebFilter(urlPatterns = {"/lecture/*"})
 public class ProtectFilter implements Filter {
 
     private final static Logger log = LoggerFactory.getLogger(ProtectFilter.class);
