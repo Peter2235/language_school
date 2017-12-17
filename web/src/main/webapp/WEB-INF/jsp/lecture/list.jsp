@@ -22,7 +22,6 @@
                     <th>course</th>
                     <th>topic</th>
                     <th>lecturer</th>
-                    <th>students</th>
                     <th></th>
                 </tr>
             </thead>

@@ -34,60 +34,27 @@ public class ProtectFilter implements Filter {
     private final static Logger log = LoggerFactory.getLogger(ProtectFilter.class);
 
     @Override
-    public void init(FilterConfig fc) throws ServletException {
-
-    }
-
-    @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain fc) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
+
+        PersonDTO person = (PersonDTO) request.getSession().getAttribute("person");
         
-        String auth = request.getHeader("Authorization");
-        if (auth == null){
-            response401(response);
+        if (person == null){
+            log.debug("Person not authorized!");
+            response.sendRedirect(request.getContextPath() + "/auth");
             return;
         }
-        String[] creds = parseAuthHeader(auth);
-        String login = creds[0];
-        String passw = creds[1];
-        
-        PersonFacade personFacade = WebApplicationContextUtils.getWebApplicationContext(req.getServletContext()).getBean(PersonFacade.class);
-        PersonDTO matchingP = personFacade.findPersonByUserName(login);
-        if(matchingP == null){
-            log.warn("no user with username {}", login);
-            response401(response);
-            return;
-        }
-        PersonAuthenticateDTO personAuthenticateDto = new PersonAuthenticateDTO();
-        personAuthenticateDto.setPersonId(matchingP.getId());
-        personAuthenticateDto.setPassword(passw);
-        if (!personFacade.isAdmin(matchingP)){
-            log.warn("person not admin {}", matchingP);
-            response401(response);
-            return;
-        }
-        if (!personFacade.authenticate(personAuthenticateDto)){
-            log.warn("wrong credentials: username={} password={}", creds[0], creds[1]);
-            response401(response);
-            return;
-        }
-        request.setAttribute("authenticatedUser", matchingP);
-        fc.doFilter(request, response);
+        fc.doFilter(request , response);
+    }
+
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+
     }
 
     @Override
     public void destroy() {
 
     }
-
-    private String[] parseAuthHeader(String auth) {
-        return new String(DatatypeConverter.parseBase64Binary(auth.split(" ")[1])).split(":", 2);
-    }
-
-    private void response401(HttpServletResponse response) throws IOException {
-        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        response.setHeader("WWW-Authenticate", "Basic realm=\"type email and password\"");
-        response.getWriter().println("<html><body><h1>401 Unauthorized</h1> Go away ...</body></html>");
-    }   
 }

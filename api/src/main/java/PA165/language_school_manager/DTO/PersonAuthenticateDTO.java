@@ -5,20 +5,25 @@
  */
 package PA165.language_school_manager.DTO;
 
+import javax.validation.constraints.NotNull;
+
 /**
  *
  * @author Matúš
  */
 public class PersonAuthenticateDTO {
-    private Long personId;
+
+    @NotNull
+    private String userName;
+    @NotNull
     private String password;
 
-    public Long getPersonId() {
-        return personId;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setPersonId(Long personId) {
-        this.personId = personId;
+    public void setUserName(String personId) {
+        this.userName = personId;
     }
 
     public String getPassword() {
@@ -27,5 +32,5 @@ public class PersonAuthenticateDTO {
 
     public void setPassword(String password) {
         this.password = password;
-    }   
+    }
 }
