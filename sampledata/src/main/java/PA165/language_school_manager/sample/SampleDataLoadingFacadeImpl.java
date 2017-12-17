@@ -63,6 +63,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
     private void loadPerson() {
         log.info("Creating people.");
         createPerson("Dandy", "drevo", "admin", true);
+        createPerson("Neadmin", "drevo", "1234", false);
         log.info("People have been created!");
 
     }

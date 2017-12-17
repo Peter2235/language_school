@@ -45,6 +45,8 @@ public class ProtectFilter implements Filter {
             response.sendRedirect(request.getContextPath() + "/auth");
             return;
         }
+        
+        
         fc.doFilter(request , response);
     }
 
