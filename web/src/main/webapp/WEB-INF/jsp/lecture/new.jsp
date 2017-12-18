@@ -42,6 +42,14 @@
                     <form:errors path="topic" cssClass="help-block"/>
                 </div>
             </div>
+                
+            <div class="form-group">
+                <form:label path="timeString" cssClass="col-sm-2 control-label">Time</form:label>
+                    <div class="col-sm-10">
+                    <form:input type="datetime-local" path="timeString" cssClass="form-control" />
+                    <form:errors path="timeString" cssClass="help-block"/>
+                </div>
+            </div> 
 
             <button class="btn btn-primary" type="submit">Create Lecture</button>
         </form:form>

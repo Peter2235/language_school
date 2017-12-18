@@ -11,6 +11,11 @@ import PA165.language_school_manager.Facade.LectureFacade;
 import PA165.language_school_manager.Facade.LecturerFacade;
 import PA165.language_school_manager.Facade.PersonFacade;
 import PA165.language_school_manager.mvc.forms.LectureCreateDTOValidator;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +64,7 @@ public class LectureController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Model model) {
         model.addAttribute("lectures", lectureFacade.findAllLectures());
+        model.addAttribute("localDateTimeFormat", DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
         return "/lecture/list";
     }
 
@@ -102,6 +108,7 @@ public class LectureController {
     public String newLecture(Model model) {
         log.debug("new()");
         model.addAttribute("lectureCreate", new LectureCreateDTO());
+        //model.addAttribute("timeString", new String());
         return "lecture/new";
     }
     
@@ -136,9 +143,13 @@ public class LectureController {
      * @return lecture/new
      */
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String create(@Valid @ModelAttribute("lectureCreate") LectureCreateDTO formBean, BindingResult bindingResult,
-                         Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
+    public String create(@Valid @ModelAttribute("lectureCreate") LectureCreateDTO formBean, /*@Valid @ModelAttribute("timeString") String time,*/
+            BindingResult bindingResult,
+            Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder, HttpServletRequest request) {
         log.debug("create(productCreate={})", formBean);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime dateTime = LocalDateTime.parse(formBean.getTimeString().replace("T", " "), formatter);
+        formBean.setTime(dateTime);
         if (bindingResult.hasErrors()) {
             for (ObjectError ge : bindingResult.getGlobalErrors()) {
                 log.trace("ObjectError: {}", ge);
