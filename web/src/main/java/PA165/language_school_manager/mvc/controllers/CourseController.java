@@ -57,6 +57,7 @@ public class CourseController {
      */
     @RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
     public String viewCoursee(@PathVariable long id, Model model){
+        model.addAttribute("lectures", lectureFacade.findLectureByCourse(courseFacade.findCourseById(id)));
         model.addAttribute("course", courseFacade.findCourseById(id));
         return "/course/view";
     }
