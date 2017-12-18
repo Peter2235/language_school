@@ -2,7 +2,6 @@ package PA165.language_school_manager.Facade;
 
 import PA165.language_school_manager.DTO.LectureCreateDTO;
 import PA165.language_school_manager.DTO.LectureDTO;
-import PA165.language_school_manager.DTO.PersonDTO;
         
 import java.util.List;
 
