@@ -57,7 +57,7 @@ public class LectureServiceTest {
         students.add(student2);
 
         Lecturer lecturer = TestUtils.createLecturer("eazyE", "Eric", "Lynn", "Wright",
-                Collections.singleton(Language.ENGLISH), true);
+                Language.ENGLISH, true);
         lecturer.setId(3L);
         lecturers.add(lecturer);
 
@@ -75,10 +75,12 @@ public class LectureServiceTest {
         lecture.addStudent(student1);
         lecture.addStudent(student2);
         lectureService.updateLecture(lecture);
+        lecture.setLecturer(lecturer);
 
         lecturer.addLecture(lecture);
 
         course.addLecture(lecture);
+        lectureService.updateLecture(lecture);
 
     }
 
@@ -155,6 +157,13 @@ public class LectureServiceTest {
     @Test(expected = NullPointerException.class)
     public void updateLectureNullLecture(){
         lectureService.updateLecture(null);
+    }
+    
+    @Test
+    public void findLecturesByLecturer(){
+        List<Lecture> lecturesToBeFound = lectureService.findLecturesByLecturer(lecturers.get(0));
+        assertThat(lecturesToBeFound.size()).isEqualTo(1);
+        assertThat(lecturesToBeFound.get(0)).isEqualTo(lectures.get(0));
     }
 
 }

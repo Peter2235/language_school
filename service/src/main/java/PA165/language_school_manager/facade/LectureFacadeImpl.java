@@ -3,8 +3,10 @@ package PA165.language_school_manager.facade;
 import PA165.language_school_manager.DTO.CourseDTO;
 import PA165.language_school_manager.DTO.LectureCreateDTO;
 import PA165.language_school_manager.DTO.LectureDTO;
+import PA165.language_school_manager.DTO.LecturerDTO;
 import PA165.language_school_manager.Entities.Course;
 import PA165.language_school_manager.Entities.Lecture;
+import PA165.language_school_manager.Entities.Lecturer;
 import PA165.language_school_manager.Facade.LectureFacade;
 import PA165.language_school_manager.service.BeanMappingService;
 import PA165.language_school_manager.service.LectureService;
@@ -64,5 +66,12 @@ public class LectureFacadeImpl implements LectureFacade {
     public List<LectureDTO> findLectureByCourse(CourseDTO courseDTO) {
         Course course = beanMappingService.mapTo(courseDTO, Course.class);
         return beanMappingService.mapTo(lectureService.findLectureByCourse(course), LectureDTO.class);
+    }
+    
+    @Override
+    public List<LectureDTO> findLecturesByLecturer(LecturerDTO lecturer) {
+        Lecturer lecturer1 = beanMappingService.mapTo(lecturer, Lecturer.class);
+        List<Lecture> lectures = lectureService.findLecturesByLecturer(lecturer1);
+        return beanMappingService.mapTo(lectures, LectureDTO.class);
     }
 }

@@ -58,8 +58,7 @@ public class LectureDaoTest {
         lecturer.setFirstName("James");
         lecturer.setMiddleName("007");
         lecturer.setNativeSpeaker(true);
-        lecturer.addLanguage(Language.ENGLISH);
-        lecturer.addLanguage(Language.ITALIAN);
+        lecturer.setLanguage(Language.ENGLISH);
         lecturerDAO.create(lecturer);
 
         Course course = new Course();
@@ -98,8 +97,7 @@ public class LectureDaoTest {
         lecturer.setFirstName("James");
         lecturer.setMiddleName("007");
         lecturer.setNativeSpeaker(true);
-        lecturer.addLanguage(Language.ENGLISH);
-        lecturer.addLanguage(Language.ITALIAN);
+        lecturer.setLanguage(Language.ITALIAN);
         lecturerDAO.create(lecturer);
         Course course = new Course();
         course.setName("agent007");
@@ -122,8 +120,7 @@ public class LectureDaoTest {
         lecturer.setFirstName("James");
         lecturer.setMiddleName("007");
         lecturer.setNativeSpeaker(true);
-        lecturer.addLanguage(Language.ENGLISH);
-        lecturer.addLanguage(Language.ITALIAN);
+        lecturer.setLanguage(Language.ENGLISH);
         lecturerDAO.create(lecturer);
         lecture3.setLecturer(lecturer);
         lectureDao.create(lecture3);
@@ -183,6 +180,11 @@ public class LectureDaoTest {
         lectureDao.delete(null);
     }
 
+    @Test(expected = ConstraintViolationException.class)
+    public void deleteNotExistingLecture() {
+        lectureDao.delete(new Lecture());
+    }
+
     @Test
     public void updateLecture() {
         lecture1.setTopic("secondTopic");
@@ -205,8 +207,7 @@ public class LectureDaoTest {
         lecturer.setFirstName("James");
         lecturer.setMiddleName("007");
         lecturer.setNativeSpeaker(true);
-        lecturer.addLanguage(Language.ENGLISH);
-        lecturer.addLanguage(Language.ITALIAN);
+        lecturer.setLanguage(Language.ITALIAN);
         lecturerDAO.create(lecturer);
         Course course = new Course();
         course.setName("agent007");
@@ -228,8 +229,7 @@ public class LectureDaoTest {
         lecturer.setFirstName("James");
         lecturer.setMiddleName("007");
         lecturer.setNativeSpeaker(true);
-        lecturer.addLanguage(Language.ENGLISH);
-        lecturer.addLanguage(Language.ITALIAN);
+        lecturer.setLanguage(Language.ENGLISH);
         lecturerDAO.create(lecturer);
         lecture3.setLecturer(lecturer);
         lectureDao.update(lecture3);
@@ -255,5 +255,12 @@ public class LectureDaoTest {
         lectureDao.create(lecture1);
         Lecture lecture = lectureDao.findByTopic("jamesBond");
         assertThat(lecture).isEqualTo(lecture1);
+    }
+    
+    @Test
+    public void findLectureByLecturer(){
+        lectureDao.create(lecture1);
+        List<Lecture> lectures = lectureDao.findByLecturer(lecture1.getLecturer());
+        assertThat(lectures.get(0)).isEqualTo(lecture1);
     }
 }

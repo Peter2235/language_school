@@ -3,6 +3,7 @@ package PA165.language_school_manager.service;
 import PA165.language_school_manager.Dao.LectureDao;
 import PA165.language_school_manager.Entities.Course;
 import PA165.language_school_manager.Entities.Lecture;
+import PA165.language_school_manager.Entities.Lecturer;
 import PA165.language_school_manager.LanguageSchoolException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -93,6 +94,11 @@ public class LectureServiceImpl implements LectureService {
         } catch (Exception e){
             throw new LanguageSchoolException("Problem with updating lecture");
         }
+    }
+
+    @Override
+    public List<Lecture> findLecturesByLecturer(Lecturer lecturer) {
+        return Collections.unmodifiableList(lectureDAO.findByLecturer(lecturer));
     }
 
 

@@ -7,6 +7,7 @@ package PA165.language_school_manager.Dao;
 
 import PA165.language_school_manager.Entities.Course;
 import PA165.language_school_manager.Entities.Lecture;
+import PA165.language_school_manager.Entities.Lecturer;
 
 import java.util.List;
 
@@ -66,4 +67,12 @@ public interface LectureDao {
      * @return list of lectures
      */
     public List<Lecture> findByCourse(Course c);
+    
+    /**
+     * Gets all lectures of specified lecturer
+     * 
+     * @param lecturer - lecturer of the lectures
+     * @return List of Lectures
+     */
+    public List<Lecture> findByLecturer(Lecturer lecturer);
 }
