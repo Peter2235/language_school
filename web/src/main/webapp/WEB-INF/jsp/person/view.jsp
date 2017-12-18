@@ -11,35 +11,59 @@
         <span class="glyphicon glyphicon" aria-hidden="true"></span>
         Back
     </my:a>
-<table class="table">
-    <thead>
-    <tr>
-        <th>id</th>
-        <th>Username</th>
-        <th>First name</th>
-        <th>Middle name</th>
-        <th>Last name</th>
-        <th>Role</th>
-        <th>My lectures</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>${person.id}</td>
-        <td>${person.userName}</td>
-        <td>${person.firstName}</td>
-        <td>${person.middleName}</td>
-        <td>${person.lastName}</td>
-        <td>${person.admin? "Admin" : "User"}</td>
-        <td>
-            <c:forEach items="${lectures}" var="lecture">
-                ${lecture.topic}
-            </c:forEach>
-            ,
-        </td>
-    </tr>
-    </tbody>
-</table>
+        
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <th class="col-md-4">id</th>
+                    <td>${person.id}</td>
+                </tr>
+                <tr>
+                    <th>Username</th>
+                    <td>${person.userName}</td>
+                </tr>
+                <tr>
+                    <th>First name</th>
+                    <td>${person.firstName}</td>
+                </tr>
+                <tr>
+                    <th>Middle name</th>
+                    <td>${person.middleName}</td>
+                </tr>
+                <tr>
+                    <th>Last name</th>
+                    <td>${person.lastName}</td>
+                </tr>
+                <tr>
+                    <th>Role</th>
+                    <td>${person.admin? "Admin" : "User"}</td>
+                </tr>
+            </tbody>
+        </table>
+                
+                <h2>Students lectures</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>Time</th>
+                        <th>Topic</th>
+                        <th>Course</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach items="${lectures}" var="lecture">
+                    <tr>
+                    
+                        <td>${lecture.id}</td>
+                        <td>${lecture.time}</td>
+                        <td>${lecture.topic}</td>
+                        <td>${lecture.course.name}</td>
+                    
+                </tr>
+                </c:forEach>
+            </tbody>
+        </table>
 
 </jsp:attribute>
 </my:pagetemplate>
