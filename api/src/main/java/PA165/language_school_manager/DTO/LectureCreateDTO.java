@@ -21,6 +21,16 @@ public class LectureCreateDTO {
     private CourseDTO course;
 
     private String topic;
+    
+    private String timeString;
+
+    public String getTimeString() {
+        return timeString;
+    }
+
+    public void setTimeString(String timeString) {
+        this.timeString = timeString;
+    }
 
     @NotNull
     private LecturerDTO lecturer;

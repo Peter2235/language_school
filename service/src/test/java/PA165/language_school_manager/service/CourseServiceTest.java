@@ -7,14 +7,11 @@ import PA165.language_school_manager.Enums.ProficiencyLevel;
 import PA165.language_school_manager.config.ServiceConfiguration;
 import org.hibernate.service.spi.ServiceException;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -86,13 +83,13 @@ public class CourseServiceTest {
         courseService.findByName(null);
     }
 
-    @Test
+    /*@Test
     public void createCourseTest(){
         Course course = new Course(1L);
         courseService.createCourse(course);
 
         assertThat(courseService.findById(course.getId())).isEqualTo(course);
-    }
+    }*/
 
     @Test
     public void updateCourseTest() {

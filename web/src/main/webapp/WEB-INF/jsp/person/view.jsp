@@ -5,7 +5,7 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<my:pagetemplate title="Perosn Administration">
+<my:pagetemplate title="Student Administration">
 <jsp:attribute name="body">
     <my:a href="http://localhost:8080/pa165/person/list" class="btn btn-primary">
         <span class="glyphicon glyphicon" aria-hidden="true"></span>
@@ -20,6 +20,7 @@
         <th>Middle name</th>
         <th>Last name</th>
         <th>Role</th>
+        <th>My lectures</th>
     </tr>
     </thead>
     <tbody>
@@ -30,6 +31,12 @@
         <td>${person.middleName}</td>
         <td>${person.lastName}</td>
         <td>${person.admin? "Admin" : "User"}</td>
+        <td>
+            <c:forEach items="${lectures}" var="lecture">
+                ${lecture.topic}
+            </c:forEach>
+            ,
+        </td>
     </tr>
     </tbody>
 </table>
