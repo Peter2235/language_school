@@ -14,6 +14,10 @@ public class LectureDTO {
 
     private Long id;
     private LocalDateTime time;
+    private CourseDTO course;
+    private String topic;
+    private LecturerDTO lecturer;
+    private List<PersonDTO> persons = new ArrayList();
 
     public Long getId() {
         return id;
@@ -63,28 +67,31 @@ public class LectureDTO {
         persons.add(person);
     }
 
-    private CourseDTO course;
-    private String topic;
-    private LecturerDTO lecturer;
-    private List<PersonDTO> persons;
-
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof LectureDTO)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof LectureDTO)) {
+            return false;
+        }
 
         LectureDTO that = (LectureDTO) o;
 
-        if (!time.equals(that.time)) return false;
-        if (!course.equals(that.course)) return false;
+        if (!time.equals(that.time)) {
+            return false;
+        }
+        if (!course.equals(that.course)) {
+            return false;
+        }
         return lecturer.equals(that.lecturer);
     }
 
     @Override
     public int hashCode() {
+        final int prime = 31;
         int result = 1;
-        //result = 31 * result + course.hashCode();
-        //result = 31 * result + lecturer.hashCode();
+        result = prime * result + ((topic == null) ? 0 : topic.hashCode());
         return result;
     }
 }
