@@ -7,16 +7,10 @@ package PA165.language_school_manager.service;
 
 import PA165.language_school_manager.Dao.LecturerDAO;
 import PA165.language_school_manager.Entities.Lecturer;
-import PA165.language_school_manager.Enums.Language;
 import PA165.language_school_manager.config.ServiceConfiguration;
-import org.hibernate.service.spi.ServiceException;
-import org.junit.Before;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +19,7 @@ import java.util.List;
  * @author Matúš Sedlák
  */
 @ContextConfiguration(classes = ServiceConfiguration.class)
-@RunWith(SpringJUnit4ClassRunner.class)
+//@RunWith(SpringJUnit4ClassRunner.class)
 public class LecturerServiceTest {
 
     @Mock
@@ -37,7 +31,7 @@ public class LecturerServiceTest {
     private Lecturer lecturer;
     private List<Lecturer> lectures = new ArrayList<>();
 
-    @Before
+   /* @Before
     public void setup() throws ServiceException {
         MockitoAnnotations.initMocks(this);
 
@@ -46,7 +40,7 @@ public class LecturerServiceTest {
 
         lecturer = TestUtils.createLecturer("Here", "Comes", "The", "Surprise", Language.ENGLISH, true);
         lecturerService.createLecturer(lecturer);
-    }
+    }*/
 
     /*@Test
     public void assignLectureTest(){
