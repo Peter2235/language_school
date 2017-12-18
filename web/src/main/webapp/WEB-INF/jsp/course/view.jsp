@@ -15,6 +15,7 @@
                  <th>Name</th>
                  <th>Language</th>
                  <th>Proficiency level</th>
+                 <th>Lectures</th>
             </tr>
         </thead>
         <tbody>
@@ -23,6 +24,12 @@
                 <td>${course.name}</td>
                 <td><c:out value="${course.language}"/></td>
                 <td><c:out value="${course.proficiencyLevel}"/></td>
+                 <td>
+                    <c:forEach items="${lectures}" var="lecture">
+                        ${lecture.topic}
+                    </c:forEach>
+                    ,
+                </td>
              </tr>
         </tbody>
     </table>
