@@ -2,6 +2,7 @@ package PA165.language_school_manager.service;
 
 import PA165.language_school_manager.Entities.Course;
 import PA165.language_school_manager.Entities.Lecture;
+import PA165.language_school_manager.Entities.Lecturer;
 
 import java.util.List;
 
@@ -52,5 +53,12 @@ public interface LectureService {
      * @param lecture - lecture to be created
      */
     void createLecture(Lecture lecture);
+    
+    /**
+     * Method to find all lectures of given lecturer
+     * @param lecturer - lecturer of the lectures
+     * @return List of lectures
+     */
+    List<Lecture> findLecturesByLecturer(Lecturer lecturer);
 
 }

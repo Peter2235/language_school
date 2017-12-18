@@ -38,19 +38,15 @@ public class LecturerDaoTest {
 
     @Before
     public void createLecturers() {
-        l1 = new Lecturer("lecturer1", "Christopher", "Biggie Smalls", "Wallace", new HashSet<>(), false);
-        l1.addLanguage(Language.ITALIAN);
-        l2 = new Lecturer("lecturer2", "Lamont", "Big L", "Coleman", new HashSet<>(), true);
-        l2.addLanguage(Language.GERMAN);
-        l2.addLanguage(Language.SPANISH);
+        l1 = new Lecturer("lecturer1", "Christopher", "Biggie Smalls", "Wallace", Language.ITALIAN, false);
+        l2 = new Lecturer("lecturer2", "Lamont", "Big L", "Coleman", Language.GERMAN, true);
         lecturerDao.create(l1);
         lecturerDao.create(l2);
     }
 
     @Test
     public void createLecturer() {
-        Lecturer lecturer = new Lecturer("lecturer", "Albert", "Prodigy", "Johnson", new HashSet<>(), true);
-        lecturer.addLanguage(Language.ENGLISH);
+        Lecturer lecturer = new Lecturer("lecturer", "Albert", "Prodigy", "Johnson", Language.ENGLISH, true);
         lecturerDao.create(lecturer);
 
         assertThat(lecturer.getId()).isNotNull();
@@ -74,13 +70,13 @@ public class LecturerDaoTest {
         l1.setFirstName("Tupac");
         l1.setMiddleName("Amaru");
         l1.setLastName("Shakur");
-        l1.addLanguage(Language.ENGLISH);
+        l1.setLanguage(Language.ENGLISH);
         lecturerDao.update(l1);
 
         assertThat(lecturerDao.findById(l1.getId()).getFirstName()).isEqualTo("Tupac");
         assertThat(lecturerDao.findById(l1.getId()).getMiddleName()).isEqualTo("Amaru");
         assertThat(lecturerDao.findById(l1.getId()).getLastName()).isEqualTo("Shakur");
-        assertThat(lecturerDao.findById(l1.getId()).getLanguages().size()).isEqualTo(2);
+        assertThat(lecturerDao.findById(l1.getId()).getLanguage()).isEqualTo(Language.ENGLISH);
 
     }
 
@@ -92,7 +88,7 @@ public class LecturerDaoTest {
         assertThat(lecturer.getFirstName()).isEqualTo("Lamont");
         assertThat(lecturer.getMiddleName()).isEqualTo("Big L");
         assertThat(lecturer.getLastName()).isEqualTo("Coleman");
-        assertThat(lecturer.getLanguages().size()).isEqualTo(2);
+        assertThat(lecturer.getLanguage()).isEqualTo(Language.GERMAN);
     }
 
     @Test
@@ -106,11 +102,10 @@ public class LecturerDaoTest {
 
     @Test
     public void findLecturersByLanguage() {
-        Lecturer l3 = new Lecturer("lectuer", "Sean", null, "Price", new HashSet<>(), true);
-        l3.addLanguage(Language.SPANISH);
+        Lecturer l3 = new Lecturer("lectuer", "Sean", null, "Price", Language.GERMAN, true);
         lecturerDao.create(l3);
 
-        List<Lecturer> lecturers = lecturerDao.findByLanguage(Language.SPANISH);
+        List<Lecturer> lecturers = lecturerDao.findByLanguage(Language.GERMAN);
         assertThat(lecturers.size()).isEqualTo(2);
         assertThat(lecturers.contains(l3)).isTrue();
         assertThat(lecturers.contains(l2)).isTrue();

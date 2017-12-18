@@ -63,7 +63,7 @@ public interface LecturerFacade {
      * @param lecturerId lecturer id
      * @param language   language to add
      */
-    void addLanguage(Long lecturerId, Language language);
+    //void addLanguage(Long lecturerId, Language language);
 
     /**
      * Create new lecturer
@@ -71,7 +71,7 @@ public interface LecturerFacade {
      * @param newLecturer lecturerCreateDto
      * @return id of created lecturer
      */
-    void createLecturer(LecturerCreateDTO newLecturer);
+    Long createLecturer(LecturerCreateDTO newLecturer);
 
     /**
      * Delete lecturer
@@ -86,4 +86,11 @@ public interface LecturerFacade {
      * @return List of LecturerDTOs
      */
     List<LecturerDTO> findAllLecturers();
+    
+    /**
+     * Updates lecturer
+     * 
+     * @param lecturer - lecturer to update
+     */
+    void updateLecturer(LecturerDTO lecturer);
 }

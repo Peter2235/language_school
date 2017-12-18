@@ -36,6 +36,7 @@ public class Lecture {
 
     private String topic;
 
+    
     @ManyToOne
     @NotNull
     private Lecturer lecturer;

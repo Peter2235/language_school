@@ -103,28 +103,28 @@ public class LecturerServiceImpl implements LecturerService {
         }
     }
 
-    @Override
-    public void addLanguage(Long lecturerId, Language language) {
-        if (lecturerId == null) {
-            throw new IllegalArgumentException("Lecturer id can not be null");
-        } else if (language == null) {
-            throw new IllegalArgumentException("Language can not be null");
-        }
-
-        Lecturer lecturer = lecturerDAO.findById(lecturerId);
-
-        if (lecturer == null) {
-            throw new NullPointerException("Lecturer not found");
-        }
-
-        lecturer.getLanguages().add(language);
-
-        try {
-            lecturerDAO.update(lecturer);
-        } catch (Throwable e) {
-            throw new LanguageSchoolException("Course create failed");
-        }
-    }
+//    @Override
+//    public void addLanguage(Long lecturerId, Language language) {
+//        if (lecturerId == null) {
+//            throw new IllegalArgumentException("Lecturer id can not be null");
+//        } else if (language == null) {
+//            throw new IllegalArgumentException("Language can not be null");
+//        }
+//
+//        Lecturer lecturer = lecturerDAO.findById(lecturerId);
+//
+//        if (lecturer == null) {
+//            throw new NullPointerException("Lecturer not found");
+//        }
+//
+//        lecturer.getLanguages().add(language);
+//
+//        try {
+//            lecturerDAO.update(lecturer);
+//        } catch (Throwable e) {
+//            throw new LanguageSchoolException("Course create failed");
+//        }
+//    }
 
     @Override
     public void createLecturer(Lecturer newLecturer) {
@@ -134,7 +134,7 @@ public class LecturerServiceImpl implements LecturerService {
         try {
             lecturerDAO.create(newLecturer);
         } catch (Throwable e) {
-            throw new LanguageSchoolException("Course create failed");
+            throw new LanguageSchoolException("Lecturer create failed");
         }
     }
 
@@ -147,7 +147,7 @@ public class LecturerServiceImpl implements LecturerService {
             Lecturer lecturer = lecturerDAO.findById(id);
             lecturerDAO.delete(lecturer);
         } catch (Throwable e) {
-            throw new LanguageSchoolException("Course create failed");
+            throw new LanguageSchoolException("Lecturer create failed");
         }
     }
 
@@ -158,5 +158,15 @@ public class LecturerServiceImpl implements LecturerService {
         }catch (Throwable e){
             throw new LanguageSchoolException("find all lectures failed " + e);
         }
+    }
+
+    @Override
+    public void updateLecturer(Lecturer lecturer) {
+        try {
+            lecturerDAO.update(lecturer);
+        } catch (Throwable e) {
+            throw new LanguageSchoolException("update lecturer failed" + e);
+        }
+        
     }
 }

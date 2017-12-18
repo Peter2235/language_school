@@ -65,13 +65,12 @@ public interface LecturerService {
      * @param lecturerId lecturer id
      * @param language   language to add
      */
-    void addLanguage(Long lecturerId, Language language);
+    //void addLanguage(Long lecturerId, Language language);
 
     /**
      * Create new lecturer
      *
      * @param newLecturer lecturerCreateDto
-     * @return id of created lecturer
      */
     void createLecturer(Lecturer newLecturer);
 
@@ -88,4 +87,11 @@ public interface LecturerService {
      * @return List of Lecturers
      */
     List<Lecturer> findAllLecturers();
+    
+    /**
+     * Updates lecturer
+     * 
+     * @param lecturer - lecturer to update
+     */
+    void updateLecturer(Lecturer lecturer);
 }
