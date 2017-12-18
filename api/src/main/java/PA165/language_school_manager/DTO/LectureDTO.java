@@ -64,7 +64,7 @@ public class LectureDTO {
     }
 
     public void addPerson(PersonDTO person) {
-        persons.add(person);
+        this.persons.add(person);
     }
 
     @Override

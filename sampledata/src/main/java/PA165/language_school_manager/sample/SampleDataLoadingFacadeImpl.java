@@ -17,7 +17,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -91,12 +93,32 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
 
     private void loadLecture() {
         log.info("Creating lectures.");
-        createLecture(courseMap.get(("Archeology in Italia").toLowerCase()), lecturerMap.get(("Indiana").toLowerCase()), "How to hold a whip", LocalDateTime.now().plusHours(3));
-        createLecture(courseMap.get(("Archeology in Italia").toLowerCase()), lecturerMap.get(("Indiana").toLowerCase()), "How to steal old stuff", LocalDateTime.now().plusDays(1));
-        createLecture(courseMap.get(("Boxing with germans").toLowerCase()), lecturerMap.get(("Rocky").toLowerCase()), "First lose, then win", LocalDateTime.now().plusHours(5));
-        createLecture(courseMap.get(("Boxing with germans").toLowerCase()), lecturerMap.get(("Rocky").toLowerCase()), "Lesson of ice skating", LocalDateTime.now().plusDays(2));
-        createLecture(courseMap.get(("How to get out of the system").toLowerCase()), lecturerMap.get(("Neo").toLowerCase()), "How to contact Morpheus", LocalDateTime.now().plusDays(1));
-        createLecture(courseMap.get(("How to get out of the system").toLowerCase()), lecturerMap.get(("gladiator").toLowerCase()), "Started from the bottom, now we here", LocalDateTime.now().plusDays(3));
+        List<Person> students = new ArrayList<>();
+        students.add(personMap.get(("darth.vader").toLowerCase()));
+        students.add(personMap.get(("its.captain.jack").toLowerCase()));
+        students.add(personMap.get(("the.don").toLowerCase()));
+        createLecture(courseMap.get(("Archeology in Italia").toLowerCase()), lecturerMap.get(("Indiana").toLowerCase()), "How to hold a whip", LocalDateTime.now().plusHours(3), students);
+        students = new ArrayList<>();
+        log.warn(new Long(students.size()).toString());
+        students.add(personMap.get(("harrys.sidekick").toLowerCase()));
+        students.add(personMap.get(("agent.orange").toLowerCase()));
+        createLecture(courseMap.get(("Archeology in Italia").toLowerCase()), lecturerMap.get(("Indiana").toLowerCase()), "How to steal old stuff", LocalDateTime.now().plusDays(1), students);
+        students = new ArrayList<>();
+        students.add(personMap.get(("ring.bearer").toLowerCase()));
+        students.add(personMap.get(("harrys.sidekick").toLowerCase()));
+        students.add(personMap.get(("its.captain.jack").toLowerCase()));
+        createLecture(courseMap.get(("Boxing with germans").toLowerCase()), lecturerMap.get(("Rocky").toLowerCase()), "First lose, then win", LocalDateTime.now().plusHours(5), students);
+        students = new ArrayList<>();
+        students.add(personMap.get(("the.don").toLowerCase()));
+        createLecture(courseMap.get(("Boxing with germans").toLowerCase()), lecturerMap.get(("Rocky").toLowerCase()), "Lesson of ice skating", LocalDateTime.now().plusDays(2), students);
+        students = new ArrayList<>();
+        students.add(personMap.get(("darth.vader").toLowerCase()));
+        students.add(personMap.get(("agent.orange").toLowerCase()));
+        createLecture(courseMap.get(("How to get out of the system").toLowerCase()), lecturerMap.get(("Neo").toLowerCase()), "How to contact Morpheus", LocalDateTime.now().plusDays(1), students);
+        students = new ArrayList<>();
+        students.add(personMap.get(("darth.vader").toLowerCase()));
+        students.add(personMap.get(("harrys.sidekick").toLowerCase()));
+        createLecture(courseMap.get(("How to get out of the system").toLowerCase()), lecturerMap.get(("gladiator").toLowerCase()), "Started from the bottom, now we here", LocalDateTime.now().plusDays(3), students);
         log.info("Lectures have been created!");
 
     }
@@ -132,20 +154,19 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         courseMap.put(name.toLowerCase(), course);
     }
 
-    private void createLecture(Course course, Lecturer lecturer, String topic, LocalDateTime time) {
+    private void createLecture(Course course, Lecturer lecturer, String topic, LocalDateTime time, List<Person> students) {
         Lecture lecture = new Lecture();
         lecture.setTime(time);
         lecture.setCourse(course);
         lecture.setLecturer(lecturer);
         lecture.setTopic(topic);
-        
-        Person person2 = new Person("feri", "abcd", "efgh", "VECNYSTUDENT");
-        personService.createPerson(person2);
-        
-        lecture.addPerson(person2);
         lectureService.createLecture(lecture);
-
+        for (Person student: students) {
+            student.addLecture(lecture);
+            personService.updatePerson(student);
+        }
         log.debug("Creating lecture: \"" + topic.toLowerCase() + "\": " + lecture);
         lectureMap.put(topic.toLowerCase(), lecture);
+        log.info(lecture.getPersons().toString());
     }
 }

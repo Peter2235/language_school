@@ -100,7 +100,7 @@ public class LecturerController {
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
     public String updateLecturer(@PathVariable long id,
-            @Valid @ModelAttribute("hunterEdit") LecturerDTO formBean,
+            @Valid @ModelAttribute("lecturerEdit") LecturerDTO formBean,
             BindingResult bindingResult,
             Model model,
             UriComponentsBuilder uriBuilder,
