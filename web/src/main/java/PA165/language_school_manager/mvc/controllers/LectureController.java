@@ -5,21 +5,12 @@
  */
 package PA165.language_school_manager.mvc.controllers;
 
-import PA165.language_school_manager.DTO.CourseDTO;
-import PA165.language_school_manager.DTO.LectureCreateDTO;
-import PA165.language_school_manager.DTO.LectureDTO;
-import PA165.language_school_manager.DTO.LecturerDTO;
-import PA165.language_school_manager.DTO.PersonDTO;
+import PA165.language_school_manager.DTO.*;
 import PA165.language_school_manager.Facade.CourseFacade;
-import javax.validation.Valid;
 import PA165.language_school_manager.Facade.LectureFacade;
 import PA165.language_school_manager.Facade.LecturerFacade;
 import PA165.language_school_manager.Facade.PersonFacade;
 import PA165.language_school_manager.mvc.forms.LectureCreateDTOValidator;
-import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.List;
-import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,17 +20,16 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+
 /**
+ * Controller for lecture
  *
  * @author Matúš
  */
@@ -61,12 +51,23 @@ public class LectureController {
     @Autowired
     private PersonFacade personFacade;
 
+    /**
+     * List all lectures
+     *
+     * @return /lecture/list
+     */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Model model) {
         model.addAttribute("lectures", lectureFacade.findAllLectures());
         return "/lecture/list";
     }
 
+    /**
+     * Detail of a lecture
+     *
+     * @param id id of lecture
+     * @return /lecture/view
+     */
     @RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
     public String viewLecture(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder) {
         log.debug("view({})", id);
@@ -77,6 +78,12 @@ public class LectureController {
         return "lecture/view";
     }
 
+    /**
+     * Delete lecture by id
+     *
+     * @param id id of lecture
+     * @return lecture/list
+     */
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public String delete(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
         LectureDTO lecture = lectureFacade.findLectureById(id);
@@ -86,6 +93,11 @@ public class LectureController {
         return "redirect:" + uriBuilder.path("/lecture/list").toUriString();
     }
 
+    /**
+     * Form for new lecture
+     *
+     * @return lecture/new
+     */
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String newLecture(Model model) {
         log.debug("new()");
@@ -118,9 +130,14 @@ public class LectureController {
         }
     }
 
+    /**
+     * Create new lecturer
+     *
+     * @return lecture/new
+     */
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(@Valid @ModelAttribute("lectureCreate") LectureCreateDTO formBean, BindingResult bindingResult,
-            Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
+                         Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
         log.debug("create(productCreate={})", formBean);
         if (bindingResult.hasErrors()) {
             for (ObjectError ge : bindingResult.getGlobalErrors()) {
