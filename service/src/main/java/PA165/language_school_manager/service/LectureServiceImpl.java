@@ -1,8 +1,10 @@
 package PA165.language_school_manager.service;
 
 import PA165.language_school_manager.Dao.LectureDao;
+import PA165.language_school_manager.Entities.Course;
 import PA165.language_school_manager.Entities.Lecture;
 import PA165.language_school_manager.Entities.Person;
+import PA165.language_school_manager.Entities.Lecturer;
 import PA165.language_school_manager.LanguageSchoolException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,6 +53,18 @@ public class LectureServiceImpl implements LectureService {
     }
 
     @Override
+    public List<Lecture> findLectureByCourse(Course course) {
+        if (course == null) {
+            throw new NullPointerException("Course cant be null");
+        }
+        try {
+            return lectureDAO.findByCourse(course);
+        } catch (Throwable e) {
+            throw new LanguageSchoolException("find lecture by topic failed " + e);
+        }
+    }
+
+    @Override
     public void createLecture(Lecture lecture) {
         try {
             lectureDAO.create(lecture);
@@ -82,5 +96,10 @@ public class LectureServiceImpl implements LectureService {
         } catch (Exception e) {
             throw new LanguageSchoolException("Problem with updating lecture");
         }
+    }
+
+    @Override
+    public List<Lecture> findLecturesByLecturer(Lecturer lecturer) {
+        return Collections.unmodifiableList(lectureDAO.findByLecturer(lecturer));
     }
 }

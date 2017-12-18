@@ -51,11 +51,8 @@ public class LecturerServiceTest {
 
         TestUtils.mockLecturerDao(lecturerDao, lectures);
 
-        Set<Language> languages = new HashSet<>();
-        languages.add(Language.ENGLISH);
-        languages.add(Language.GERMAN);
 
-        lecturer = TestUtils.createLecturer("Here", "Comes", "The", "Surprise", languages, true);
+        lecturer = TestUtils.createLecturer("Here", "Comes", "The", "Surprise", Language.ENGLISH, true);
         lecturerService.createLecturer(lecturer);
     }
 

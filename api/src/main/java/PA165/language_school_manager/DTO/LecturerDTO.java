@@ -1,10 +1,12 @@
 package PA165.language_school_manager.DTO;
 
 import PA165.language_school_manager.Enums.Language;
+import java.util.ArrayList;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -14,13 +16,14 @@ import java.util.Set;
 @Setter
 public class LecturerDTO extends PersonDTO{
 
-    private Long id;
-    private String userName;
     private String firstName;
     private String middleName;
-    private String lastName;
-    private Set<Language> languages = new HashSet<>();
-    private boolean isNativeSpeaker;
+    private Language language;
+    private boolean nativeSpeaker;
+
+    public boolean getNativeSpeaker() {
+        return nativeSpeaker;
+    }
 
     public LecturerDTO() {
     }
@@ -32,34 +35,34 @@ public class LecturerDTO extends PersonDTO{
 
         LecturerDTO that = (LecturerDTO) o;
 
-        if (isNativeSpeaker != that.isNativeSpeaker) return false;
-        if (userName != null ? !userName.equals(that.userName) : that.userName != null) return false;
+        if (nativeSpeaker != that.nativeSpeaker) return false;
+        if (getUserName()!= null ? !getUserName().equals(that.getUserName()) : that.getUserName() != null) return false;
         if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
         if (middleName != null ? !middleName.equals(that.middleName) : that.middleName != null) return false;
-        return lastName != null ? lastName.equals(that.lastName) : that.lastName == null;
+        return getLastName() != null ? getLastName().equals(that.getLastName()) : that.getLastName() == null;
     }
 
     @Override
     public int hashCode() {
-        int result = userName != null ? userName.hashCode() : 0;
+        int result = getUserName() != null ? getUserName().hashCode() : 0;
         result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (middleName != null ? middleName.hashCode() : 0);
-        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        result = 31 * result + (isNativeSpeaker ? 1 : 0);
+        result = 31 * result + (getLastName() != null ? getLastName().hashCode() : 0);
+        result = 31 * result + (nativeSpeaker ? 1 : 0);
         return result;
     }
 
     @Override
     public String toString() {
         return "LecturerDTO{" +
-                "id=" + id +
-                ", userName='" + userName + '\'' +
+                "id=" + getId() +
+                ", userName='" + getUserName() + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", middleName='" + middleName + '\'' +
-                ", lastName='" + lastName + '\'' +
+                ", lastName='" + getLastName() + '\'' +
       //          ", lectures=" +  +
-                ", languages=" + languages +
-                ", isNativeSpeaker=" + isNativeSpeaker +
+                ", language=" + language +
+                ", isNativeSpeaker=" + nativeSpeaker +
                 '}';
     }
 }

@@ -1,7 +1,9 @@
 package PA165.language_school_manager.service;
 
+import PA165.language_school_manager.Entities.Course;
 import PA165.language_school_manager.Entities.Lecture;
 import PA165.language_school_manager.Entities.Person;
+import PA165.language_school_manager.Entities.Lecturer;
 
 import java.util.List;
 import java.util.Set;
@@ -29,6 +31,14 @@ public interface LectureService {
     Lecture findLectureByTopic(String topic);
 
     /**
+     * Find lectures by course
+     *
+     * @param course course
+     * @return List of lectures
+     */
+    List<Lecture> findLectureByCourse(Course course);
+
+    /**
      * Method to delete lecture
      * @param id - id of lecture that's going to be deleted
      */
@@ -45,4 +55,11 @@ public interface LectureService {
      * @param lecture - lecture to be created
      */
     void createLecture(Lecture lecture);
+    
+    /**
+     * Method to find all lectures of given lecturer
+     * @param lecturer - lecturer of the lectures
+     * @return List of lectures
+     */
+    List<Lecture> findLecturesByLecturer(Lecturer lecturer);
 }
