@@ -119,9 +119,11 @@ public class LectureController {
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public String delete(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
         LectureDTO lecture = lectureFacade.findLectureById(id);
-        lectureFacade.deleteLecture(lecture);
-        log.debug("delete({})", id);
-        redirectAttributes.addFlashAttribute("alert_success", "Lecture \"" + lecture.getTopic() + "\" was deleted.");
+        if (lecture.getPersons().isEmpty()) {
+            lectureFacade.deleteLecture(lecture);
+            log.debug("delete({})", id);
+            redirectAttributes.addFlashAttribute("alert_success", "Lecture \"" + lecture.getTopic() + "\" was deleted.");
+        }
         return "redirect:" + uriBuilder.path("/lecture/list").toUriString();
     }
 
