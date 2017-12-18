@@ -1,12 +1,10 @@
 package PA165.language_school_manager.DTO;
 
 import javax.validation.constraints.NotNull;
-import java.time.Instant;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author Jan Safarik
@@ -20,6 +18,8 @@ public class LectureCreateDTO {
     @NotNull
     private CourseDTO course;
 
+    @NotNull
+    @Size(min = 2, max = 50)
     private String topic;
     
     private String timeString;
