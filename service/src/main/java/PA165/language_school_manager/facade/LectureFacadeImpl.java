@@ -4,9 +4,11 @@ import PA165.language_school_manager.DTO.CourseDTO;
 import PA165.language_school_manager.DTO.LectureCreateDTO;
 import PA165.language_school_manager.DTO.LectureDTO;
 import PA165.language_school_manager.DTO.LecturerDTO;
+import PA165.language_school_manager.DTO.PersonDTO;
 import PA165.language_school_manager.Entities.Course;
 import PA165.language_school_manager.Entities.Lecture;
 import PA165.language_school_manager.Entities.Lecturer;
+import PA165.language_school_manager.Entities.Person;
 import PA165.language_school_manager.Facade.LectureFacade;
 import PA165.language_school_manager.service.BeanMappingService;
 import PA165.language_school_manager.service.LectureService;
@@ -15,11 +17,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
 @Transactional
 public class LectureFacadeImpl implements LectureFacade {
 
+    final static Logger log = LoggerFactory.getLogger(LectureFacadeImpl.class);
 
     @Autowired
     private LectureService lectureService;
@@ -30,7 +35,18 @@ public class LectureFacadeImpl implements LectureFacade {
     @Override
     public LectureDTO findLectureById(Long id) {
         Lecture lecture = lectureService.findLectureById(id);
-        return (lecture == null) ? null : beanMappingService.mapTo(lecture, LectureDTO.class);
+        log.warn(lecture.getPersons().toString());
+        LectureDTO lectureDTO = new LectureDTO();
+        lectureDTO = beanMappingService.mapTo(lecture, LectureDTO.class);
+        for (Person person: lecture.getPersons()) {
+            log.warn(person.getId().toString());
+            PersonDTO personDTO = beanMappingService.mapTo(person, PersonDTO.class);
+            log.warn(personDTO.getId().toString());
+            lectureDTO.addPerson(personDTO);
+        }
+        
+        log.warn(lectureDTO.getPersons().toString());
+        return (lecture == null) ? null : lectureDTO;
     }
 
     @Override
@@ -51,7 +67,7 @@ public class LectureFacadeImpl implements LectureFacade {
 
     @Override
     public Long createLecture(LectureCreateDTO lecture) {
-        Lecture lecture1 = beanMappingService.mapTo(lecture,Lecture.class);
+        Lecture lecture1 = beanMappingService.mapTo(lecture, Lecture.class);
         lectureService.createLecture(lecture1);
         return lecture1.getId();
     }
@@ -67,7 +83,7 @@ public class LectureFacadeImpl implements LectureFacade {
         Course course = beanMappingService.mapTo(courseDTO, Course.class);
         return beanMappingService.mapTo(lectureService.findLectureByCourse(course), LectureDTO.class);
     }
-    
+
     @Override
     public List<LectureDTO> findLecturesByLecturer(LecturerDTO lecturer) {
         Lecturer lecturer1 = beanMappingService.mapTo(lecturer, Lecturer.class);

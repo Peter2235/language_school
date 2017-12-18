@@ -100,7 +100,7 @@ public class LecturerController {
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
     public String updateLecturer(@PathVariable long id,
-            @Valid @ModelAttribute("hunterEdit") LecturerDTO formBean,
+            @Valid @ModelAttribute("lecturerEdit") LecturerDTO formBean,
             BindingResult bindingResult,
             Model model,
             UriComponentsBuilder uriBuilder,
@@ -113,7 +113,6 @@ public class LecturerController {
         }
         lecturerFacade.updateLecturer(formBean);
         return "redirect:" + uriBuilder.path("/lecturer/list").toUriString();
-        
     }
 
     @ModelAttribute("languages")
@@ -128,5 +127,5 @@ public class LecturerController {
         Boolean[] bla = {Boolean.FALSE, Boolean.TRUE};
         return bla;
     }
-
+    
 }

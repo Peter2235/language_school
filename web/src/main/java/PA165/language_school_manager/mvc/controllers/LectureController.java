@@ -16,6 +16,7 @@ import PA165.language_school_manager.Facade.LectureFacade;
 import PA165.language_school_manager.Facade.LecturerFacade;
 import PA165.language_school_manager.Facade.PersonFacade;
 import PA165.language_school_manager.mvc.forms.LectureCreateDTOValidator;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -71,6 +72,8 @@ public class LectureController {
         log.debug("view({})", id);
         //model.addAttribute("persons", lectureFacade.findLectureById(id).getPersons());
         model.addAttribute("lecture", lectureFacade.findLectureById(id));
+        model.addAttribute("localDateTimeFormat", DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+        log.warn(lectureFacade.findLectureById(id).getPersons().toString());
         return "lecture/view";
     }
 
