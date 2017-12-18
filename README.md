@@ -1,6 +1,10 @@
 # language_school
 Manager for language school lectures. Subject PA165.
 
+Login as administrator : Admin admin
+Login as user: agent.orange 1234
+Other users are in SampleDataLoadingFacadeImpl.
+
 Curl commands for Rest layer.
 
 Get specific person by ID
