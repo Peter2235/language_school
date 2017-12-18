@@ -29,7 +29,7 @@
                 <c:forEach items="${lectures}" var="lecture">
                     <tr>
                         <td>${lecture.id}</td>
-                        <td><javatime:parseLocalDateTime value="${lecture.time}" pattern="dd.MM.yyyy HH:mm" var="parsedDate"/>${parsedDate}</td>
+                        <td>${localDateTimeFormat.format(lecture.time)}</td>
             <td><c:out value="${lecture.course.name}"/></td>
             <td>${lecture.topic}</td>
             <td><c:out value="${lecture.lecturer.firstName} ${lecture.lecturer.lastName}"/></td>

@@ -2,8 +2,8 @@ package PA165.language_school_manager.rest.controllers;
 
 import PA165.language_school_manager.DTO.PersonCreateDTO;
 import PA165.language_school_manager.DTO.PersonDTO;
-import PA165.language_school_manager.rest.exceptions.ResourceNotFoundException;
 import PA165.language_school_manager.Facade.PersonFacade;
+import PA165.language_school_manager.rest.exceptions.ResourceNotFoundException;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +24,8 @@ public class PersonController {
      * @param id identifier for a person
      * @return PersonDTO
      * @throws ResourceNotFoundException
+     *
+     * curl -i -X GET  http://localhost:8080/pa165/rest/person/1
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final PersonDTO getPerson(@PathVariable("id") long id) throws Exception {
@@ -41,6 +43,8 @@ public class PersonController {
      * @param username username
      * @return PersonDTO
      * @throws ResourceNotFoundException
+     *
+     * curl -i -X GET  http://localhost:8080/pa165/rest/person/username/Neo
      */
     @RequestMapping(value = "/username/{username}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final PersonDTO getPersonByUsername(@PathVariable("username") String username) throws Exception {
@@ -58,6 +62,8 @@ public class PersonController {
      * @param lastName lastname of a person
      * @return PersonDTO
      * @throws ResourceNotFoundException
+     *
+     * curl -i -X GET  http://localhost:8080/pa165/rest/person/lastname/Anderson
      */
     @RequestMapping(value = "/lastname/{lastname}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<PersonDTO> getPersonByLastName(@PathVariable("lastname") String lastName) throws Exception {
@@ -73,6 +79,8 @@ public class PersonController {
      * Get list of Pesron
      *
      *  @return List of PersonDto
+     *
+     * curl -i -X GET  http://localhost:8080/pa165/rest/person
      */
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<PersonDTO> getAll() {
@@ -84,6 +92,8 @@ public class PersonController {
      *
      * @param person PersonCreateDto with required fields for creation
      * @return the created product PersonDto
+     *
+     * curl -X POST -i -H "Content-Type: application/json" --data '{"userName":"John123","firstName":"John","lastName":"Smith","isAdmin":"false"}' http://localhost:8080/pa165/rest/person/create
      */
     @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -95,6 +105,8 @@ public class PersonController {
      * Update a person
      *
      * @param person PersonDto with required fields for creation
+     *
+     * curl -X PUT -i -H "Content-Type: application/json" --data '{"id":"11","userName":"John","firstName":"John","lastName":"Smith"}' http://localhost:8080/pa165/rest/person/update
      */
     @RequestMapping(value = "/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -107,6 +119,8 @@ public class PersonController {
      *
      * @param id identifier for person
      * @throws ResourceNotFoundException
+     *
+     * curl -i -X DELETE http://localhost:8080/pa165/rest/person/12
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     public final void deletePerson(@PathVariable("id") long id) throws Exception {
