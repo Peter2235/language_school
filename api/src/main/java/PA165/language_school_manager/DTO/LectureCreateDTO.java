@@ -3,7 +3,9 @@ package PA165.language_school_manager.DTO;
 import javax.validation.constraints.NotNull;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -23,7 +25,7 @@ public class LectureCreateDTO {
     @NotNull
     private LecturerDTO lecturer;
 
-    private Set<PersonDTO> persons = new HashSet<>();
+    private List<PersonDTO> persons = new ArrayList<>();
 
     public LocalDateTime getTime() {
         return time;
@@ -57,11 +59,11 @@ public class LectureCreateDTO {
         this.lecturer = lecturer;
     }
 
-    public Set<PersonDTO> getPersons() {
+    public List<PersonDTO> getPersons() {
         return persons;
     }
 
-    public void setPersons(Set<PersonDTO> person){
+    public void setPersons(List<PersonDTO> person){
         persons.addAll(person);
     }
     

@@ -56,9 +56,13 @@ public class Lecture {
     public Lecture() {
     }
 
-    public Lecture(long id) {
-        this.id = id;
+    public Lecture(String topic){
+        this.topic = topic;
     }
+    
+    /*public Lecture(long id) {
+        this.id = id;
+    }*/
 
     public Long getId() {
         return id;

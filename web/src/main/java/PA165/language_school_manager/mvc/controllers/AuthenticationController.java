@@ -84,7 +84,7 @@ public class AuthenticationController {
         } else {
             request.getSession().setAttribute("admin", matchingP);
             redirectAttributes.addFlashAttribute("alert_success", "Log " + formBean.getUserName() + " successful");
-            return "redirect:" + uriBuilder.path("/course/list").build().toUriString();
+            return "home";
         }
 
     }
