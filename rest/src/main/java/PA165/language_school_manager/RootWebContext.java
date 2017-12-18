@@ -1,11 +1,10 @@
 package PA165.language_school_manager;
 
-import PA165.language_school_manager.config.ServiceConfiguration;
+import PA165.language_school_manager.sample.SampleDataConfiguration;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-
 import org.springframework.context.annotation.*;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -20,7 +19,7 @@ import java.util.Locale;
 
 @EnableWebMvc
 @Configuration
-@Import(ServiceConfiguration.class)
+@Import(SampleDataConfiguration.class)
 @ComponentScan(basePackages = {"PA165.language_school_manager.rest.controllers"})
 public class RootWebContext extends WebMvcConfigurerAdapter {
 
