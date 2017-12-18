@@ -25,19 +25,21 @@
             <div class="container">
                 <a class="navbar-brand" href="${pageContext.request.contextPath}">Home</a>
 
-                <form class="navbar-text pull-right" method="get" action="${pageContext.request.contextPath}/auth">
-                    <c:if test="${sessionScope.admin == null && sessionScope.user == null}">
-                        <button type="submit" class="btn">Login</button>
-                    </c:if>
-                </form>
-                <form class="navbar-text pull-right" method="get" action="${pageContext.request.contextPath}/auth/logout">
-                    <c:if test="${sessionScope.admin != null || sessionScope.user != null}">
-                        Logged in as <c:out value="${user.userName}${admin.userName}"/>
-                        &nbsp;&nbsp;
+                <c:if test="${sessionScope.homepage != null}">
+                    <form class="navbar-text pull-right" method="get" action="${pageContext.request.contextPath}/auth">
+                        <c:if test="${sessionScope.admin == null && sessionScope.user == null}">
+                            <button type="submit" class="btn">Login</button>
+                        </c:if>
+                    </form>
+                    <form class="navbar-text pull-right" method="get" action="${pageContext.request.contextPath}/auth/logout">
+                        <c:if test="${sessionScope.admin != null || sessionScope.user != null}">
+                            Logged in as <c:out value="${user.userName}${admin.userName}"/>
+                            &nbsp;&nbsp;
 
-                        <button type="submit" class="btn">Logout</button>
-                    </c:if>
-                </form>
+                            <button type="submit" class="btn">Logout</button>
+                        </c:if>
+                    </form>
+                </c:if>
             </div>
         </nav>
 
