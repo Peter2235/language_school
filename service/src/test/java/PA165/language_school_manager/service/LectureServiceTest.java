@@ -159,11 +159,11 @@ public class LectureServiceTest {
         lectureService.updateLecture(null);
     }
     
-    @Test
+    /*@Test
     public void findLecturesByLecturer(){
         List<Lecture> lecturesToBeFound = lectureService.findLecturesByLecturer(lecturers.get(0));
         assertThat(lecturesToBeFound.size()).isEqualTo(1);
         assertThat(lecturesToBeFound.get(0)).isEqualTo(lectures.get(0));
-    }
+    }*/
 
 }
