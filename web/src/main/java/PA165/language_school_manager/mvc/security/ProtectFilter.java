@@ -28,7 +28,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  *
  * @author Matúš
  */
-@WebFilter(urlPatterns = {"/lecture/*"})
+@WebFilter(urlPatterns = {"/lecture/new", "/lecture/delete/*", "/course/new", "/course/create", "/course/delete/*"})
 public class ProtectFilter implements Filter {
 
     private final static Logger log = LoggerFactory.getLogger(ProtectFilter.class);
@@ -38,14 +38,13 @@ public class ProtectFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
 
-        PersonDTO person = (PersonDTO) request.getSession().getAttribute("person");
+        PersonDTO person = (PersonDTO) request.getSession().getAttribute("admin");
         
         if (person == null){
             log.debug("Person not authorized!");
-            response.sendRedirect(request.getContextPath() + "/auth");
+            response.sendRedirect(request.getHeader("Referer"));
             return;
-        }
-        
+        }        
         
         fc.doFilter(request , response);
     }

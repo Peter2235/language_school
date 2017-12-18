@@ -12,7 +12,6 @@ import PA165.language_school_manager.DTO.PersonDTO;
 import PA165.language_school_manager.Entities.Person;
 import PA165.language_school_manager.service.PersonService;
 import PA165.language_school_manager.Facade.PersonFacade;
-import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +51,7 @@ public class PersonFacadeImpl implements PersonFacade {
     }
 
     @Override
-    public Collection<PersonDTO> getAllPersons() {
+    public List<PersonDTO> getAllPersons() {
         return beanMappingService.mapTo(personService.findAll(), PersonDTO.class);
     }
 

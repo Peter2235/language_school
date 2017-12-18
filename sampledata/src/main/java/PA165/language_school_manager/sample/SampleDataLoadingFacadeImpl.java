@@ -32,6 +32,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
     final static Logger log = LoggerFactory.getLogger(SampleDataLoadingFacadeImpl.class);
 
     Course course = new Course();
+    
     Lecturer lecturer;
     Lecture lecture = new Lecture();
     
@@ -123,6 +124,10 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         lecture.setLecturer(lecturer);
         lecture.setTopic(topic);
         
+        Person person2 = new Person("feri", "abcd", "efgh", "VECNYSTUDENT");
+        personService.createPerson(person2);
+        
+        lecture.addPerson(person2);
         lectureService.createLecture(lecture);
 
         log.debug("Creating lecture: \"" + topic.toLowerCase() + "\": " + lecture);

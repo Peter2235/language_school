@@ -83,11 +83,7 @@ public class PersonDTO {
 
     @Override
     public String toString() {
-        return "PersonDTO{" +
-                "id=" + id +
-                "userName=" + userName +
-                ", fullName='" + lastName + '\'' +
-                '}';
+        return "Username: " + userName + " LastName: " + lastName;
     }
 }
 

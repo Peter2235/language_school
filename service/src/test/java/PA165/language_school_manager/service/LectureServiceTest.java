@@ -72,8 +72,8 @@ public class LectureServiceTest {
         course.addLecture(lecture);
         student1.addLecture(lecture);
         student2.addLecture(lecture);
-        lecture.addStudent(student1);
-        lecture.addStudent(student2);
+        lecture.addPerson(student1);
+        lecture.addPerson(student2);
         lectureService.updateLecture(lecture);
 
         lecturer.addLecture(lecture);
@@ -110,7 +110,7 @@ public class LectureServiceTest {
         Lecture newLecture = TestUtils.createLecture("create lecture", lecturers.get(0), courses.get(0));
         lecturers.get(0).addLecture(newLecture);
         courses.get(0).addLecture(newLecture);
-        newLecture.addStudent(students.get(0));
+        newLecture.addPerson(students.get(0));
         students.get(0).addLecture(newLecture);
         assertThat(newLecture.getId()).isEqualTo(null);
         lectureService.createLecture(newLecture);

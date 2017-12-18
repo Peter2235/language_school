@@ -9,12 +9,16 @@ import PA165.language_school_manager.DTO.CourseDTO;
 import PA165.language_school_manager.DTO.LectureCreateDTO;
 import PA165.language_school_manager.DTO.LectureDTO;
 import PA165.language_school_manager.DTO.LecturerDTO;
+import PA165.language_school_manager.DTO.PersonDTO;
 import PA165.language_school_manager.Facade.CourseFacade;
 import javax.validation.Valid;
 import PA165.language_school_manager.Facade.LectureFacade;
 import PA165.language_school_manager.Facade.LecturerFacade;
+import PA165.language_school_manager.Facade.PersonFacade;
 import PA165.language_school_manager.mvc.forms.LectureCreateDTOValidator;
+import java.util.Arrays;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +31,10 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -51,6 +57,9 @@ public class LectureController {
     @Autowired
     private LecturerFacade lecturerFacade;
     
+    @Autowired
+    private PersonFacade personFacade;
+
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Model model) {
         model.addAttribute("lectures", lectureFacade.findAllLectures());
@@ -58,8 +67,9 @@ public class LectureController {
     }
 
     @RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
-    public String viewLecture(@PathVariable long id, Model model) {
+    public String viewLecture(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder) {
         log.debug("view({})", id);
+        //model.addAttribute("persons", lectureFacade.findLectureById(id).getPersons());
         model.addAttribute("lecture", lectureFacade.findLectureById(id));
         return "lecture/view";
     }
@@ -79,7 +89,13 @@ public class LectureController {
         model.addAttribute("lectureCreate", new LectureCreateDTO());
         return "lecture/new";
     }
-
+    
+    @ModelAttribute("persons")
+    public List<PersonDTO> persons(){
+        log.debug("persons()");
+        return personFacade.getAllPersons();
+    }
+    
     @ModelAttribute("courses")
     public List<CourseDTO> courses() {
         log.debug("courses()");
@@ -91,7 +107,7 @@ public class LectureController {
         log.debug("lecturers()");
         return lecturerFacade.findAllLecturers();
     }
-    
+
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
         if (binder.getTarget() instanceof LectureCreateDTO) {

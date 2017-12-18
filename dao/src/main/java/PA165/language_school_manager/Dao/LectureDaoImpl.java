@@ -6,6 +6,7 @@
 package PA165.language_school_manager.Dao;
 
 import PA165.language_school_manager.Entities.Lecture;
+import PA165.language_school_manager.Entities.Person;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

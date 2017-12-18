@@ -5,7 +5,9 @@ import lombok.Setter;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class LectureDTO {
@@ -53,18 +55,18 @@ public class LectureDTO {
         this.lecturer = lecturer;
     }
 
-    public Set<PersonDTO> getStudents() {
-        return students;
+    public List<PersonDTO> getPersons() {
+        return persons;
     }
 
-    public void setStudents(Set<PersonDTO> students) {
-        this.students = students;
+    public void addPerson(PersonDTO person) {
+        persons.add(person);
     }
 
     private CourseDTO course;
     private String topic;
     private LecturerDTO lecturer;
-    private Set<PersonDTO> students = new HashSet<>();
+    private List<PersonDTO> persons;
 
     @Override
     public boolean equals(Object o) {

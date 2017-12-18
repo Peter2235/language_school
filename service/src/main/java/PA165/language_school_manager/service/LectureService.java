@@ -1,8 +1,10 @@
 package PA165.language_school_manager.service;
 
 import PA165.language_school_manager.Entities.Lecture;
+import PA165.language_school_manager.Entities.Person;
 
 import java.util.List;
+import java.util.Set;
 
 public interface LectureService {
 
@@ -43,5 +45,4 @@ public interface LectureService {
      * @param lecture - lecture to be created
      */
     void createLecture(Lecture lecture);
-
 }

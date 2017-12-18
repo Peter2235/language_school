@@ -84,7 +84,7 @@ public class AuthenticationController {
         } else {
             request.getSession().setAttribute("admin", matchingP);
             redirectAttributes.addFlashAttribute("alert_success", "Log " + formBean.getUserName() + " successful");
-            return "redirect:" + uriBuilder.path("/courses/list").build().toUriString();
+            return "redirect:" + uriBuilder.path("/course/list").build().toUriString();
         }
 
     }
@@ -93,7 +93,11 @@ public class AuthenticationController {
     public String logoutUser(Model model, HttpServletRequest request) {
         log.debug("[AUTH] Logout");
         if (request.getSession().getAttribute("person") == null) {
-            return "home";
+            if (request.getSession().getAttribute("admin") == null) {
+                return "home";
+            } else {
+                request.getSession().removeAttribute("admin");
+            }
         }
         request.getSession().removeAttribute("person");
         return "home";

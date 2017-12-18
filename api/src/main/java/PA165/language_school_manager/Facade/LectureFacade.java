@@ -2,10 +2,9 @@ package PA165.language_school_manager.Facade;
 
 import PA165.language_school_manager.DTO.LectureCreateDTO;
 import PA165.language_school_manager.DTO.LectureDTO;
+import PA165.language_school_manager.DTO.PersonDTO;
         
 import java.util.List;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 public interface LectureFacade {
 
@@ -46,5 +45,4 @@ public interface LectureFacade {
      * @param lecture - lecture to be updated
      */
     void updateLecture(LectureDTO lecture);
-
 }

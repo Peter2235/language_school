@@ -25,7 +25,7 @@ public interface PersonFacade {
      * Get all people
      * 
      */
-    Collection<PersonDTO> getAllPersons();
+    List<PersonDTO> getAllPersons();
     
     /**
      * Method used to store person given as a parameter

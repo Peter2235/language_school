@@ -21,7 +21,7 @@
                     </form:select>
                     <p class="help-block"><form:errors path="course.id" cssClass="error"/></p>
                 </div>
-            </div>
+            </div>   
 
             <div class="form-group">
                 <form:label path="lecturer.id" cssClass="col-sm-2 control-label">Lecturer</form:label>

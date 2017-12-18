@@ -17,6 +17,7 @@ import java.util.Set;
  * @author Matúš Sedlák
  */
 @Entity
+@Table(name = "LECTURES")
 public class Lecture {
 
     public void setId(Long id) {
@@ -41,14 +42,14 @@ public class Lecture {
     private Lecturer lecturer;
 
     @ManyToMany(mappedBy = "lectures")
-    private Set<Person> students = new HashSet<Person>();
+    private Set<Person> persons = new HashSet<Person>();
 
-    public void addStudent(Person student) {
-        this.students.add(student);
+    public void addPerson(Person student) {
+        this.persons.add(student);
     }
 
-    public Set<Person> getStudents() {
-        return Collections.unmodifiableSet(students);
+    public Set<Person> getPersons() {
+        return Collections.unmodifiableSet(persons);
     }
 
     public Lecture() {
