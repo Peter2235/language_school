@@ -23,7 +23,7 @@ public class LectureCreateDTO {
     @NotNull
     private LecturerDTO lecturer;
 
-    private Set<PersonDTO> students = new HashSet<>();
+    private Set<PersonDTO> persons = new HashSet<>();
 
     public LocalDateTime getTime() {
         return time;
@@ -57,11 +57,15 @@ public class LectureCreateDTO {
         this.lecturer = lecturer;
     }
 
-    public Set<PersonDTO> getStudents() {
-        return students;
+    public Set<PersonDTO> getPersons() {
+        return persons;
     }
 
-    public void setStudents(Set<PersonDTO> students) {
-        this.students = students;
+    public void setPersons(Set<PersonDTO> person){
+        persons.addAll(person);
+    }
+    
+    public void addPerson(PersonDTO person){
+        persons.add(person);
     }
 }

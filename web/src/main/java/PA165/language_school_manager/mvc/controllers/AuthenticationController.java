@@ -63,29 +63,42 @@ public class AuthenticationController {
             model.addAttribute("personLogin", new PersonAuthenticateDTO());
             return "/auth/login";
         }
-        
+
         PersonDTO matchingP = personFacade.findPersonByUserName(formBean.getUserName());
-        if (matchingP == null){
+        if (matchingP == null) {
             log.warn("no person with userName {}", formBean.getUserName());
             redirectAttributes.addFlashAttribute("alert_warning", "No person with userName: " + formBean.getUserName());
             return "redirect:" + uriBuilder.path("/auth").build().toUriString();
         }
-        
-        if (!personFacade.authenticate(formBean)){
+
+        if (!personFacade.authenticate(formBean)) {
             log.warn("wrong credentials: person={} password={}", formBean.getUserName(), formBean.getPassword());
             redirectAttributes.addFlashAttribute("alert_warning", "Login " + formBean.getUserName() + " failed ");
             return "redirect:" + uriBuilder.path("/auth").build().toUriString();
         }
-        
-        request.getSession().setAttribute("person", matchingP);
-        
-        redirectAttributes.addFlashAttribute("alert_success", "Log " + formBean.getUserName() + " successful");
-        return "home";
+
+        if (!personFacade.isAdmin(matchingP)) {
+            request.getSession().setAttribute("person", matchingP);
+            redirectAttributes.addFlashAttribute("alert_success", "Log " + formBean.getUserName() + " successful");
+            return "home";
+        } else {
+            request.getSession().setAttribute("admin", matchingP);
+            redirectAttributes.addFlashAttribute("alert_success", "Log " + formBean.getUserName() + " successful");
+            return "redirect:" + uriBuilder.path("/course/list").build().toUriString();
+        }
+
     }
-    
+
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logoutUser(Model model, HttpServletRequest request) {
         log.debug("[AUTH] Logout");
+        if (request.getSession().getAttribute("person") == null) {
+            if (request.getSession().getAttribute("admin") == null) {
+                return "home";
+            } else {
+                request.getSession().removeAttribute("admin");
+            }
+        }
         request.getSession().removeAttribute("person");
         return "home";
     }

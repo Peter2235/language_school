@@ -2,9 +2,11 @@ package PA165.language_school_manager.service;
 
 import PA165.language_school_manager.Entities.Course;
 import PA165.language_school_manager.Entities.Lecture;
+import PA165.language_school_manager.Entities.Person;
 import PA165.language_school_manager.Entities.Lecturer;
 
 import java.util.List;
+import java.util.Set;
 
 public interface LectureService {
 
@@ -60,5 +62,4 @@ public interface LectureService {
      * @return List of lectures
      */
     List<Lecture> findLecturesByLecturer(Lecturer lecturer);
-
 }

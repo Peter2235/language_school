@@ -77,7 +77,7 @@ public class LecturerServiceTest {
 
     @Test
     public void createLecturerTest(){
-        Lecturer lecturer2 = new Lecturer();
+        Lecturer lecturer2 = new Lecturer("feri", "a", "b", "Drevo", true);
         lecturerService.createLecturer(lecturer2);
 
         assertThat(lecturerService.findLecturerById(lecturer2.getId())).isEqualTo(lecturer2);

@@ -15,6 +15,7 @@ import java.util.Set;
  * @author Peter Tirala
  */
 @Entity
+@Table(name = "PERSONS")
 public class Person {
 
     @Id

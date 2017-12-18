@@ -110,7 +110,8 @@ public class PersonDTO {
 
     @Override
     public String toString() {
-        return "PersonDTO{" +
+        return "Username: " + userName + " LastName: " + lastName;
+        /*return "PersonDTO{" +
                 "id=" + id +
                 ", userName='" + userName + '\'' +
                 ", firstName='" + firstName + '\'' +
@@ -118,7 +119,7 @@ public class PersonDTO {
                 ", lastName='" + lastName + '\'' +
                 ", isAdmin=" + isAdmin +
                 ", lectures=" + lectures +
-                '}';
+                '}';*/
     }
 }
 
