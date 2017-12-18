@@ -14,7 +14,11 @@ import PA165.language_school_manager.Entities.Lecture;
 import PA165.language_school_manager.Entities.Person;
 import PA165.language_school_manager.service.PersonService;
 import PA165.language_school_manager.Facade.PersonFacade;
+import static PA165.language_school_manager.facade.LectureFacadeImpl.log;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +31,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class PersonFacadeImpl implements PersonFacade {
+    
+    final static org.slf4j.Logger log = LoggerFactory.getLogger(LectureFacadeImpl.class);
 
     @Autowired
     private PersonService personService;
@@ -37,7 +43,17 @@ public class PersonFacadeImpl implements PersonFacade {
     @Override
     public PersonDTO findPersonById(Long id) {
         Person person = personService.findPersonById(id);
-        return (person == null) ? null : beanMappingService.mapTo(person, PersonDTO.class);
+        log.warn(person.getLectures().toString());
+        PersonDTO personDTO = beanMappingService.mapTo(person, PersonDTO.class);
+        log.warn(personDTO.getLectures().toString());
+        for (Lecture lecture: person.getLectures()) {
+            log.warn(lecture.getId().toString());
+            LectureDTO lectureDTO = beanMappingService.mapTo(lecture, LectureDTO.class);
+            log.warn(lectureDTO.getId().toString());
+            personDTO.addLecture(lectureDTO);
+        }
+        log.warn(personDTO.getLectures().toString());
+        return (person == null) ? null : personDTO;
     }
 
     @Override

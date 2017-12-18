@@ -39,6 +39,7 @@ public class PersonController {
     @RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
     public String viewPerson(@PathVariable long id, Model model){
         model.addAttribute("person", personFacade.findPersonById(id));
+        model.addAttribute("lectures", personFacade.findPersonById(id).getLectures());
         return "/person/view";
     }
 }
