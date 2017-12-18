@@ -53,7 +53,7 @@
                 <form:label path="nativeSpeaker" cssClass="col-sm-2 control-label">Native Speaker</form:label>
                     <div class="col-sm-10">
                     <form:select path="nativeSpeaker" cssClass="form-control">
-                        <c:forEach items="${booleans}" var="c">
+                        <<c:forEach items="${booleans}" var="c">
                             <form:option value="${c}">${c}</form:option>
                         </c:forEach>
                     </form:select>

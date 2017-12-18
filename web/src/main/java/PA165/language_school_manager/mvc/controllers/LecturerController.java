@@ -113,7 +113,6 @@ public class LecturerController {
         }
         lecturerFacade.updateLecturer(formBean);
         return "redirect:" + uriBuilder.path("/lecturer/list").toUriString();
-        
     }
 
     @ModelAttribute("languages")
@@ -128,5 +127,5 @@ public class LecturerController {
         Boolean[] bla = {Boolean.FALSE, Boolean.TRUE};
         return bla;
     }
-
+    
 }

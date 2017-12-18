@@ -16,9 +16,6 @@ import javax.validation.constraints.Size;
 @Setter
 public class LecturerCreateDTO extends PersonCreateDTO{
 
-
-    private String middleName;
-
     private Language language;
     
     private boolean nativeSpeaker;
@@ -46,7 +43,7 @@ public class LecturerCreateDTO extends PersonCreateDTO{
         if (nativeSpeaker != that.nativeSpeaker) return false;
         if (getUserName() != null ? !getUserName().equals(that.getUserName()) : that.getUserName() != null) return false;
         if (getFirstName() != null ? !getFirstName().equals(that.getFirstName()) : that.getFirstName() != null) return false;
-        if (middleName != null ? !middleName.equals(that.middleName) : that.middleName != null) return false;
+        if (getMiddleName() != null ? !getMiddleName().equals(that.getMiddleName()) : that.getMiddleName() != null) return false;
         return getLastName() != null ? getLastName().equals(that.getLastName()) : that.getLastName() == null;
     }
 
@@ -54,7 +51,7 @@ public class LecturerCreateDTO extends PersonCreateDTO{
     public int hashCode() {
         int result = getUserName() != null ? getUserName().hashCode() : 0;
         result = 31 * result + (getFirstName() != null ? getFirstName().hashCode() : 0);
-        result = 31 * result + (middleName != null ? middleName.hashCode() : 0);
+        result = 31 * result + (getMiddleName() != null ? getMiddleName().hashCode() : 0);
         result = 31 * result + (getLastName() != null ? getLastName().hashCode() : 0);
         result = 31 * result + (nativeSpeaker ? 1 : 0);
         return result;
@@ -65,7 +62,7 @@ public class LecturerCreateDTO extends PersonCreateDTO{
         return "LecturerCreateDTO{" +
                 "userName='" + getUserName() + '\'' +
                 ", firstName='" + getFirstName() + '\'' +
-                ", middleName='" + middleName + '\'' +
+                ", middleName='" + getMiddleName() + '\'' +
                 ", lastName='" + getLastName() + '\'' +
                 ", isNativeSpeaker=" + nativeSpeaker +
                 '}';

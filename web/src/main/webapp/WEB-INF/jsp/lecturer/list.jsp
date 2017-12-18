@@ -21,6 +21,7 @@
                     <th>First name</th>
                     <th>Middle name</th>
                     <th>Last name</th>
+                    <th>Language</th>
                     <th>Native speaker</th>
                 </tr>
             </thead>
@@ -32,12 +33,10 @@
                         <td>${lecturer.firstName}</td>
                         <td>${lecturer.middleName}</td>
                         <td>${lecturer.lastName}</td>
+                        <td>${lecturer.language}</td>
                         <td>${lecturer.nativeSpeaker}</td>
                         <td>
                             <my:a href="/lecturer/view/${lecturer.id}" class="btn btn-primary">View</my:a>
-                            </td>
-                            <td>
-                            <my:a href="/lecturer/edit/${lecturer.id}" class="btn btn-primary">Edit</my:a>
                             </td>
                             <td>
                                 <form method="post" action="${pageContext.request.contextPath}/lecturer/delete/${lecturer.id}">

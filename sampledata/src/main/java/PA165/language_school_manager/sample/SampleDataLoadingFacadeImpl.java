@@ -30,11 +30,6 @@ import java.util.Map;
 public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
 
     final static Logger log = LoggerFactory.getLogger(SampleDataLoadingFacadeImpl.class);
-
-    Course course = new Course();
-    
-    Lecturer lecturer;
-    Lecture lecture = new Lecture();
     
     @Autowired
     private PersonService personService;
@@ -63,29 +58,45 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
 
     private void loadPerson() {
         log.info("Creating people.");
-        createPerson("Neadmin", "netajomna", "nekomnata", "drevo", "1234", false);
-        createPerson("Dandy", "tajomna", "komnata", "drevo", "admin", true);
+        createPerson("agent.orange", "Donald", "John", "Trump", "1234", true);
+        createPerson("darth.vader", "Anakin", null, "Skywalker", "empire", true);
+        createPerson("ring.bearer", "Frodo", null, "Baggins", "hobbit1", false);
+        createPerson("harrys.sidekick", "Ronald", "Bilius", "Weasley", "alohomora", false);
+        createPerson("its.captain.jack", "Jack", null, "Sparrow", "black_pearl", false);
+        createPerson("the.don", "Vito", null, "Corleone", "family.first", false);
         log.info("People have been created!");
 
     }
 
     private void loadLecturer() {
         log.info("Creating lecturers.");
-        createLecturer("Murica", "inglisgod", true, false);
+        createLecturer("Neo", "Thomas", "A.", "Anderson", Language.ENGLISH, true, true);
+        createLecturer("Indiana", "Henry", "Walton", "Jones", Language.ITALIAN, true, false);
+        createLecturer("gladiator", "Maximus", "Decimus", "Meridius", Language.SPANISH, false, false);
+        createLecturer("Rocky", "Robert", null, "Balboa", Language.GERMAN, false, false);
+        createLecturer("Tony", "Antonio", null, "Montana", Language.SPANISH, false, true);
+        createLecturer("Bohuš", "Bohumil", null, "Stejskal", Language.FRENCH, true, false);
         log.info("Lecturers have been created!");
 
     }
 
     private void loadCourse() {
         log.info("Creating courses.");
-        createCourse("TeaAndRain", Language.ENGLISH, ProficiencyLevel.B1);
+        createCourse("Archeology in Italia", Language.ITALIAN, ProficiencyLevel.C2);
+        createCourse("Boxing with germans", Language.GERMAN, ProficiencyLevel.A1);
+        createCourse("How to get out of the system", Language.ENGLISH, ProficiencyLevel.B1);
         log.info("Courses have been created!");
 
     }
 
     private void loadLecture() {
         log.info("Creating lectures.");
-        createLecture(course, lecturer, "topic", LocalDateTime.now());
+        createLecture(courseMap.get(("Archeology in Italia").toLowerCase()), lecturerMap.get(("Indiana").toLowerCase()), "How to hold a whip", LocalDateTime.now().plusHours(3));
+        createLecture(courseMap.get(("Archeology in Italia").toLowerCase()), lecturerMap.get(("Indiana").toLowerCase()), "How to steal old stuff", LocalDateTime.now().plusDays(1));
+        createLecture(courseMap.get(("Boxing with germans").toLowerCase()), lecturerMap.get(("Rocky").toLowerCase()), "First lose, then win", LocalDateTime.now().plusHours(5));
+        createLecture(courseMap.get(("Boxing with germans").toLowerCase()), lecturerMap.get(("Rocky").toLowerCase()), "Lesson of ice skating", LocalDateTime.now().plusDays(2));
+        createLecture(courseMap.get(("How to get out of the system").toLowerCase()), lecturerMap.get(("Neo").toLowerCase()), "How to contact Morpheus", LocalDateTime.now().plusDays(1));
+        createLecture(courseMap.get(("How to get out of the system").toLowerCase()), lecturerMap.get(("gladiator").toLowerCase()), "Started from the bottom, now we here", LocalDateTime.now().plusDays(3));
         log.info("Lectures have been created!");
 
     }
@@ -103,8 +114,8 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
 
     }
 
-    private void createLecturer(String userName, String lastName, boolean isAdmin, boolean isNativeSpeaker) {
-        lecturer = new Lecturer(userName, "A.", "B.", lastName, isNativeSpeaker);
+    private void createLecturer(String userName, String firstName, String middleName, String lastName, Language language, boolean isAdmin, boolean isNativeSpeaker) {
+        Lecturer lecturer = new Lecturer(userName, firstName, middleName, lastName, language, isNativeSpeaker);
         lecturer.setAdmin(isAdmin);
         lecturerService.createLecturer(lecturer);
         log.debug("Creating lecturer: \"" + userName.toLowerCase() + "\": " + lecturer);
@@ -112,6 +123,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
     }
 
     private void createCourse(String name, Language language, ProficiencyLevel level) {
+        Course course = new Course();
         course.setName(name);
         course.setLanguage(language);
         course.setProficiencyLevel(level);
@@ -121,6 +133,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
     }
 
     private void createLecture(Course course, Lecturer lecturer, String topic, LocalDateTime time) {
+        Lecture lecture = new Lecture();
         lecture.setTime(time);
         lecture.setCourse(course);
         lecture.setLecturer(lecturer);
