@@ -7,7 +7,10 @@
 
 <my:pagetemplate title="Perosn Administration">
 <jsp:attribute name="body">
-
+    <my:a href="http://localhost:8080/pa165/person/list" class="btn btn-primary">
+        <span class="glyphicon glyphicon" aria-hidden="true"></span>
+        Back
+    </my:a>
 <table class="table">
     <thead>
     <tr>
@@ -23,10 +26,10 @@
     <tr>
         <td>${person.id}</td>
         <td>${person.userName}</td>
-        <td></td>
-        <td></td>
+        <td>${person.firstName}</td>
+        <td>${person.middleName}</td>
         <td>${person.lastName}</td>
-        <td></td>
+        <td>${person.admin? "Admin" : "User"}</td>
     </tr>
     </tbody>
 </table>

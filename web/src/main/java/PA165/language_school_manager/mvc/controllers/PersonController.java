@@ -39,18 +39,31 @@ public class PersonController {
         return "person/list";
     }
 
-    @RequestMapping(value = "/new", method = RequestMethod.GET)
+    /**
+     * Detail of a person
+     *
+     * @param id Id of a person
+     * @param model
+     * @return /person/view
+     */
+    @RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
+    public String viewPerson(@PathVariable long id, Model model){
+        model.addAttribute("person", personFacade.findPersonById(id));
+        return "/person/view";
+    }
+
+
+/*    @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String newPerson(Model model){
         log.debug("Preparing new form for Person");
         model.addAttribute("personCreate", new PersonCreateDTO());
         return "person/new";
-    }
-
-    /**
+    }*/
+/*    *//**
      * Create new person
      *
      * @return /person/list
-     */
+     *//*
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(@Valid @ModelAttribute("personCreate") PersonCreateDTO formBean, BindingResult bindingResult,
                          Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
@@ -70,16 +83,16 @@ public class PersonController {
         return "redirect:" + uriBuilder.path("/person/list").toUriString();
     }
 
-    /**
+    *//**
      * Delete peston
      *
      * @return /person/list
-     */
+     *//*
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public String delete(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
         PersonDTO personDTO = personFacade.findPersonById(id);
         personFacade.deletePerson(personDTO);
         redirectAttributes.addFlashAttribute("alert_success", "Person \"" + personDTO.getUserName() + "\" was deleted.");
         return "redirect:" + uriBuilder.path("/person/list").toUriString();
-    }
+    }*/
 }

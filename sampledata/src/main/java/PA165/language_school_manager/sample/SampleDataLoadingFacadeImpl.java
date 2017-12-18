@@ -63,15 +63,15 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
 
     private void loadPerson() {
         log.info("Creating people.");
-        createPerson("Dandy", "drevo", "admin", true);
-        createPerson("Neadmin", "drevo", "1234", false);
+        createPerson("Neadmin", "netajomna", "nekomnata", "drevo", "1234", false);
+        createPerson("Dandy", "tajomna", "komnata", "drevo", "admin", true);
         log.info("People have been created!");
 
     }
 
     private void loadLecturer() {
         log.info("Creating lecturers.");
-        createLecturer("Murica", "inglisgod", true, true);
+        createLecturer("Murica", "inglisgod", true, false);
         log.info("Lecturers have been created!");
 
     }
@@ -90,9 +90,11 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
 
     }
 
-    private void createPerson(String userName, String lastName, String password, boolean isAdmin) {
+    private void createPerson(String userName, String firstName, String middleName, String lastName, String password, boolean isAdmin) {
         Person person = new Person();
         person.setUserName(userName);
+        person.setFirstName(firstName);
+        person.setMiddleName(middleName);
         person.setLastName(lastName);
         person.setAdmin(isAdmin);
         personService.registerPerson(person, password);

@@ -17,9 +17,12 @@ public class PersonDTO {
 
     private Long id;
     private String userName;
+    private String firstName;
+    private String middleName;
     private String lastName;
+    private boolean isAdmin;
     private Set<LectureDTO> lectures = new HashSet<LectureDTO>();
-    
+
     public Long getId() {
         return id;
     }
@@ -36,6 +39,22 @@ public class PersonDTO {
         this.userName = userName;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
     public String getLastName() {
         return lastName;
     }
@@ -44,14 +63,22 @@ public class PersonDTO {
         this.lastName = lastName;
     }
 
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
+
     public Set<LectureDTO> getLectures() {
         return Collections.unmodifiableSet(lectures);
     }
-    
-    public void addLecture(LectureDTO lectureDto){
+
+    public void addLecture(LectureDTO lectureDto) {
         lectures.add(lectureDto);
     }
-    
+
     public PersonDTO() {
 
     }
@@ -84,6 +111,15 @@ public class PersonDTO {
     @Override
     public String toString() {
         return "Username: " + userName + " LastName: " + lastName;
+        /*return "PersonDTO{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", isAdmin=" + isAdmin +
+                ", lectures=" + lectures +
+                '}';*/
     }
 }
 

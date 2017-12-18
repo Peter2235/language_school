@@ -2,9 +2,7 @@ package PA165.language_school_manager.mvc.controllers;
 
 import PA165.language_school_manager.DTO.CourseCreateDTO;
 import PA165.language_school_manager.DTO.CourseDTO;
-import PA165.language_school_manager.DTO.LectureCreateDTO;
 import PA165.language_school_manager.DTO.LectureDTO;
-import PA165.language_school_manager.Entities.Lecture;
 import PA165.language_school_manager.Enums.Language;
 import PA165.language_school_manager.Enums.ProficiencyLevel;
 import PA165.language_school_manager.Facade.CourseFacade;
@@ -13,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -111,8 +107,11 @@ public class CourseController {
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public String delete(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
         CourseDTO course = courseFacade.findCourseById(id);
-        courseFacade.deleteCourse(course);
-        redirectAttributes.addFlashAttribute("alert_success", "Course \"" + course.getName() + "\" was deleted.");
+        List<LectureDTO> lectureByCourse = lectureFacade.findLectureByCourse(course);
+        if (lectureByCourse == null || lectureByCourse.isEmpty()) {
+            courseFacade.deleteCourse(course);
+            redirectAttributes.addFlashAttribute("alert_success", "Course \"" + course.getName() + "\" was deleted.");
+        }
         return "redirect:" + uriBuilder.path("/course/list").toUriString();
     }
 

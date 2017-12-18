@@ -11,11 +11,6 @@
 
 <my:pagetemplate title="Students">
 <jsp:attribute name="body">
-
-    <my:a href="/person/new" class="btn btn-primary">
-        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-        New Student
-    </my:a>
     <table class="table">
         <caption>Persons</caption>
         <thead>
@@ -34,14 +29,14 @@
                 <tr>
                     <td>${person.id}</td>
                     <td>${person.userName}</td>
-                    <td></td>
-                    <td></td>
+                    <td>${person.firstName}</td>
+                    <td>${person.middleName}</td>
                     <td>${person.lastName}</td>
-                    <td></td>
+                    <td>${person.admin? "Admin" : "User"}</td>
                     <td>
-                        <form method="post" action="${pageContext.request.contextPath}/person/delete/${person.id}">
-                            <button type="submit" class="btn btn-primary">Delete</button>
-                        </form>
+                        <my:a href="/person/view/${person.id}" class="btn btn-primary">
+                        View
+                        </my:a>
                     </td>
                 </tr>
 
