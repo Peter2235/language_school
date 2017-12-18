@@ -9,6 +9,7 @@ import PA165.language_school_manager.DTO.CourseDTO;
 import PA165.language_school_manager.DTO.LectureCreateDTO;
 import PA165.language_school_manager.DTO.LectureDTO;
 import PA165.language_school_manager.DTO.LecturerDTO;
+import PA165.language_school_manager.DTO.PersonAuthenticateDTO;
 import PA165.language_school_manager.DTO.PersonDTO;
 import PA165.language_school_manager.Facade.CourseFacade;
 import javax.validation.Valid;
@@ -19,6 +20,8 @@ import PA165.language_school_manager.mvc.forms.LectureCreateDTOValidator;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,7 +60,7 @@ public class LectureController {
 
     @Autowired
     private LecturerFacade lecturerFacade;
-    
+
     @Autowired
     private PersonFacade personFacade;
 
@@ -77,6 +80,42 @@ public class LectureController {
         return "lecture/view";
     }
 
+    @RequestMapping(value = "/assign/{id}", method = RequestMethod.POST)
+    public String assignToLecture(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, HttpServletRequest request,
+            RedirectAttributes redirectAttributes) {
+        LectureDTO lecture = lectureFacade.findLectureById(id);
+        PersonDTO loggedPerson = (PersonDTO) request.getSession().getAttribute("person");
+        if (loggedPerson == null) {
+            redirectAttributes.addFlashAttribute("alert_warning", "failed");
+            return "redirect:" + request.getHeader("Referer");
+        }
+        if (!loggedPerson.getLectures().contains(lecture)) {
+            loggedPerson.addLecture(lecture);
+            personFacade.updatePerson(loggedPerson);
+        }
+
+        redirectAttributes.addFlashAttribute("alert_success", "Lecture \"" + lecture.getTopic() + "\" assigned.");
+        return "redirect:" + uriBuilder.path("/lecture/view/{id}").buildAndExpand(id).encode().toUriString();
+    }
+
+    @RequestMapping(value = "/unassign/{id}", method = RequestMethod.POST)
+    public String unassignFromLecture(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, HttpServletRequest request,
+            RedirectAttributes redirectAttributes) {
+        LectureDTO lecture = lectureFacade.findLectureById(id);
+        PersonDTO loggedPerson = (PersonDTO) request.getSession().getAttribute("person");
+        if (loggedPerson == null) {
+            redirectAttributes.addFlashAttribute("alert_warning", "failed");
+            return "redirect:" + request.getHeader("Referer");
+        }
+        if (loggedPerson.getLectures().contains(lecture)) {
+            loggedPerson.dropLecture(lecture);
+            personFacade.updatePerson(loggedPerson);
+        }
+
+        redirectAttributes.addFlashAttribute("alert_success", "Lecture \"" + lecture.getTopic() + "\" assigned.");
+        return "redirect:" + uriBuilder.path("/lecture/view/{id}").buildAndExpand(id).encode().toUriString();
+    }
+
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public String delete(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
         LectureDTO lecture = lectureFacade.findLectureById(id);
@@ -92,13 +131,13 @@ public class LectureController {
         model.addAttribute("lectureCreate", new LectureCreateDTO());
         return "lecture/new";
     }
-    
+
     @ModelAttribute("persons")
-    public List<PersonDTO> persons(){
+    public List<PersonDTO> persons() {
         log.debug("persons()");
         return personFacade.getAllPersons();
     }
-    
+
     @ModelAttribute("courses")
     public List<CourseDTO> courses() {
         log.debug("courses()");

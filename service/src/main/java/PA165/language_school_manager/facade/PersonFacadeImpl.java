@@ -5,10 +5,12 @@
  */
 package PA165.language_school_manager.facade;
 
+import PA165.language_school_manager.DTO.LectureDTO;
 import PA165.language_school_manager.DTO.PersonAuthenticateDTO;
 import PA165.language_school_manager.DTO.PersonCreateDTO;
 import PA165.language_school_manager.service.BeanMappingService;
 import PA165.language_school_manager.DTO.PersonDTO;
+import PA165.language_school_manager.Entities.Lecture;
 import PA165.language_school_manager.Entities.Person;
 import PA165.language_school_manager.service.PersonService;
 import PA165.language_school_manager.Facade.PersonFacade;
@@ -66,6 +68,10 @@ public class PersonFacadeImpl implements PersonFacade {
     @Override
     public void updatePerson(PersonDTO person) {
         Person mapPerson = beanMappingService.mapTo(person, Person.class);
+        for (LectureDTO lecture : person.getLectures()){
+            Lecture lecture2 = beanMappingService.mapTo(lecture, Lecture.class);
+            mapPerson.addLecture(lecture2);
+        }
         personService.updatePerson(mapPerson);
     }
 
