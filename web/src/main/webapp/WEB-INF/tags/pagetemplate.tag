@@ -25,10 +25,18 @@
             <div class="container">
                 <a class="navbar-brand" href="${pageContext.request.contextPath}">Home</a>
 
+                <form class="navbar-text pull-right" method="get" action="${pageContext.request.contextPath}/auth">
+                    <c:if test="${sessionScope.admin == null && sessionScope.user == null}">
+                        <button type="submit" class="btn">Login</button>
+                    </c:if>
+                </form>
                 <form class="navbar-text pull-right" method="get" action="${pageContext.request.contextPath}/auth/logout">
-                    Logged in as <c:out value="${authenticatedUser.firstName} ${authenticatedUser.lastName}"/>
-                    &nbsp;&nbsp;
-                    <button type="submit" class="btn">Logout</button>
+                    <c:if test="${sessionScope.admin != null || sessionScope.user != null}">
+                        Logged in as <c:out value="${user.userName}${admin.userName}"/>
+                        &nbsp;&nbsp;
+
+                        <button type="submit" class="btn">Logout</button>
+                    </c:if>
                 </form>
             </div>
         </nav>
