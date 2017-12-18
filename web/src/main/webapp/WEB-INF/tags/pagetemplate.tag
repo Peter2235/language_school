@@ -27,13 +27,13 @@
 
                 <c:if test="${sessionScope.homepage != null}">
                     <form class="navbar-text pull-right" method="get" action="${pageContext.request.contextPath}/auth">
-                        <c:if test="${sessionScope.admin == null && sessionScope.user == null}">
+                        <c:if test="${sessionScope.admin == null && sessionScope.person == null}">
                             <button type="submit" class="btn">Login</button>
                         </c:if>
                     </form>
                     <form class="navbar-text pull-right" method="get" action="${pageContext.request.contextPath}/auth/logout">
-                        <c:if test="${sessionScope.admin != null || sessionScope.user != null}">
-                            Logged in as <c:out value="${user.userName}${admin.userName}"/>
+                        <c:if test="${sessionScope.admin != null || sessionScope.person != null}">
+                            Logged in as <c:out value="${person.userName}${admin.userName}"/>
                             &nbsp;&nbsp;
 
                             <button type="submit" class="btn">Logout</button>

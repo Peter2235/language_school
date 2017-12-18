@@ -9,7 +9,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-
 /**
  * @author Matúš
  */
@@ -79,6 +78,12 @@ public class PersonDTO {
         lectures.add(lectureDto);
     }
 
+    public void dropLecture(LectureDTO lectureDto) {
+        if (lectures.contains(lectureDto)) {
+            lectures.remove(lectureDto);
+        }
+    }
+
     public PersonDTO() {
 
     }
@@ -93,18 +98,23 @@ public class PersonDTO {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         PersonDTO other = (PersonDTO) obj;
         if (userName == null) {
-            if (other.userName != null)
+            if (other.userName != null) {
                 return false;
-        } else if (!userName.equals(other.userName))
+            }
+        } else if (!userName.equals(other.userName)) {
             return false;
+        }
         return true;
     }
 
@@ -122,4 +132,3 @@ public class PersonDTO {
                 '}';*/
     }
 }
-

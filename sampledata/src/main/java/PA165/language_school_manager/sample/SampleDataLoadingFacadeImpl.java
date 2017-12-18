@@ -60,8 +60,13 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
 
     private void loadPerson() {
         log.info("Creating people.");
-        createPerson("agent.orange", "Donald", "John", "Trump", "1234", true);
-        createPerson("darth.vader", "Anakin", null, "Skywalker", "empire", true);
+        /**
+         * Only Admin can create/delete courses and lectures
+         */
+        createPerson("Admin", "Anonym", "Anonym", "Anonym", "admin", true); 
+        
+        createPerson("agent.orange", "Donald", "John", "Trump", "1234", false);
+        createPerson("darth.vader", "Anakin", null, "Skywalker", "empire", false);
         createPerson("ring.bearer", "Frodo", null, "Baggins", "hobbit1", false);
         createPerson("harrys.sidekick", "Ronald", "Bilius", "Weasley", "alohomora", false);
         createPerson("its.captain.jack", "Jack", null, "Sparrow", "black_pearl", false);
@@ -72,12 +77,12 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
 
     private void loadLecturer() {
         log.info("Creating lecturers.");
-        createLecturer("Neo", "Thomas", "A.", "Anderson", Language.ENGLISH, true, true);
-        createLecturer("Indiana", "Henry", "Walton", "Jones", Language.ITALIAN, true, false);
+        createLecturer("Neo", "Thomas", "A.", "Anderson", Language.ENGLISH, false, true);
+        createLecturer("Indiana", "Henry", "Walton", "Jones", Language.ITALIAN, false, false);
         createLecturer("gladiator", "Maximus", "Decimus", "Meridius", Language.SPANISH, false, false);
         createLecturer("Rocky", "Robert", null, "Balboa", Language.GERMAN, false, false);
         createLecturer("Tony", "Antonio", null, "Montana", Language.SPANISH, false, true);
-        createLecturer("Bohuš", "Bohumil", null, "Stejskal", Language.FRENCH, true, false);
+        createLecturer("Bohuš", "Bohumil", null, "Stejskal", Language.FRENCH, false, false);
         log.info("Lecturers have been created!");
 
     }

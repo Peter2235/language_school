@@ -22,36 +22,42 @@
                 <tr>
                     <th>time</th>
                     <td>${localDateTimeFormat.format(lecture.time)}</td>
-    </tr>
-    <tr>
-        <th>lecturer</th>
-        <td><c:out value="${lecture.lecturer.firstName} ${lecture.lecturer.lastName}"/></td>
-    </tr>
-</tbody>
-</table>
-<h2>Lectures Students</h2>
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>id</th>
-            <th>Username</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-        </tr>
-    </thead>
-    <tbody>
-        <c:forEach items="${lecture.persons}" var="person">
-        <tr>
-            
-                <td>${person.id}</td>
-                <td>${person.userName}</td>
-                <td>${person.firstName}</td>
-                <td>${person.lastName}</td>
-            
-        </tr>
-        </c:forEach>
-    </tbody>
-</table>
+                </tr>
+                <tr>
+                    <th>lecturer</th>
+                    <td><c:out value="${lecture.lecturer.firstName} ${lecture.lecturer.lastName}"/></td>
+                </tr>
+            </tbody>
+        </table>
+        <form method="post" action="${pageContext.request.contextPath}/lecture/assign/${lecture.id}">
+            <button type="submit" class="btn btn-primary">Assign to this lecture</button>
+        </form>
+        <form method="post" action="${pageContext.request.contextPath}/lecture/unassign/${lecture.id}">
+            <button type="submit" class="btn">Leave lecture</button>
+        </form>
+        <h2>Lectures Students</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Username</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach items="${lecture.persons}" var="person">
+                    <tr>
 
-</jsp:attribute>
+                        <td>${person.id}</td>
+                        <td>${person.userName}</td>
+                        <td>${person.firstName}</td>
+                        <td>${person.lastName}</td>
+
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+
+    </jsp:attribute>
 </my:pagetemplate>
