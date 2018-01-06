@@ -83,13 +83,13 @@ public class CourseServiceTest {
         courseService.findByName(null);
     }
 
-    /*@Test
+    @Test
     public void createCourseTest(){
         Course course = new Course(1L);
         courseService.createCourse(course);
 
         assertThat(courseService.findById(course.getId())).isEqualTo(course);
-    }*/
+    }
 
     @Test
     public void updateCourseTest() {
