@@ -43,11 +43,11 @@ public class PersonServiceTest {
         personService.createPerson(person1);
     }
 
-  /*  @Test
+    @Test
     public void createPerson() {
         personService.createPerson(person1);
         assertThat(personService.findPersonById(person1.getId())).isEqualTo(person1);
-    }*/
+    }
 
     @Test(expected = LanguageSchoolException.class)
     public void createNullPerson() {
