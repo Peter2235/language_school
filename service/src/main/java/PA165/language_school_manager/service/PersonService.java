@@ -17,59 +17,59 @@ import org.springframework.stereotype.Service;
 public interface PersonService {
 
     /**
-     * Get all persons
+     * Find all persons
      * @return List of all persons.
      */
     List<Person> findAll();
 
     /**
-     *
+     * Find person with ID
      * @param personId ID f person
      * @return Person by Id
      */
     Person findPersonById(Long personId);
 
     /**
-     *
+     * Find person with Username
      * @param userName username of person
      * @return person with username
      */
     Person findPersonByUserName(String userName);
 
     /**
-     *
+     * Find all persons with fullname
      * @param fullName fullname of persons
      * @return all persons with fullname
      */
     List<Person> findPersonsByLastName(String fullName);
 
     /**
-     *
+     * Create person
      * @param person person to create
      */
     void createPerson(Person person);
 
     /**
-     *
+     * Update person
      * @param person to update
      */
     void updatePerson(Person person);
 
     /**
-     *
+     * Delete person
      * @param person to delete
      */
     void deletePerson(Person person);
 
     /**
-     *
+     * Find if person is admin
      * @param person if he is admin
      * @return boolean if person is admin
      */
     boolean isAdmin(Person person);
 
     /**
-     * 
+     * Authenticate person
      * @param findPersonById person with id
      * @param password password of person
      * @return validate password of person
