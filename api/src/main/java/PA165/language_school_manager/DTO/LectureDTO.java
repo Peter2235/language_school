@@ -15,6 +15,15 @@ public class LectureDTO {
 
     private Long id;
     private LocalDateTime time;
+    private String timeString;
+
+    public String getTimeString() {
+        return timeString;
+    }
+
+    public void setTimeString(String timeString) {
+        this.timeString = timeString;
+    }
     private CourseDTO course;
     private String topic;
     private LecturerDTO lecturer;

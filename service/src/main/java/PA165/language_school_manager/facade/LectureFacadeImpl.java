@@ -32,7 +32,7 @@ public class LectureFacadeImpl implements LectureFacade {
     @Override
     public LectureDTO findLectureById(Long id) {
         Lecture lecture = lectureService.findLectureById(id);
-        log.warn(lecture.getPersons().toString());
+        //log.warn(lecture.getPersons().toString());
         LectureDTO lectureDTO = new LectureDTO();
         lectureDTO = beanMappingService.mapTo(lecture, LectureDTO.class);
         for (Person person: lecture.getPersons()) {

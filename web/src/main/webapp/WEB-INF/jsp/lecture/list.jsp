@@ -49,6 +49,26 @@
     </c:forEach>
 </tbody>
 </table>
+            <h2>Filter lectures by time range</h2>
+            <form:form method="post" action="${pageContext.request.contextPath}/lecture/timerange"
+                   modelAttribute="lecturesTime" cssClass="form-horizontal">
+            <div class="form-group">
+                <form:label path="startTimeString" cssClass="col-sm-2 control-label">From</form:label>
+                    <div class="col-sm-10">
+                    <form:input type="datetime-local" path="startTimeString" cssClass="form-control" />
+                    <form:errors path="startTimeString" cssClass="help-block"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <form:label path="endTimeString" cssClass="col-sm-2 control-label">To</form:label>
+                    <div class="col-sm-10">
+                    <form:input type="datetime-local" path="endTimeString" cssClass="form-control" />
+                    <form:errors path="endTimeString" cssClass="help-block"/>
+                </div>
+            </div>
+            <button class="btn btn-primary" type="submit">Filter Lectures</button>
+        </form:form>
+            <my:a href="/lecture/list" class="btn btn-primary">List all Lectures</my:a>
 
 </jsp:attribute>
 </my:pagetemplate>

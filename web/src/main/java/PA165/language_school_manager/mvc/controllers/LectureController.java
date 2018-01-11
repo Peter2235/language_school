@@ -56,6 +56,7 @@ public class LectureController {
     public String list(Model model) {
         model.addAttribute("lectures", lectureFacade.findAllLectures());
         model.addAttribute("localDateTimeFormat", DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+        model.addAttribute("lecturesTime", new TimeRangeDTO());
         return "/lecture/list";
     }
 
@@ -169,4 +170,58 @@ public class LectureController {
         String redirect = "redirect:" + uriBuilder.path("/lecture/view/{id}").buildAndExpand(id).encode().toUriString();
         return redirect;
     }
+    
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    public String editLecture(@PathVariable long id, Model model, HttpServletRequest request, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
+        LectureDTO lecture = lectureFacade.findLectureById(id);
+        String str = lecture.getTime().toString();
+        str = str.substring(0, str.length() - 7);
+        lecture.setTimeString(str);
+        log.warn(lecture.getTimeString());
+        model.addAttribute("lectureEdit", lecture);
+        return "/lecture/edit";
+    }
+    
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
+    public String updateLecture(@PathVariable long id,
+                                 @Valid @ModelAttribute("lectureEdit") LectureDTO formBean,
+                                 BindingResult bindingResult,
+                                 Model model,
+                                 UriComponentsBuilder uriBuilder,
+                                 RedirectAttributes redirectAttributes,
+                                 HttpServletRequest request) {
+
+        log.debug("update(lectureCreate={})", formBean);
+        if (bindingResult.hasErrors()) {
+            return "lecture/edit/"+id;
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime dateTime = LocalDateTime.parse(formBean.getTimeString().replace("T", " "), formatter);
+        formBean.setTime(dateTime);
+        lectureFacade.updateLecture(formBean);
+        return "redirect:" + uriBuilder.path("/lecture/list").toUriString();
+    }
+    
+    @RequestMapping(value = "/timerange", method = RequestMethod.POST)
+    public String timeRangeFilter(@Valid @ModelAttribute("lecturesTime") TimeRangeDTO formBean, BindingResult bindingResult,
+            Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
+    
+        if (formBean.getStartTimeString() == null || formBean.getEndTimeString() == null || formBean.getStartTimeString() == "" || formBean.getEndTimeString() == "") {
+            return "lecture/list";
+        }
+        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime dateTime = LocalDateTime.parse(formBean.getStartTimeString().replace("T", " "), formatter);
+        formBean.setStartTime(dateTime);
+        LocalDateTime dateTime2 = LocalDateTime.parse(formBean.getEndTimeString().replace("T", " "), formatter);
+        formBean.setEndTime(dateTime2);
+        
+        List<LectureDTO> lectures = lectureFacade.findByTime(formBean.getStartTime(), formBean.getEndTime());
+        model.addAttribute("lectures", lectures);
+        model.addAttribute("localDateTimeFormat", DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+        model.addAttribute("lecturesTime", new TimeRangeDTO());
+        return "/lecture/list";
+        
+    }
+    
 }
