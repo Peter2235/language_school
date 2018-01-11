@@ -18,10 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.PersistenceException;
 import javax.validation.ConstraintViolationException;
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
+import java.time.Month;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -46,11 +44,13 @@ public class LectureDaoTest {
 
     private Lecture lecture1;
 
+    private Lecture lecture2;
+
     @Before
     public void setup() {
         lecture1 = new Lecture();
         lecture1.setTopic("jamesBond");
-        lecture1.setTime(LocalDateTime.now().plusDays(2));
+        lecture1.setTime(LocalDateTime.of(2017, Month.JULY, 29, 19, 30, 40).plusDays(2));
 
         Lecturer lecturer = new Lecturer();
         lecturer.setUserName("lecturer123");
@@ -68,9 +68,14 @@ public class LectureDaoTest {
         course.addLecture(lecture1);
         courseDao.create(course);
 
-
         lecture1.setCourse(course);
         lecture1.setLecturer(lecturer);
+
+        lecture2 = new Lecture();
+        lecture2.setTopic("topic");
+        lecture2.setTime(LocalDateTime.of(2016, Month.JULY, 29, 19, 30, 40).plusDays(2));
+        lecture2.setCourse(course);
+        lecture2.setLecturer(lecturer);
 
     }
 
@@ -130,7 +135,6 @@ public class LectureDaoTest {
     public void createLectureWithNullLecturer() {
         Lecture lecture2 = new Lecture();
         lecture2.setTopic("jamesBond");
-        lecture1.setTime(LocalDateTime.now().plusDays(2));
         Course course = new Course();
         course.setName("agent007");
         course.setLanguage(Language.ENGLISH);
@@ -163,8 +167,9 @@ public class LectureDaoTest {
     @Test
     public void findAllLectures() {
         lectureDao.create(lecture1);
+        lectureDao.create(lecture2);
         List<Lecture> lectures = lectureDao.findAll();
-        assertThat(lectures).isNotNull().isNotEmpty().hasSize(1);
+        assertThat(lectures).isNotNull().isNotEmpty().hasSize(2);
     }
 
     @Test
@@ -239,7 +244,6 @@ public class LectureDaoTest {
     public void updateLectureWithNullLecturer() {
         Lecture lecture2 = new Lecture();
         lecture2.setTopic("jamesBond");
-        lecture1.setTime(LocalDateTime.now().plusDays(2));
         Course course = new Course();
         course.setName("agent007");
         course.setLanguage(Language.ENGLISH);
