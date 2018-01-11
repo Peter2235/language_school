@@ -18,69 +18,68 @@ public interface PersonService {
 
     /**
      * Get all persons
-     *
-     * @return
+     * @return List of all persons.
      */
     List<Person> findAll();
 
     /**
      *
-     * @param personId
-     * @return
+     * @param personId ID f person
+     * @return Person by Id
      */
     Person findPersonById(Long personId);
 
     /**
      *
-     * @param userName
-     * @return
+     * @param userName username of person
+     * @return person with username
      */
     Person findPersonByUserName(String userName);
 
     /**
      *
-     * @param fullName
-     * @return
+     * @param fullName fullname of persons
+     * @return all persons with fullname
      */
     List<Person> findPersonsByLastName(String fullName);
 
     /**
      *
-     * @param person
+     * @param person person to create
      */
     void createPerson(Person person);
 
     /**
      *
-     * @param person
+     * @param person to update
      */
     void updatePerson(Person person);
 
     /**
      *
-     * @param person
+     * @param person to delete
      */
     void deletePerson(Person person);
 
     /**
      *
-     * @param mapTo
-     * @return
+     * @param person if he is admin
+     * @return boolean if person is admin
      */
     boolean isAdmin(Person person);
 
     /**
      * 
-     * @param findPersonById
-     * @param password
-     * @return 
+     * @param findPersonById person with id
+     * @param password password of person
+     * @return validate password of person
      */
     boolean authenticate(Person findPersonById, String password);
     
     /**
-     * 
-     * @param person
-     * @param unencryptedPassword 
+     * Register person.
+     * @param person person to register
+     * @param unencryptedPassword unencrypted password to person
      */
     void registerPerson(Person person, String unencryptedPassword);
 }

@@ -110,7 +110,7 @@ public class CourseServiceImpl implements CourseService {
             throw new IllegalArgumentException("Course can not be null");
         }
         if (lecture == null) {
-            throw new IllegalArgumentException("Course can not be null");
+            throw new IllegalArgumentException("Lecture can not be null");
         }
         course.addLecture(lecture);
         courseDao.update(course);
