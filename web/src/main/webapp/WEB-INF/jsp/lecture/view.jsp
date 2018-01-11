@@ -8,6 +8,10 @@
 
 <my:pagetemplate title="Lecture Administration">
     <jsp:attribute name="body">
+     <my:a href="http://localhost:8080/pa165/lecture/list" class="btn btn-primary">
+            <span class="glyphicon glyphicon" aria-hidden="true"></span>
+            Back
+        </my:a>
 
         <table class="table table-bordered">
             <tbody>
