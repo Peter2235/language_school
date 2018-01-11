@@ -35,17 +35,21 @@
         <form method="post" action="${pageContext.request.contextPath}/lecture/unassign/${lecture.id}">
             <button type="submit" class="btn">Leave lecture</button>
         </form>
-        <h2>Lectures Students</h2>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>id</th>
-                    <th>Username</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                </tr>
-            </thead>
-            <tbody>
+        <div style="margin:10px 0">
+            <my:a href="/lecture/edit/${lecture.id}" class="btn btn-primary">Edit ${lecture.topic} Information</my:a>
+            </div>
+            </br>
+            <h2>Lectures Students</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>Username</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                    </tr>
+                </thead>
+                <tbody>
                 <c:forEach items="${lecture.persons}" var="person">
                     <tr>
 

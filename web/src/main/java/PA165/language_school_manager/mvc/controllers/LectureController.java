@@ -169,4 +169,35 @@ public class LectureController {
         String redirect = "redirect:" + uriBuilder.path("/lecture/view/{id}").buildAndExpand(id).encode().toUriString();
         return redirect;
     }
+    
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    public String editLecture(@PathVariable long id, Model model, HttpServletRequest request, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
+        LectureDTO lecture = lectureFacade.findLectureById(id);
+        String str = lecture.getTime().toString();
+        str = str.substring(0, str.length() - 7);
+        lecture.setTimeString(str);
+        log.warn(lecture.getTimeString());
+        model.addAttribute("lectureEdit", lecture);
+        return "/lecture/edit";
+    }
+    
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
+    public String updateLecture(@PathVariable long id,
+                                 @Valid @ModelAttribute("lectureEdit") LectureDTO formBean,
+                                 BindingResult bindingResult,
+                                 Model model,
+                                 UriComponentsBuilder uriBuilder,
+                                 RedirectAttributes redirectAttributes,
+                                 HttpServletRequest request) {
+
+        log.debug("update(lectureCreate={})", formBean);
+        if (bindingResult.hasErrors()) {
+            return "lecture/edit/"+id;
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime dateTime = LocalDateTime.parse(formBean.getTimeString().replace("T", " "), formatter);
+        formBean.setTime(dateTime);
+        lectureFacade.updateLecture(formBean);
+        return "redirect:" + uriBuilder.path("/lecture/list").toUriString();
+    }
 }
