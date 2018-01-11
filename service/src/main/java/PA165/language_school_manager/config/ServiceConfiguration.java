@@ -37,18 +37,4 @@ public class ServiceConfiguration {
         dozer.setMappingFiles(mappingFiles);
         return dozer;
     }
-
-    /*@Bean
-    public Mapper dozer() {
-
-        List<String> mappingFiles = new ArrayList();
-        mappingFiles.add("dozerJdk8Converters.xml");
-
-        DozerBeanMapper dozerBeanMapper = new DozerBeanMapper();
-        dozerBeanMapper.setMappingFiles(mappingFiles);
-        return dozerBeanMapper;*/
-    //return DozerBeanMapperBuilder.create()
-    //        .withMappingFiles("mapping.xml", "dozerJdk8Converters.xml")
-    //        .build();
 }
-//}
