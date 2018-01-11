@@ -56,6 +56,7 @@ public class LectureController {
     public String list(Model model) {
         model.addAttribute("lectures", lectureFacade.findAllLectures());
         model.addAttribute("localDateTimeFormat", DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+        model.addAttribute("lecturesTime", new TimeRangeDTO());
         return "/lecture/list";
     }
 
@@ -200,4 +201,27 @@ public class LectureController {
         lectureFacade.updateLecture(formBean);
         return "redirect:" + uriBuilder.path("/lecture/list").toUriString();
     }
+    
+    @RequestMapping(value = "/timerange", method = RequestMethod.POST)
+    public String timeRangeFilter(@Valid @ModelAttribute("lecturesTime") TimeRangeDTO formBean, BindingResult bindingResult,
+            Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
+    
+        if (formBean.getStartTimeString() == null || formBean.getEndTimeString() == null || formBean.getStartTimeString() == "" || formBean.getEndTimeString() == "") {
+            return "lecture/list";
+        }
+        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime dateTime = LocalDateTime.parse(formBean.getStartTimeString().replace("T", " "), formatter);
+        formBean.setStartTime(dateTime);
+        LocalDateTime dateTime2 = LocalDateTime.parse(formBean.getEndTimeString().replace("T", " "), formatter);
+        formBean.setEndTime(dateTime2);
+        
+        List<LectureDTO> lectures = lectureFacade.findByTime(formBean.getStartTime(), formBean.getEndTime());
+        model.addAttribute("lectures", lectures);
+        model.addAttribute("localDateTimeFormat", DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+        model.addAttribute("lecturesTime", new TimeRangeDTO());
+        return "/lecture/list";
+        
+    }
+    
 }
