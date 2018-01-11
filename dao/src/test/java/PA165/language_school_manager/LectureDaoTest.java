@@ -86,6 +86,14 @@ public class LectureDaoTest {
         assertThat(lecture1.getTopic()).isEqualTo("jamesBond");
     }
 
+    @Test(expected = PersistenceException.class)
+    public void createWithSameId() {
+        lecture1.setId(1L);
+        lecture2.setId(1L);
+        lectureDao.create(lecture1);
+        lectureDao.create(lecture2);
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void createNullLecture() {
         lectureDao.create(null);
