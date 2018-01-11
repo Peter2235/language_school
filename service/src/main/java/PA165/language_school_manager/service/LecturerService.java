@@ -65,7 +65,6 @@ public interface LecturerService {
      * @param lecturerId lecturer id
      * @param language   language to add
      */
-    //void addLanguage(Long lecturerId, Language language);
 
     /**
      * Create new lecturer

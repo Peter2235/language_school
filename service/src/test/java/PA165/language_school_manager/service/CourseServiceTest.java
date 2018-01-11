@@ -85,7 +85,7 @@ public class CourseServiceTest {
 
     @Test
     public void createCourseTest(){
-        Course course = new Course(1L);
+        Course course = new Course();
         courseService.createCourse(course);
 
         assertThat(courseService.findById(course.getId())).isEqualTo(course);
