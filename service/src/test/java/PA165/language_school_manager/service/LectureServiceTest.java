@@ -19,6 +19,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -166,6 +168,16 @@ public class LectureServiceTest {
         List<Lecture> lecturesToBeFound = lectureService.findLecturesByLecturer(lecturers.get(0));
         assertThat(lecturesToBeFound.size()).isEqualTo(1);
         assertThat(lecturesToBeFound.get(0)).isEqualTo(lectures.get(0));
+    }
+
+    @Test
+    public void findLecturesByTime() {
+        Lecture newLecture2 = TestUtils.createLecture("create lecture", lecturers.get(0), courses.get(0));
+        newLecture2.setTime(LocalDateTime.of(2016, Month.JULY, 29, 19, 30, 40));
+        lectureService.createLecture(newLecture2);
+
+        List<Lecture> byTime = lectureService.findByTime(LocalDateTime.of(2017, Month.JULY, 28, 19, 30, 40), LocalDateTime.of(2019, Month.JULY, 28, 19, 30, 40));
+        assertThat(byTime.size()).isEqualTo(1);
     }
 
 }

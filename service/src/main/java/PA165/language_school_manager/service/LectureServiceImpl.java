@@ -3,15 +3,15 @@ package PA165.language_school_manager.service;
 import PA165.language_school_manager.Dao.LectureDao;
 import PA165.language_school_manager.Entities.Course;
 import PA165.language_school_manager.Entities.Lecture;
-import PA165.language_school_manager.Entities.Person;
 import PA165.language_school_manager.Entities.Lecturer;
 import PA165.language_school_manager.LanguageSchoolException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class LectureServiceImpl implements LectureService {
@@ -101,5 +101,12 @@ public class LectureServiceImpl implements LectureService {
     @Override
     public List<Lecture> findLecturesByLecturer(Lecturer lecturer) {
         return Collections.unmodifiableList(lectureDAO.findByLecturer(lecturer));
+    }
+
+    @Override
+    public List<Lecture> findByTime(LocalDateTime from, LocalDateTime to) {
+        return lectureDAO.findAll().stream()
+                .filter(l -> l.getTime().isAfter(from) && l.getTime().isBefore(to))
+                .collect(Collectors.toList());
     }
 }

@@ -4,7 +4,8 @@ import PA165.language_school_manager.DTO.CourseDTO;
 import PA165.language_school_manager.DTO.LectureCreateDTO;
 import PA165.language_school_manager.DTO.LectureDTO;
 import PA165.language_school_manager.DTO.LecturerDTO;
-        
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface LectureFacade {
@@ -61,4 +62,13 @@ public interface LectureFacade {
      * @return List of LectureDTOs
      */
     List<LectureDTO> findLecturesByLecturer(LecturerDTO lecturer);
+
+    /**
+     * Find all lectures between the specific time
+     *
+     * @param from time from
+     * @param to   time to
+     * @return List of lectures
+     */
+    List<LectureDTO> findByTime(LocalDateTime from, LocalDateTime to);
 }
