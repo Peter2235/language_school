@@ -40,7 +40,7 @@ public class Lecture {
     @NotNull
     private Lecturer lecturer;
 
-    @ManyToMany(mappedBy = "lectures")
+    @ManyToMany(mappedBy = "lectures", cascade = CascadeType.REMOVE)
     private Set<Person> persons = new HashSet<Person>();
 
     public void addPerson(Person student) {

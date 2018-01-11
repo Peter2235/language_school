@@ -5,25 +5,12 @@
  */
 package PA165.language_school_manager.mvc.controllers;
 
-import PA165.language_school_manager.DTO.CourseDTO;
-import PA165.language_school_manager.DTO.LectureCreateDTO;
-import PA165.language_school_manager.DTO.LectureDTO;
-import PA165.language_school_manager.DTO.LecturerDTO;
-import PA165.language_school_manager.DTO.PersonAuthenticateDTO;
-import PA165.language_school_manager.DTO.PersonDTO;
+import PA165.language_school_manager.DTO.*;
 import PA165.language_school_manager.Facade.CourseFacade;
-import javax.validation.Valid;
 import PA165.language_school_manager.Facade.LectureFacade;
 import PA165.language_school_manager.Facade.LecturerFacade;
 import PA165.language_school_manager.Facade.PersonFacade;
 import PA165.language_school_manager.mvc.forms.LectureCreateDTOValidator;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,15 +20,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 /**
  *
@@ -121,11 +108,10 @@ public class LectureController {
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public String delete(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
         LectureDTO lecture = lectureFacade.findLectureById(id);
-        if (lecture.getPersons().isEmpty()) {
-            lectureFacade.deleteLecture(lecture);
-            log.debug("delete({})", id);
-            redirectAttributes.addFlashAttribute("alert_success", "Lecture \"" + lecture.getTopic() + "\" was deleted.");
-        }
+        lectureFacade.deleteLecture(lecture);
+        log.debug("delete({})", id);
+        redirectAttributes.addFlashAttribute("alert_success", "Lecture \"" + lecture.getTopic() + "\" was deleted.");
+
         return "redirect:" + uriBuilder.path("/lecture/list").toUriString();
     }
 
