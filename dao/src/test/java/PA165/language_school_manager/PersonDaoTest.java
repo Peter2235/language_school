@@ -12,12 +12,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
-
 
 import javax.persistence.PersistenceException;
 import java.util.List;
@@ -74,6 +70,23 @@ public class PersonDaoTest {
 
         assertThat(personDao.findById(person.getId())).isNotNull();
         assertThat(person.getFirstName()).isEqualTo("Jan");
+    }
+
+    @Test(expected = PersistenceException.class)
+    public void createWithSameId() {
+        Person person = new Person();
+        person.setId(1L);
+        person.setUserName("person");
+        person.setFirstName("Jan");
+        person.setLastName("Novak");
+        personDao.create(person);
+
+        Person person2 = new Person();
+        person2.setId(1L);
+        person2.setUserName("person");
+        person2.setFirstName("Jan");
+        person2.setLastName("Novak");
+        personDao.create(person2);
     }
 
     @Test(expected = PersistenceException.class)

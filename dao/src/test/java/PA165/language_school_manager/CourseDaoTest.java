@@ -4,12 +4,13 @@ import PA165.language_school_manager.Dao.CourseDao;
 import PA165.language_school_manager.Entities.Course;
 import PA165.language_school_manager.Enums.Language;
 import PA165.language_school_manager.Enums.ProficiencyLevel;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
-import org.junit.Test;
+
 import javax.persistence.PersistenceException;
 import javax.validation.ConstraintViolationException;
 import java.util.List;
@@ -42,6 +43,26 @@ public class CourseDaoTest {
         assertThat(all).isNotNull();
         assertThat(all).hasSize(1);
         assertThat(all).contains(course);
+    }
+
+    @Test(expected = PersistenceException.class)
+    public void createWithSameId() {
+        Course course = new Course();
+        course.setId(1L);
+        course.setName("TestCourse");
+        course.setLanguage(Language.ENGLISH);
+        course.setProficiencyLevel(ProficiencyLevel.A1);
+
+        courseDao.create(course);
+
+        Course course2 = new Course();
+        course2.setName("TestCourse2");
+        course2.setId(1L);
+        course2.setLanguage(Language.ENGLISH);
+        course2.setProficiencyLevel(ProficiencyLevel.A1);
+
+        courseDao.create(course);
+        courseDao.create(course2);
     }
 
     @Test(expected = PersistenceException.class)

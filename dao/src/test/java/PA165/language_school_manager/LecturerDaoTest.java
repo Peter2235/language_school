@@ -16,7 +16,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
+import javax.persistence.PersistenceException;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -54,6 +54,17 @@ public class LecturerDaoTest {
         Lecturer isHeTheSame = lecturerDao.findById(lecturer.getId());
 
         assertThat(isHeTheSame).isEqualToComparingFieldByField(lecturer);
+    }
+
+    @Test(expected = PersistenceException.class)
+    public void createWithSameId() {
+        Lecturer lecturer1 = new Lecturer("lecturer1", "Christopher", "Biggie Smalls", "Wallace", Language.ITALIAN, false);
+        Lecturer lecturer2 = new Lecturer("lecturer2", "Lamont", "Big L", "Coleman", Language.GERMAN, true);
+
+        lecturer1.setId(1L);
+        lecturer2.setId(1L);
+        lecturerDao.create(lecturer1);
+        lecturerDao.create(lecturer2);
     }
 
     @Test
