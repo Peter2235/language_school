@@ -1,10 +1,6 @@
 package PA165.language_school_manager.facade;
 
-import PA165.language_school_manager.DTO.CourseDTO;
-import PA165.language_school_manager.DTO.LectureCreateDTO;
-import PA165.language_school_manager.DTO.LectureDTO;
-import PA165.language_school_manager.DTO.LecturerDTO;
-import PA165.language_school_manager.DTO.PersonDTO;
+import PA165.language_school_manager.DTO.*;
 import PA165.language_school_manager.Entities.Course;
 import PA165.language_school_manager.Entities.Lecture;
 import PA165.language_school_manager.Entities.Lecturer;
@@ -12,13 +8,14 @@ import PA165.language_school_manager.Entities.Person;
 import PA165.language_school_manager.Facade.LectureFacade;
 import PA165.language_school_manager.service.BeanMappingService;
 import PA165.language_school_manager.service.LectureService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Service
 @Transactional
@@ -89,5 +86,10 @@ public class LectureFacadeImpl implements LectureFacade {
         Lecturer lecturer1 = beanMappingService.mapTo(lecturer, Lecturer.class);
         List<Lecture> lectures = lectureService.findLecturesByLecturer(lecturer1);
         return beanMappingService.mapTo(lectures, LectureDTO.class);
+    }
+
+    @Override
+    public List<LectureDTO> findByTime(LocalDateTime from, LocalDateTime to) {
+        return beanMappingService.mapTo(lectureService.findByTime(from, to), LectureDTO.class);
     }
 }

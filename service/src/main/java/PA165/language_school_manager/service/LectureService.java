@@ -2,11 +2,10 @@ package PA165.language_school_manager.service;
 
 import PA165.language_school_manager.Entities.Course;
 import PA165.language_school_manager.Entities.Lecture;
-import PA165.language_school_manager.Entities.Person;
 import PA165.language_school_manager.Entities.Lecturer;
 
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 
 public interface LectureService {
 
@@ -62,4 +61,13 @@ public interface LectureService {
      * @return List of lectures
      */
     List<Lecture> findLecturesByLecturer(Lecturer lecturer);
+
+    /**
+     * Find all lectures between the specific time
+     *
+     * @param from time from
+     * @param to   time to
+     * @return List of lectures
+     */
+    List<Lecture> findByTime(LocalDateTime from, LocalDateTime to);
 }
