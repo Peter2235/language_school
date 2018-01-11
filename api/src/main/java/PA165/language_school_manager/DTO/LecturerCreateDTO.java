@@ -18,6 +18,7 @@ public class LecturerCreateDTO extends PersonCreateDTO{
 
     private Language language;
     
+    
     private boolean nativeSpeaker;
 
     public void setNativeSpeaker(boolean nativeSpeaker){
