@@ -126,13 +126,10 @@ public class Person {
         Person person = (Person) o;
 
         if (!getId().equals(person.getId())) return false;
-        if (getFirstName() != null ? !getFirstName().equals(person.getFirstName()) : person.getFirstName() != null)
+
+        if (getUserName() != null ? !getUserName().equals(person.getUserName()) : person.getUserName() != null)
             return false;
-        if (getMiddleName() != null ? !getMiddleName().equals(person.getMiddleName()) : person.getMiddleName() != null)
-            return false;
-         if (getUserName()!= null ? !getUserName().equals(person.getUserName()) : person.getUserName() != null)
-            return false;
-        return getLastName().equals(person.getLastName());
+        return true;
     }
 
     @Override
@@ -140,9 +137,6 @@ public class Person {
         final int prime = 31;
         int result = 1;
         result = prime * result + (userName == null ? 0 : userName.hashCode());
-        result = prime * result + (firstName == null ? 0 : firstName.hashCode());
-        result = prime * result + (middleName == null ? 0 : middleName.hashCode());
-        result = prime * result + (lastName == null ? 0 : lastName.hashCode());
         return result;
     }
 }
