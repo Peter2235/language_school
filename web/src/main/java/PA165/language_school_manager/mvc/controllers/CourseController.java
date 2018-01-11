@@ -2,7 +2,6 @@ package PA165.language_school_manager.mvc.controllers;
 
 import PA165.language_school_manager.DTO.CourseCreateDTO;
 import PA165.language_school_manager.DTO.CourseDTO;
-import PA165.language_school_manager.DTO.LectureDTO;
 import PA165.language_school_manager.Enums.Language;
 import PA165.language_school_manager.Enums.ProficiencyLevel;
 import PA165.language_school_manager.Facade.CourseFacade;
@@ -19,7 +18,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
-import java.util.List;
 
 /**
  * Controller for course
@@ -108,11 +106,9 @@ public class CourseController {
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public String delete(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
         CourseDTO course = courseFacade.findCourseById(id);
-        List<LectureDTO> lectureByCourse = lectureFacade.findLectureByCourse(course);
-        if (lectureByCourse == null || lectureByCourse.isEmpty()) {
-            courseFacade.deleteCourse(course);
-            redirectAttributes.addFlashAttribute("alert_success", "Course \"" + course.getName() + "\" was deleted.");
-        }
+        courseFacade.deleteCourse(course);
+        redirectAttributes.addFlashAttribute("alert_success", "Course \"" + course.getName() + "\" was deleted.");
+
         return "redirect:" + uriBuilder.path("/course/list").toUriString();
     }
 

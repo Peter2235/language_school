@@ -41,7 +41,7 @@ public class Course {
     @NotNull
     private ProficiencyLevel proficiencyLevel;
 
-    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Lecture> lectures = new ArrayList<Lecture>();
 
     public Course() {
