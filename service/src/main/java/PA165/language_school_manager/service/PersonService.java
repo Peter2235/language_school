@@ -17,70 +17,69 @@ import org.springframework.stereotype.Service;
 public interface PersonService {
 
     /**
-     * Get all persons
-     *
-     * @return
+     * Find all persons
+     * @return List of all persons.
      */
     List<Person> findAll();
 
     /**
-     *
-     * @param personId
-     * @return
+     * Find person with ID
+     * @param personId ID f person
+     * @return Person by Id
      */
     Person findPersonById(Long personId);
 
     /**
-     *
-     * @param userName
-     * @return
+     * Find person with Username
+     * @param userName username of person
+     * @return person with username
      */
     Person findPersonByUserName(String userName);
 
     /**
-     *
-     * @param fullName
-     * @return
+     * Find all persons with fullname
+     * @param fullName fullname of persons
+     * @return all persons with fullname
      */
     List<Person> findPersonsByLastName(String fullName);
 
     /**
-     *
-     * @param person
+     * Create person
+     * @param person person to create
      */
     void createPerson(Person person);
 
     /**
-     *
-     * @param person
+     * Update person
+     * @param person to update
      */
     void updatePerson(Person person);
 
     /**
-     *
-     * @param person
+     * Delete person
+     * @param person to delete
      */
     void deletePerson(Person person);
 
     /**
-     *
-     * @param mapTo
-     * @return
+     * Find if person is admin
+     * @param person if he is admin
+     * @return boolean if person is admin
      */
     boolean isAdmin(Person person);
 
     /**
-     * 
-     * @param findPersonById
-     * @param password
-     * @return 
+     * Authenticate person
+     * @param findPersonById person with id
+     * @param password password of person
+     * @return validate password of person
      */
     boolean authenticate(Person findPersonById, String password);
     
     /**
-     * 
-     * @param person
-     * @param unencryptedPassword 
+     * Register person.
+     * @param person person to register
+     * @param unencryptedPassword unencrypted password to person
      */
     void registerPerson(Person person, String unencryptedPassword);
 }

@@ -29,7 +29,7 @@ public class LecturerServiceImpl implements LecturerService {
         try {
             return lecturerDAO.findById(id);
         } catch (Throwable e) {
-            throw new LanguageSchoolException("Course create failed");
+            throw new LanguageSchoolException("Lecturer find failed");
         }
     }
 
@@ -41,7 +41,7 @@ public class LecturerServiceImpl implements LecturerService {
         try {
             return lecturerDAO.findByFirstName(firstName);
         } catch (Throwable e) {
-            throw new LanguageSchoolException("Course create failed");
+            throw new LanguageSchoolException("Lecturer find failed");
         }
     }
 
@@ -53,7 +53,7 @@ public class LecturerServiceImpl implements LecturerService {
         try {
             return lecturerDAO.findByLastName(lastName);
         } catch (Throwable e) {
-            throw new LanguageSchoolException("Course create failed");
+            throw new LanguageSchoolException("Lecturer find failed");
         }
     }
 
@@ -65,7 +65,7 @@ public class LecturerServiceImpl implements LecturerService {
         try {
             return lecturerDAO.findByLecture(lecture.getId());
         } catch (Throwable e) {
-            throw new LanguageSchoolException("Course create failed");
+            throw new LanguageSchoolException("Lecturer find failed");
         }
     }
 
@@ -77,7 +77,7 @@ public class LecturerServiceImpl implements LecturerService {
         try {
             return lecturerDAO.findByLanguage(language);
         } catch (Throwable e) {
-            throw new LanguageSchoolException("Course create failed");
+            throw new LanguageSchoolException("Lecturer find failed");
         }
     }
 
@@ -99,32 +99,9 @@ public class LecturerServiceImpl implements LecturerService {
         try {
             lecturerDAO.update(lecturer);
         } catch (Throwable e) {
-            throw new LanguageSchoolException("Course create failed");
+            throw new LanguageSchoolException("Lecturer assign failed");
         }
     }
-
-//    @Override
-//    public void addLanguage(Long lecturerId, Language language) {
-//        if (lecturerId == null) {
-//            throw new IllegalArgumentException("Lecturer id can not be null");
-//        } else if (language == null) {
-//            throw new IllegalArgumentException("Language can not be null");
-//        }
-//
-//        Lecturer lecturer = lecturerDAO.findById(lecturerId);
-//
-//        if (lecturer == null) {
-//            throw new NullPointerException("Lecturer not found");
-//        }
-//
-//        lecturer.getLanguages().add(language);
-//
-//        try {
-//            lecturerDAO.update(lecturer);
-//        } catch (Throwable e) {
-//            throw new LanguageSchoolException("Course create failed");
-//        }
-//    }
 
     @Override
     public void createLecturer(Lecturer newLecturer) {
@@ -147,7 +124,7 @@ public class LecturerServiceImpl implements LecturerService {
             Lecturer lecturer = lecturerDAO.findById(id);
             lecturerDAO.delete(lecturer);
         } catch (Throwable e) {
-            throw new LanguageSchoolException("Lecturer create failed");
+            throw new LanguageSchoolException("Lecturer delete failed");
         }
     }
 
@@ -165,7 +142,7 @@ public class LecturerServiceImpl implements LecturerService {
         try {
             lecturerDAO.update(lecturer);
         } catch (Throwable e) {
-            throw new LanguageSchoolException("update lecturer failed" + e);
+            throw new LanguageSchoolException("Update lecturer failed" + e);
         }
         
     }

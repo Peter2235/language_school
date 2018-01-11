@@ -60,7 +60,7 @@ public class LectureServiceImpl implements LectureService {
         try {
             return lectureDAO.findByCourse(course);
         } catch (Throwable e) {
-            throw new LanguageSchoolException("find lecture by topic failed " + e);
+            throw new LanguageSchoolException("find lecture by course failed " + e);
         }
     }
 

@@ -36,7 +36,7 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public Person findPersonById(Long personId) {
         if (personId == null) {
-            throw new LanguageSchoolException("Wrong arguments.");
+            throw new LanguageSchoolException("Wrong person ID.");
         }
         return personDao.findById(personId);
     }
@@ -44,7 +44,7 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public Person findPersonByUserName(String userName) {
         if (userName == null) {
-            throw new LanguageSchoolException("Wrong arguments.");
+            throw new LanguageSchoolException("Wrong person username .");
         }
         return personDao.findByUserName(userName);
     }
@@ -52,7 +52,7 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public List<Person> findPersonsByLastName(String lastName) {
         if (lastName == null) {
-            throw new LanguageSchoolException("Wrong arguments.");
+            throw new LanguageSchoolException("Wrong person last name.");
         }
         return personDao.findByLastName(lastName);
     }
@@ -60,7 +60,7 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public void createPerson(Person person) {
         if (person == null || person.getLastName() == null || person.getUserName() == null) {
-            throw new LanguageSchoolException("Wrong arguments.");
+            throw new LanguageSchoolException("Can't create this person");
         }
         try {
             personDao.create(person);
@@ -72,7 +72,7 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public void updatePerson(Person person) {
         if (person == null || person.getLastName() == null || person.getUserName() == null) {
-            throw new LanguageSchoolException("Wrong arguments.");
+            throw new LanguageSchoolException("Can't update this person");
         }
 
         try {
