@@ -151,10 +151,6 @@ public class LectureController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(@Valid @ModelAttribute("lectureCreate") LectureCreateDTO formBean, BindingResult bindingResult,
             Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
-        log.debug("create(productCreate={})", formBean);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        LocalDateTime dateTime = LocalDateTime.parse(formBean.getTimeString().replace("T", " "), formatter);
-        formBean.setTime(dateTime);
         if (bindingResult.hasErrors()) {
             for (ObjectError ge : bindingResult.getGlobalErrors()) {
                 log.trace("ObjectError: {}", ge);
@@ -165,6 +161,11 @@ public class LectureController {
             }
             return "lecture/new";
         }
+        log.debug("create(productCreate={})", formBean);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime dateTime = LocalDateTime.parse(formBean.getTimeString().replace("T", " "), formatter);
+        formBean.setTime(dateTime);
+        
         Long id = lectureFacade.createLecture(formBean);
         redirectAttributes.addFlashAttribute("alert_success", "Lecture" + id + " was created");
         String redirect = "redirect:" + uriBuilder.path("/lecture/view/{id}").buildAndExpand(id).encode().toUriString();

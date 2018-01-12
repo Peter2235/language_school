@@ -22,6 +22,8 @@ public class LectureCreateDTO {
     @Size(min = 2, max = 50)
     private String topic;
     
+    @NotNull
+    @Size(min = 1)
     private String timeString;
 
     public String getTimeString() {

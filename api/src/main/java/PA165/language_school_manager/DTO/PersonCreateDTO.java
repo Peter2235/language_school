@@ -6,6 +6,7 @@
 package PA165.language_school_manager.DTO;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,12 +19,14 @@ import lombok.Setter;
 public class PersonCreateDTO {
     
     @NotNull
+    @Size(min=1)
     private String userName;
     
     private String firstName;
     private String middleName;
     
     @NotNull
+    @Size(min=1)
     private String lastName;
     private boolean isAdmin;
 
